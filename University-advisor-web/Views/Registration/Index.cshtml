@@ -1,0 +1,61 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-action="SignUp" asp-controller="Registration" role="form" method="post" enctype="multipart/form-data" id="signUpForm">
+    <div class="mb-2">
+        <h2> Sign up form</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <label asp-for="FirstName">First name</label>
+            <input asp-for="FirstName" type="text" class="form-control" pattern="[a-zA-Z0-9]+" />
+        </div>
+        <div class="col-lg-4">
+            <label asp-for="LastName">Last name</label>
+            <input asp-for="LastName" type="text" class="form-control" required="" pattern="[a-zA-Z0-9]+" />
+        </div>
+    </div>
+   
+     <div class="row">
+        <div class="col-lg-4">
+            <label asp-for="Username">Username</label>
+            <input asp-for="Username" type="text" class="form-control" required=""/>
+        </div>
+        <div class="col-lg-4">
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" type="email" class="form-control" required=""/>
+        </div>
+    </div>
+
+     <div class="row" oninput='oldPassword.setCustomValidity(oldPassword.value != newPassword.value ? "Passwords do not match." : "")'>
+        <div class="col-lg-4">
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" type="password" id ="oldPassword"class="form-control" required="" />
+        </div>
+        <div class="col-lg-4">
+            <label>Repeat password</label>
+            <input type="password" class="form-control" id="newPassword" required="" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <label> Select university</label>
+            <select asp-items="Model.Universities" asp-for="University" class="form-control" required=""></select>
+        </div>
+         <div class="col-lg-4">
+            <label> Select status </label>
+            <select asp-items="Model.Statuses" asp-for="Status" class="form-control" required=""></select>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-4">
+            <input class="btn btn-primary" type="submit" value="Sign up">
+        </div>
+    </div>
+   
+</form>

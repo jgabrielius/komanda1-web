@@ -8,12 +8,12 @@ namespace University_advisor_web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new UserModel();
+            var model = new RegistrationFormModel();
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult SignUp(UserModel model)
+        public IActionResult SignUp(RegistrationFormModel model)
         {
             //if (ModelState.IsValid)
             //{

@@ -3,6 +3,7 @@
     ViewData["Title"] = "Reviews";
 }
     <h1>Courses for @Model.universityName</h1>
+    <a class="btn btn-primary" asp-controller="Review" asp-action="UniversityReview" asp-route-id="@Model.universityId">Leave a review for unicersity</a>
     <table class="table table-striped table-bordered w-auto">
         <thead>
             <tr>

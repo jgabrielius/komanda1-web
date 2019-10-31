@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using University_advisor_web.Models;
 
 namespace University_advisor_web.Controllers
@@ -26,6 +27,22 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult SubmitCourseReview(CourseReviewModel model)
         {
+            model.userId = HttpContext.Session.GetInt32("UserId")??0;
+            model.SaveReviews();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult UniversityReview(int id)
+        {
+            var model = new UniversityReviewModel(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SubmitUniversityReview(UniversityReviewModel model)
+        {
+            model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            model.SaveReviews();
             return RedirectToAction("Index");
         }
     }

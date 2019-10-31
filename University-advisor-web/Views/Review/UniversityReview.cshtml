@@ -1,16 +1,16 @@
-﻿@model CourseReviewModel
+﻿@model UniversityReviewModel
 @{
     ViewData["Title"] = "Reviews";
 }
 @section Styles {
     <link href="@Url.Content("~/css/RadioButton.css")" rel="stylesheet" type="text/css" />
 }
-<form asp-action="SubmitCourseReview" asp-controller="Review" role="form" method="post" enctype="multipart/form-data">
+<form asp-action="SubmitUniversityReview" asp-controller="Review" role="form" method="post" enctype="multipart/form-data">
     <div class="mb-2">
-        <h2> Leave a review for @Model.studyProgramName</h2>
+        <h2> Leave a review for @Model.universityName</h2>
         <h4>1 – Very Unsatisfied | 2 – Unsatisfied | 3 – Neutral | 4 – Satisfied | 5 – Very Satisfied</h4>
     </div>
-    <input type="hidden" asp-for="studyProgramId" />
+    <input type="hidden" asp-for="universityId" />
     @foreach (var item in Model.ratingTypes)
     {
         <div class="row">

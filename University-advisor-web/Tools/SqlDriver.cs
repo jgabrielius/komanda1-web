@@ -117,15 +117,8 @@ namespace University_advisor_web
                 command = new SQLiteCommand(sql, dbConnection);
             }
 
-            try
-            {
-                command.ExecuteNonQuery();
-            }
-            catch (SQLiteException e)
-            {
-                //TODO add logging
-                return false;
-            }
+            //TODO add logging and error handling
+            command.ExecuteNonQuery();
             dbConnection.Close();
             return true;
         }

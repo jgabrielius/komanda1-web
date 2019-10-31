@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Collections;
 
 namespace University_advisor_web.Models
 {
     public class CourseReviewModel
     {
         public int studyProgramId { get; set; }
+        public int userId { get; set; }
         public string studyProgramName { get; set; }
         public string presentation { get; set; }
         public string clarity { get; set; }
@@ -30,6 +29,12 @@ namespace University_advisor_web.Models
         {
             this.studyProgramId = studyProgramId;
             studyProgramName = SqlDriver.Row("SELECT program FROM studyProgrammes WHERE studyProgramId")["program"].ToString();
+        }
+
+        public void SaveReviews()
+        {
+            SqlDriver.Execute("INSERT INTO courseReviews (presentation,clarity,feedback,encouragement,effectiveness,satisfaction,courseId,userId) " +
+                "values (@0,@1,@2,@3,@4,@5,@6,@7)", new ArrayList() {presentation,clarity,feedback,encouragement,effectiveness,satisfaction,studyProgramId,userId});
         }
     }
 }

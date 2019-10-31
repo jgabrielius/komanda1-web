@@ -10,10 +10,7 @@ namespace University_advisor_web.Models
         public int universityId { get; set; }
         public string universityName { get; set; }
 
-        public UniversityModel()
-        {
-
-        }
+        public UniversityModel(){}
         public UniversityModel(int universityId)
         {
             this.universityId = universityId;

@@ -1,9 +1,9 @@
-﻿@model ReviewModel
+﻿@model UniversityModel
 @{
     ViewData["Title"] = "Reviews";
 }
-    <h1>Courses for @Model.universityModel.universityName</h1>
-    <table class="table-striped table-bordered w-auto">
+    <h1>Courses for @Model.universityName</h1>
+    <table class="table table-striped table-bordered w-auto">
         <thead>
             <tr>
                 <th>Group</th>
@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var i in Model.universityModel.GetCoursesWithRatings())
+            @foreach (var i in Model.GetCoursesWithRatings())
             {
             <tr>
                 <td>@i["group"]</td>
@@ -31,7 +31,7 @@
                 <td>@i["encouragement"]</td>
                 <td>@i["effectiveness"]</td>
                 <td>@i["satisfaction"]</td>
-                <td><a class="btn btn-primary" asp-controller="Review" asp-action="CourseReview" asp-route-id="@i["studyProgramId"]">Leave a review</a></td>
+                <td><a class="btn btn-primary" asp-controller="Review" asp-action="CourseReview" asp-route-id="@i["studyProgramId"]">Review</a></td>
             </tr>
             }
         </tbody>

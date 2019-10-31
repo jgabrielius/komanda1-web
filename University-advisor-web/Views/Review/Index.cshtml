@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Reviews";
 }
-<table class="table-striped table-bordered w-auto">
+<table class="table table-striped table-bordered w-auto">
     <thead>
         <tr>
             <th>University Name</th>
@@ -26,7 +26,7 @@
             <td>@i["quality"]</td>
             <td>@i["unions"]</td>
             <td>@i["cost"]</td>
-            <td><a class="btn btn-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]">Leave a review</a></td>
+            <td><a class="btn btn-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]">View</a></td>
         </tr>
         }
     </tbody>

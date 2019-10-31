@@ -13,8 +13,20 @@ namespace University_advisor_web.Controllers
 
         public IActionResult View(int id)
         {
-            var model = new ReviewModel(id);
+            var model = new UniversityModel(id);
             return View(model);
+        }
+
+        public IActionResult CourseReview(int id)
+        {
+            var model = new CourseReviewModel(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SubmitCourseReview(CourseReviewModel model)
+        {
+            return RedirectToAction("Index");
         }
     }
 }

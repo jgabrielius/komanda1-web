@@ -36,5 +36,10 @@ namespace University_advisor_web.Models
             SqlDriver.Execute("INSERT INTO universityReviews (variety,availability,accessability,quality,unions,cost,universityId,userId) " +
                 "values (@0,@1,@2,@3,@4,@5,@6,@7)", new ArrayList() { variety, availability, accessability, quality, unions, cost, universityId, userId});
         }
+
+        public bool IsDuplicate()
+        {
+            return SqlDriver.Exists($"SELECT * FROM universityReviews WHERE userId ={userId} AND universityId={universityId}");
+        }
     }
 }

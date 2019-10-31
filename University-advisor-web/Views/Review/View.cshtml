@@ -3,19 +3,19 @@
     ViewData["Title"] = "Reviews";
 }
     <h1>Courses for @Model.universityName</h1>
-    <a class="btn btn-primary" asp-controller="Review" asp-action="UniversityReview" asp-route-id="@Model.universityId">Leave a review for unicersity</a>
+    <a class="btn btn-primary" asp-controller="Review" asp-action="UniversityReview" asp-route-id="@Model.universityId">Leave a review for university</a>
     <table class="table table-striped table-bordered w-auto">
         <thead>
             <tr>
                 <th>Group</th>
                 <th>Direction</th>
                 <th>Program</th>
-                <th>Presentation of content</th>
-                <th>Clarity of expectations</th>
-                <th>Clear feedback on performance</th>
-                <th>Encouragment of participation/discussion</th>
-                <th>Overall teaching effectiveness</th>
-                <th>How satisfied were you with this course</th>
+                <th data-toggle="tooltip" data-placement="top" title="Presentation of content">Presentation</th>
+                <th data-toggle="tooltip" data-placement="top" title="Clarity of expectations">Clarity</th>
+                <th data-toggle="tooltip" data-placement="top" title="Clear feedback on performance">Feedback</th>
+                <th data-toggle="tooltip" data-placement="top" title="Encouragment of participation/discussion">Encouragment</th>
+                <th data-toggle="tooltip" data-placement="top" title="Overall teaching effectiveness">Teaching effectiveness</th>
+                <th data-toggle="tooltip" data-placement="top" title="How satisfied were you with this course">Satisfaction</th>
                 <th></th>
             </tr>
         </thead>

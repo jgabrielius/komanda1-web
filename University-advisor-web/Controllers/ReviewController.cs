@@ -21,7 +21,16 @@ namespace University_advisor_web.Controllers
         public IActionResult CourseReview(int id)
         {
             var model = new CourseReviewModel(id);
-            return View(model);
+            model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            if (model.IsDuplicate())
+            {
+                //TODO once we have error messages add one here
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(model);
+            }
         }
 
         [HttpPost]
@@ -35,7 +44,15 @@ namespace University_advisor_web.Controllers
         public IActionResult UniversityReview(int id)
         {
             var model = new UniversityReviewModel(id);
-            return View(model);
+            model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            if (model.IsDuplicate())
+            {
+                //TODO once we have error messages add one here
+                return RedirectToAction("Index");
+            } else
+            {
+                return View(model);
+            }
         }
 
         [HttpPost]

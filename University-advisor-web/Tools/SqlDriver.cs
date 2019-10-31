@@ -64,7 +64,7 @@ namespace University_advisor_web
         {
             List<Dictionary<string, object>> result = Fetch(sql);
 
-            if(result != null)
+            if(result != null && result.Count !=0)
             {
                 return result[0];
             } else

@@ -1,0 +1,33 @@
+﻿@model UniversityModel
+@{
+    ViewData["Title"] = "Reviews";
+}
+<table class="table-striped table-bordered w-auto">
+    <thead>
+        <tr>
+            <th>University Name</th>
+            <th>Variety of courses</th>
+            <th>Availability of extracurricular activities</th>
+            <th>Access to faculty</th>
+            <th>Quality of academic facilities</th>
+            <th>Student unions</th>
+            <th>Cost of studying</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model.GetUniversitiesWithRatings())
+        {
+        <tr>
+            <td>@i["name"]</td>
+            <td>@i["variety"]</td>
+            <td>@i["availability"]</td>
+            <td>@i["accessability"]</td>
+            <td>@i["quality"]</td>
+            <td>@i["unions"]</td>
+            <td>@i["cost"]</td>
+            <td><a class="btn btn-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]">Leave a review</a></td>
+        </tr>
+        }
+    </tbody>
+</table>

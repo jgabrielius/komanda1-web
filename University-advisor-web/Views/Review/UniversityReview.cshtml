@@ -1,0 +1,34 @@
+﻿@model UniversityReviewModel
+@{
+    ViewData["Title"] = "Reviews";
+}
+@section Styles {
+    <link href="@Url.Content("~/css/RadioButton.css")" rel="stylesheet" type="text/css" />
+}
+<form asp-action="SubmitUniversityReview" asp-controller="Review" role="form" method="post" enctype="multipart/form-data">
+    <div class="mb-2">
+        <h2> Leave a review for @Model.universityName</h2>
+        <h4>1 – Very Unsatisfied | 2 – Unsatisfied | 3 – Neutral | 4 – Satisfied | 5 – Very Satisfied</h4>
+    </div>
+    <input type="hidden" asp-for="universityId" />
+    @foreach (var item in Model.ratingTypes)
+    {
+        <div class="row">
+            <div class="col-4">
+                @item.Value
+                
+            </div>
+            @for (int i = 1; i <= 5; i++)
+            {
+                <div class="radio col-1">
+                    <label><input type="radio" name="@item.Key" value="@i">@i</label>
+                </div>
+            }
+        </div>
+    }
+    <div class="row mt-3">
+        <div class="col-lg-4">
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </div>
+    </div>
+</form>

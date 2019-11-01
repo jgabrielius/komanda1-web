@@ -1,0 +1,39 @@
+﻿@model UniversityModel
+@{
+    ViewData["Title"] = "Reviews";
+}
+    <h1>Courses for @Model.universityName</h1>
+    <a class="btn btn-primary" asp-controller="Review" asp-action="UniversityReview" asp-route-id="@Model.universityId">Leave a review for university</a>
+    <table class="table table-striped table-bordered w-auto">
+        <thead>
+            <tr>
+                <th>Group</th>
+                <th>Direction</th>
+                <th>Program</th>
+                <th data-toggle="tooltip" data-placement="top" title="Presentation of content">Presentation</th>
+                <th data-toggle="tooltip" data-placement="top" title="Clarity of expectations">Clarity</th>
+                <th data-toggle="tooltip" data-placement="top" title="Clear feedback on performance">Feedback</th>
+                <th data-toggle="tooltip" data-placement="top" title="Encouragment of participation/discussion">Encouragment</th>
+                <th data-toggle="tooltip" data-placement="top" title="Overall teaching effectiveness">Teaching effectiveness</th>
+                <th data-toggle="tooltip" data-placement="top" title="How satisfied were you with this course">Satisfaction</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.GetCoursesWithRatings())
+            {
+            <tr>
+                <td>@i["group"]</td>
+                <td>@i["direction"]</td>
+                <td>@i["program"]</td>
+                <td>@i["presentation"]</td>
+                <td>@i["clarity"]</td>
+                <td>@i["feedback"]</td>
+                <td>@i["encouragement"]</td>
+                <td>@i["effectiveness"]</td>
+                <td>@i["satisfaction"]</td>
+                <td><a class="btn btn-primary" asp-controller="Review" asp-action="CourseReview" asp-route-id="@i["studyProgramId"]">Review</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using University_advisor_web.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace University_advisor_web.Controllers
 {
@@ -20,6 +21,8 @@ namespace University_advisor_web.Controllers
 
         public IActionResult Index()
         {
+            //TODO move next line to login once it's implemented
+            HttpContext.Session.SetInt32("UserId",1);
             return View();
         }
 

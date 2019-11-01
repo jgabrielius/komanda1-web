@@ -64,7 +64,7 @@ namespace University_advisor_web
         {
             List<Dictionary<string, object>> result = Fetch(sql);
 
-            if(result != null)
+            if(result != null && result.Count !=0)
             {
                 return result[0];
             } else
@@ -117,15 +117,8 @@ namespace University_advisor_web
                 command = new SQLiteCommand(sql, dbConnection);
             }
 
-            try
-            {
-                command.ExecuteNonQuery();
-            }
-            catch (SQLiteException e)
-            {
-                //TODO add logging
-                return false;
-            }
+            //TODO add logging and error handling
+            command.ExecuteNonQuery();
             dbConnection.Close();
             return true;
         }

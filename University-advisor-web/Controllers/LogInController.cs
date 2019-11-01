@@ -19,7 +19,6 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult LogIn()
         {
-            //If login was successfull
             return View("Index");
         }
 

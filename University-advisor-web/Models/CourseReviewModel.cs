@@ -28,7 +28,7 @@ namespace University_advisor_web.Models
         public CourseReviewModel (int studyProgramId)
         {
             this.studyProgramId = studyProgramId;
-            studyProgramName = SqlDriver.Row("SELECT program FROM studyProgrammes WHERE studyProgramId")["program"].ToString();
+            studyProgramName = SqlDriver.Row($"SELECT program FROM studyProgrammes WHERE studyProgramId = {studyProgramId}")["program"].ToString();
         }
 
         public void SaveReviews()

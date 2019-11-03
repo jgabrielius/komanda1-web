@@ -11,11 +11,9 @@ namespace University_advisor_web.Tools
 {
     public class GeoLocationApi
     {
-        private readonly ILogger _logger;
 
-        public GeoLocationApi(ILogger logger)
+        public GeoLocationApi()
         {
-            _logger = logger;
         }
 
         public string GetLocationJson(string url)
@@ -37,7 +35,7 @@ namespace University_advisor_web.Tools
                 {
                     var reader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8"));
                     var errorText = reader.ReadToEnd();
-                    _logger.Log("Error using Api: " + errorText, "ERROR");
+                    //Add logger
                 }
             }
             return null;

@@ -13,6 +13,11 @@ namespace University_advisor_web.Tools
     {
         private readonly ILogger _logger;
 
+        public GeoLocationApi(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public string GetLocationJson(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);

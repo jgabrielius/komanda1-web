@@ -22,7 +22,19 @@ namespace University_advisor_web.Controllers
             model.Password = "password";
 
             model.ChangePassword();
-            return View("../Settings/PasswordChanged", model);
+            return View("../Settings/ChangeSuccessfull", model);
+
+        }
+
+        [HttpPost]
+        public IActionResult ChangeEmail(UserModel model)
+        {
+            model.Username = "test";
+            model.Password = "password";
+            model.Email = "test@test.com";
+
+            model.ChangeEmail();
+            return View("../Settings/ChangeSuccessfull", model);
 
         }
     }

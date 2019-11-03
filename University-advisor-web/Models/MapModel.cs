@@ -18,11 +18,6 @@ namespace University_advisor_web.Models
         public string Address { get; set; }
         [DisplayName("Range")]
         public double Range { get; set; }
-        public List<Dictionary<string, object>> GetUniversitiesWithLocations()
-        {
-            return SqlDriver.Fetch("SELECT name,latitude,longitude FROM universities");
-        }
-
         public (double, double) GetCoordinates(string url)
         {
             var jsonRes = new GeoLocationApi().GetLocationJson(url);

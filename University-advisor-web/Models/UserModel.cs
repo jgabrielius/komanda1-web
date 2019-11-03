@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,7 +19,6 @@ namespace University_advisor_web.Models
         public string NewPassword { get; set; }
         public string NewPassword2 { get; set; }
 
-        public UserModel() { }
         public UserModel(string Username)
         {
             this.Username = Username;
@@ -26,9 +26,13 @@ namespace University_advisor_web.Models
             Email = SqlDriver.Row($"SELECT email from users where username='{Username}';")["email"].ToString();
         }
 
-        public void ChangePassword(string newPassword)
+        public UserModel()
         {
-            SqlDriver.Execute($"UPDATE users SET password ='{NewPassword}' WHERE username='{Username}';");
+        }
+
+        public void ChangePassword()
+        {
+            SqlDriver.Execute($"UPDATE users SET password =@0 WHERE username=@1;", new ArrayList { NewPassword, Username });
         }
 
     }

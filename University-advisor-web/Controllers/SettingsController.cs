@@ -18,12 +18,8 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult ChangePassword(UserModel model)
         {
-            model.Username = "test";
-            model.Password = "password";
-
-            model.ChangePassword(model.NewPassword);
+            model.ChangePassword();
             return View("../Settings/PasswordChanged", model);
-
         }
     }
 }

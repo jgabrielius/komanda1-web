@@ -5,11 +5,14 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using University_advisor_web.Interfaces;
 
 namespace University_advisor_web.Tools
 {
     public class GeoLocationApi
     {
+        private readonly ILogger _logger;
+
         public string GetLocationJson(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -29,10 +32,10 @@ namespace University_advisor_web.Tools
                 {
                     var reader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8"));
                     var errorText = reader.ReadToEnd();
-                    //Add logger
+                    _logger.Log("Error using Api: " + errorText, "ERROR");
                 }
-                throw;
             }
+            return null;
         }
     }
 }

@@ -11,37 +11,19 @@ namespace University_advisor_web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var model = new UserModel();
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult ChangePassword(UserModel model)
         {
             model.Username = "test";
+            model.Password = "password";
 
-            if (model.CurrentPassword.Equals(model.Password))
-            {
-                if (model.NewPassword.Equals(model.Password))
-                {
-                    //New password cannot be the same as old one.
-                    return View("../Settings/PasswordChangeError", model);
-                }
-                else if (model.NewPassword.Equals(model.NewPassword2))
-                {
-                    model.ChangePassword(model.NewPassword);
-                    return View("../Settings/PasswordChanged", model);
-                }
-                else
-                {
-                    //Password doesnt match.
-                    return View("../Settings/PasswordChangeError", model);
-                }
-            }
-            else
-            {
-                //Incorrect current password
-                return View("../Settings/PasswordChangeError", model);
-            }
+            model.ChangePassword(model.NewPassword);
+            return View("../Settings/PasswordChanged", model);
+
         }
     }
 }

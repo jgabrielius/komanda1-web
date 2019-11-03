@@ -12,6 +12,8 @@ namespace University_advisor_web.Controllers
             return View(model);
         }
 
+
+
         [HttpPost]
         public IActionResult SignUp(RegistrationFormModel model)
         {

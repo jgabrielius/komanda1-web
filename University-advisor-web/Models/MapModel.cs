@@ -58,7 +58,7 @@ namespace University_advisor_web.Models
                     schoolsInRange.Add(newSchoolInfo);
                 }
             }
-            return (schoolsInRange);
+            return schoolsInRange;
         }
     }
 }

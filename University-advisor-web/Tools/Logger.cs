@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
@@ -13,7 +14,7 @@ namespace University_advisor_web.Tools
         {
             var messageLog = new LogBodyModel
             {
-                Timestamp = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),
+                Timestamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture),
                 Message = message,
                 Level = level,
             };

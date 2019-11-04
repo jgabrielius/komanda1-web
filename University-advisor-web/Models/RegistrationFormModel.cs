@@ -10,13 +10,11 @@ namespace University_advisor_web.Models
     {
         public RegistrationFormModel()
         {
-            Universities = new List<SelectListItem>
-            {
-                // TODO: Needs to be fetched from DB
-                new SelectListItem("Vilnius university", "Vilnius university"),
-                new SelectListItem("ISM", "ISM"),
-                new SelectListItem("Vilnius Gediminas Technical University", "Vilnius Gediminas Technical University")
-            };
+
+        }
+        public RegistrationFormModel(List<SelectListItem> universityList)
+        {
+            Universities = universityList;
             Statuses = new List<SelectListItem>
             {
                 new SelectListItem("Student", "Student"),

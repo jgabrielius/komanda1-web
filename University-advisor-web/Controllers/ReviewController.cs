@@ -1,11 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
 namespace University_advisor_web.Controllers
 {
     public class ReviewController : Controller
     {
+        private readonly ILogger _logger;
+
+        public ReviewController(ILogger logger)
+        {
+            _logger = logger;
+        }
         public IActionResult Index()
         {
             var model = new UniversityModel();
@@ -29,6 +36,7 @@ namespace University_advisor_web.Controllers
             }
             else
             {
+                _logger.Log("Course review has been successfully submitted");
                 return View(model);
             }
         }
@@ -51,6 +59,7 @@ namespace University_advisor_web.Controllers
                 return RedirectToAction("Index");
             } else
             {
+                _logger.Log("University review has been successfully submitted");
                 return View(model);
             }
         }

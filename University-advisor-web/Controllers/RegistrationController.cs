@@ -10,15 +10,12 @@ namespace University_advisor_web.Controllers
     {
         private readonly ILogger _logger;
         private readonly IRegistrationService _registration;
-        private readonly IPasswordHasher _passwordHasher;
 
         public RegistrationController(ILogger logger, 
-                                      IRegistrationService registration,
-                                      IPasswordHasher passwordHasher)
+                                      IRegistrationService registration)
         {
             _logger = logger;
             _registration = registration;
-            _passwordHasher = passwordHasher;
         }
 
         [HttpGet]
@@ -32,14 +29,16 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult SignUp(RegistrationFormModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    // TODO: When model state is valid, new user has to be created
-            //    return View(model);
-            //}
-
-            _logger.Log("User has been sucessfully registered", "WARN");
-            _logger.LogStats(model.User);   
+            if(_registration.AddUser(model.User))
+            {
+                _logger.Log("User has been sucessfully registered");
+                _logger.LogStats(model.User);
+            }
+            else
+            {
+                // Message for user that user cannot be created.
+                _logger.Log("User cannot be created");
+            }
 
             return View("../Registration/UserCreated", model);
         }

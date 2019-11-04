@@ -10,11 +10,15 @@ namespace University_advisor_web.Controllers
     {
         private readonly ILogger _logger;
         private readonly IRegistrationService _registration;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public RegistrationController(ILogger logger, IRegistrationService registration)
+        public RegistrationController(ILogger logger, 
+                                      IRegistrationService registration,
+                                      IPasswordHasher passwordHasher)
         {
             _logger = logger;
             _registration = registration;
+            _passwordHasher = passwordHasher;
         }
 
         [HttpGet]

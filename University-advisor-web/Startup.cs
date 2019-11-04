@@ -27,6 +27,7 @@ namespace University_advisor_web
         {
             services.AddSingleton<ILogger, Logger>();
             services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>

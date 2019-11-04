@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using University_advisor_web.Interfaces;
+using University_advisor_web.Services;
 using University_advisor_web.Tools;
 
 namespace University_advisor_web
@@ -25,6 +26,7 @@ namespace University_advisor_web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ILogger, Logger>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>

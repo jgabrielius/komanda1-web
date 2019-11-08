@@ -40,8 +40,7 @@
     }
     <input type="hidden" id="locationsData" value="" />
     <script>
-        const item = JSON.stringify(@locationData);
-        document.getElementById('locationsData').value = item;
+        document.getElementById('locationsData').value = JSON.stringify(@locationData);
     </script>
 
     <div id="map"></div>

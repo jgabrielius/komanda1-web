@@ -13,25 +13,31 @@ namespace University_advisor_web.Controllers
         public IActionResult Index()
         {
             var model = new UserModel(HttpContext.Session.GetInt32("UserId") ?? 0);
+            model.Universities = model.GetAllUniversities();
             return View(model);
         }
 
         [HttpPost]
         public IActionResult ChangePassword(UserModel model)
         {
-            model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangePassword();
             return View("../Settings/ChangeSuccessfull", model);
-
         }
 
         [HttpPost]
         public IActionResult ChangeEmail(UserModel model)
         {
-            model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangeEmail();
             return View("../Settings/ChangeSuccessfull", model);
-
         }
+
+        [HttpPost]
+        public IActionResult ChangeUniversity(UserModel model)
+        {
+            model.ChangeUniversity();
+            return View("../Settings/ChangeSuccessfull", model);
+        }
+
+
     }
 }

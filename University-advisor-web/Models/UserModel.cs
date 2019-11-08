@@ -25,7 +25,7 @@ namespace University_advisor_web.Models
 
         public UserModel(int userId)
         {
-            var sqlUser = SqlDriver.Row("SELECT username, email, first_name, last_name, universities.name, status from universities, users WHERE users.universityid = universities.universityId and userId = " + userId.ToString() + ";");
+            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, status from universities, users WHERE users.universityid = universities.universityId and userId = " + userId.ToString() + ";");
 
             Username = sqlUser["username"].ToString();
             Email = sqlUser["email"].ToString();

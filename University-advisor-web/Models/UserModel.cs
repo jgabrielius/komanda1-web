@@ -8,6 +8,7 @@ namespace University_advisor_web.Models
 {
     public class UserModel
     {
+        public int UserId { get; set; }
         public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -22,20 +23,16 @@ namespace University_advisor_web.Models
         public string NewEmail { get; set; }
         public string NewEmail2 { get; set; }
 
-        public UserModel(string Username)
+        public UserModel(int userId)
         {
-            this.Username = Username;
-            this.FirstName = FirstName;
-            this.LastName = LastName;
-            this.Email = Email;
-            this.University = University;
-            this.Status = Status;
-            Password = SqlDriver.Row($"SELECT password from users where username='{Username}';")["password"].ToString();  
-            FirstName = SqlDriver.Row($"SELECT first_name from users where username='{Username}';")["first_name"].ToString();
-            LastName = SqlDriver.Row($"SELECT last_name from users where username='{Username}';")["last_name"].ToString();
-            Email = SqlDriver.Row($"SELECT email from users where username='{Username}';")["email"].ToString();
-            University = SqlDriver.Row($"SELECT universities.name from universities, users where universities.universityId = users.universityid and users.username = '{Username}';")["name"].ToString();
-            Status = SqlDriver.Row($"SELECT status from users where username='{Username}';")["status"].ToString();
+            var sqlUser = SqlDriver.Row("SELECT username, email, first_name, last_name, universities.name, status from universities, users WHERE users.universityid = universities.universityId and userId = " + userId.ToString() + ";");
+
+            Username = sqlUser["username"].ToString();
+            Email = sqlUser["email"].ToString();
+            FirstName = sqlUser["first_name"].ToString();
+            LastName = sqlUser["last_name"].ToString();
+            University = sqlUser["name"].ToString();
+            Status = sqlUser["status"].ToString();
         }
 
         public UserModel()
@@ -44,11 +41,11 @@ namespace University_advisor_web.Models
 
         public void ChangePassword()
         {
-            SqlDriver.Execute($"UPDATE users SET password =@0 WHERE username=@1;", new ArrayList { NewPassword, Username });
+            SqlDriver.Execute($"UPDATE users SET password =@0 WHERE userid=@1;", new ArrayList { NewPassword, UserId });
         }
         public void ChangeEmail()
         {
-            SqlDriver.Execute($"UPDATE users SET email =@0 WHERE username=@1;", new ArrayList { NewEmail, Username });
+            SqlDriver.Execute($"UPDATE users SET email =@0 WHERE userid=@1;", new ArrayList { NewEmail, UserId });
         }
 
     }

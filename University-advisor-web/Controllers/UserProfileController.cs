@@ -11,7 +11,7 @@ namespace University_advisor_web.Controllers
     {
         public IActionResult Index()
         {
-            var model = new UserModel("test");
+            var model = new UserModel(1);
             return View(model);
         }
     }

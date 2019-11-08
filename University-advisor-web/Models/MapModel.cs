@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using University_advisor_web.Models;
 using University_advisor_web.Tools;
+using University_advisor_web.Constants;
+using System.Diagnostics;
 
 namespace University_advisor_web.Models
 {
@@ -18,6 +20,17 @@ namespace University_advisor_web.Models
         public string Address { get; set; }
         [DisplayName("Range")]
         public double Range { get; set; }
+        public GeoCoordinate MapCenter { get; set; }
+        public List<MarkerModel> LocationsInRange { get; set; }
+        public MapModel(string address, string showOnMap = "", double range = 0) //if range = 0, show all locations
+        {
+            var geoCoordinate = GetCoordinates(ConstructApiUrl(address));
+            MapCenter = new GeoCoordinate(geoCoordinate.Item1, geoCoordinate.Item2); 
+            Range = range;
+            Address = address;
+            if (showOnMap == "Universities") LocationsInRange = GetLocationsInRangeMarkers(SqlDriver.Fetch("SELECT name,latitude,longitude FROM universities"));
+            else LocationsInRange = new List<MarkerModel>();
+        }
         public (double, double) GetCoordinates(string url)
         {
             var jsonRes = new GeoLocationApi().GetLocationJson(url);
@@ -34,31 +47,28 @@ namespace University_advisor_web.Models
         }
         public string ConstructApiUrl(string address)
         {
-            var apiCallUrl = "https://eu1.locationiq.com/v1/search.php?key=" + "5e66cc9d64db23" + "&q=" + address + "&format=json";
+            var apiCallUrl = "https://eu1.locationiq.com/v1/search.php?key=" + ApiKeys.GeoLocationApiKey + "&q=" + address + "&format=json";
             return apiCallUrl.Replace(" ", "%20");
         }
-        public List<MarkerModel> GetSchoolsInRangeMarkers(double range, MarkerModel user)
+        public List<MarkerModel> GetLocationsInRangeMarkers(List<Dictionary<string, object>> listOfLocations)
         {
-            var schoolsInRange = new List<MarkerModel>();
+            var LocationsInRange = new List<MarkerModel>();
 
-            foreach (var school in SqlDriver.Fetch("SELECT name,latitude,longitude FROM universities"))
+            foreach (var location in listOfLocations)
             {
-                var name = school["name"].ToString();
-                var lat = school["latitude"].ToString();
-                var lon = school["longitude"].ToString();
-                var distance = GetDistance(user.Latitude, user.Longitude, Convert.ToDouble(lat), Convert.ToDouble(lon));
-                if (distance <= range * 1000)
+
+                var name = location["name"].ToString();
+                var lat = location["latitude"].ToString();
+                var lon = location["longitude"].ToString();
+
+                var distance = GetDistance(MapCenter.Latitude, MapCenter.Longitude, Convert.ToDouble(lat), Convert.ToDouble(lon));
+                if (distance <= Range * 1000 || Range == 0)
                 {
-                    var newSchoolInfo = new MarkerModel
-                    {
-                        Latitude = Convert.ToDouble(lat),
-                        Longitude = Convert.ToDouble(lon),
-                        Name = name
-                    };
-                    schoolsInRange.Add(newSchoolInfo);
+                    var newMarker = new MarkerModel(Convert.ToDouble(lat), Convert.ToDouble(lon), name);
+                    LocationsInRange.Add(newMarker);
                 }
             }
-            return schoolsInRange;
+            return LocationsInRange;
         }
     }
 }

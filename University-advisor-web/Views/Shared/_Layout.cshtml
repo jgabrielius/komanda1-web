@@ -9,6 +9,8 @@
     <title>@ViewData["Title"] - University advisor</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/AutoCompleteSearch.css" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     @RenderSection("Styles", false)
 </head>
 <body>
@@ -42,11 +44,17 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Your Profile</a>
                             </li>
+                            <li class="nav-item">
+                                <form autocomplete="off" action="/action_page.php">
+                                    <div class="autocomplete" style="width:300px;">
+                                        <input id="quickUniversitySearch" type="text" name="myCountry" placeholder="Country">
+                                    </div>
+                                    <input type="submit">
+                                </form>
+                            </li>
                         }
-
-
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
             </div>
         </nav>
     </header>

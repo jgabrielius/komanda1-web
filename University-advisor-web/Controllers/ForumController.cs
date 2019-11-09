@@ -25,7 +25,7 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult Question(QuestionModel userQuestion)
         {
-            return View(userQuestion);
+            return View("../Forum/SubmittedQuestion", userQuestion);
         }
     }
 }

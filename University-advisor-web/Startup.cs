@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Services;
@@ -27,8 +29,10 @@ namespace University_advisor_web
         {
             services.AddSingleton<ILogger, Logger>();
             services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<ILogInService, LogInService>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddDistributedMemoryCache();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSession(options =>
             {

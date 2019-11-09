@@ -30,7 +30,7 @@ namespace University_advisor_web.Services
 
                     if (SqlDriver.Execute("INSERT INTO users (username, first_name, last_name, email, universityId, status, password) " +
                         "values (@0,@1,@2,@3,@4,@5,@6)", 
-                        new ArrayList() { user.Username, user.FirstName, user.LastName, user.Email, user.University, user.Status, _passwordHasher.CreateMD5(user.Password)}))
+                        new ArrayList() { user.Username, user.FirstName, user.LastName, user.Email, universityId , user.Status, _passwordHasher.CreateMD5(user.Password)}))
                     {
                         return true;
                     }

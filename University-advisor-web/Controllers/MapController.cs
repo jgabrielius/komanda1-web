@@ -21,18 +21,14 @@ namespace University_advisor_web.Controllers
 
         [HttpGet]
         public IActionResult Index()
-        {
-            var model = new MapModel();
-            model.Address = "Vilnius";
-            model.Range = 500;
+        {   
+            var model = new MapModel("Vilnius", "Universities");
             return View(model);
         }
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Index(string address, double range)
         {
-            var model = new MapModel();
-            model.Address = address;
-            model.Range = range;
+            var model = new MapModel(address, "Universities", range);
             // Code to test if logging works correctly.
             _logger.Log("Nearby universities were successfully displayed");
             return View(model);

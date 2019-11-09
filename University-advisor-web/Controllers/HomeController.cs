@@ -21,8 +21,6 @@ namespace University_advisor_web.Controllers
 
         public IActionResult Index()
         {
-            //TODO move next line to login once it's implemented
-            HttpContext.Session.SetInt32("UserId",1);
             return View();
         }
 

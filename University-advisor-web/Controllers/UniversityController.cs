@@ -31,7 +31,7 @@ namespace University_advisor_web.Controllers
         }
 
         // GET: api/University/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public AutoCompleteItemModel Get(int id)
         {
             return new AutoCompleteItemModel("string","reviews", id);
@@ -46,12 +46,6 @@ namespace University_advisor_web.Controllers
         // PUT: api/University/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
         {
         }
     }

@@ -1,5 +1,4 @@
-﻿/*
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,12 +17,12 @@ namespace University_advisor_web.Controllers
         public IEnumerable<AutoCompleteItemModel> Get()
         {
             var listOfItems = new List<AutoCompleteItemModel>();
-            var listOfCourses = new UniversityModel().GetCourses();
+            var listOfCourses = new UniversityModel().GetAllCoursesWithUniversityNames();
             foreach (var course in listOfCourses)
             {
                 listOfItems.Add(
                     new AutoCompleteItemModel(
-                        course["program"].ToString(),
+                        $"{course["program"].ToString()} ({course["name"].ToString()})",
                         "CourseReview",
                         Convert.ToInt32(course["studyProgramId"].ToString()))
                     );
@@ -32,7 +31,7 @@ namespace University_advisor_web.Controllers
         }
 
         // GET: api/Course/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public AutoCompleteItemModel Get(int id)
         {
             return new AutoCompleteItemModel("string", "reviews", id);
@@ -49,12 +48,5 @@ namespace University_advisor_web.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
-*/

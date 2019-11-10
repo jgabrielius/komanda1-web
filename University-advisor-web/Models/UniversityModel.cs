@@ -33,6 +33,12 @@ namespace University_advisor_web.Models
         {
             return SqlDriver.Fetch($"SELECT * FROM studyProgrammes WHERE universityId = {universityId}");
         }
+        public List<Dictionary<string, object>> GetAllCoursesWithUniversityNames()
+        {
+            return SqlDriver.Fetch("SELECT courses.program, courses.studyProgramId, uni.name " +
+                "FROM studyProgrammes courses " +
+                "LEFT JOIN universities uni WHERE courses.universityId = uni.universityId");
+        }
         public List<Dictionary<string, object>> GetCoursesWithRatings()
         {
             return SqlDriver.Fetch($"SELECT *," +

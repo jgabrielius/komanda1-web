@@ -1,9 +1,19 @@
-﻿$.ajax({
+﻿const getUniversities = () => $.ajax({
     type: "GET",
     url: "/api/university",
-    success: (data) => autocomplete(document.getElementById("quickUniversitySearch"), data)
+    success: (res) => res
 })
-
+const getCourses = () => $.ajax({
+    type: "GET",
+    url: "/api/course",
+    success: (res) => res
+})
+//autocomplete(document.getElementById("quickUniversitySearch"),
+getUniversities().then(universityData => {
+    getCourses().then(courseData => {
+        autocomplete(document.getElementById("quickUniversitySearch"), universityData.concat(courseData))
+    })
+});
 
 
 function autocomplete(inp, arr) {
@@ -14,6 +24,7 @@ function autocomplete(inp, arr) {
     inp.addEventListener("input", function (e) {
         let listOfItems;
         let listItem;
+        let countOfShownItems = 0;
         const currentInput = this.value;
         /*close any already open lists of autocompleted values*/
         closeAllLists();
@@ -23,28 +34,24 @@ function autocomplete(inp, arr) {
         listOfItems = document.createElement("DIV");
         listOfItems.setAttribute("id", this.id + "autocomplete-list");
         listOfItems.setAttribute("class", "autocomplete-items");
-        /*append the DIV element as a child of the autocomplete container:*/
         this.parentNode.appendChild(listOfItems);
-        /*for each item in the array...*/
         arr.forEach(obj => {
-            if (obj.name.toLowerCase().includes(currentInput.toLowerCase())) {
+            if (obj.name.toLowerCase().includes(currentInput.toLowerCase()) && countOfShownItems < 10) {
+                countOfShownItems++;
+                const lowerCaseInput = currentInput.toLowerCase();
+                const lowerCaseName = obj.name.toLowerCase();
                 listItem = document.createElement("DIV");
-                const nameStart = obj.name.substr(0, obj.name.indexOf(currentInput))
-                const nameEnd = obj.name.substr(obj.name.indexOf(currentInput) + currentInput.length)
-                const combinedName = nameStart + "<strong>" + currentInput + "</strong>" + nameEnd;
-                /*insert a input field that will hold the current array item's value:*/
-                //listItem.innerHTML += "<input type='hidden' value='" + obj.name + "'>";
-                listItem.innerHTML += `<a asp-controller="Review" asp-action=${obj.AspAction} asp-route-id="${obj.ItemId}">${combinedName}</a>`;
-                /*execute a function when someone clicks on the item value (DIV element):
+                //listItem.setAttribute("class", "bg-dark");
+                const nameStart = obj.name.substr(0, lowerCaseName.indexOf(lowerCaseInput));
+                const nameMiddle = obj.name.substr(lowerCaseName.indexOf(lowerCaseInput), currentInput.length);
+                const nameEnd = obj.name.substr(lowerCaseName.indexOf(lowerCaseInput) + currentInput.length);
+                const combinedName = nameStart + "<strong>" + nameMiddle + "</strong>" + nameEnd;
+                listItem.innerHTML += `<a class="text-white" href="/Review/${obj.aspAction}/${obj.itemId}">${combinedName}</a>`;
+
                 listItem.addEventListener("click", function (e) {
-                    
-                    /*insert the value for the autocomplete text field:
-                    inp.value = this.getElementsByTagName("input")[0].value;
-                    /*close the list of autocompleted values,
-                    (or any other open lists of autocompleted values:
+                    window.location.href = `/Review/${obj.aspAction}/${obj.itemId}`;
                     closeAllLists();
                 });
-                */
                 listOfItems.appendChild(listItem); 
             }
         })
@@ -77,7 +84,6 @@ function autocomplete(inp, arr) {
     function addActive(x) {
         /*a function to classify an item as "active":*/
         if (!x) return false;
-        /*start by removing the "active" class on all items:*/
         removeActive(x);
         if (currentFocus >= x.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = (x.length - 1);

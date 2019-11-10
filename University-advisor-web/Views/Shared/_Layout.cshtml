@@ -11,13 +11,9 @@
     <link rel="stylesheet" href="~/css/Buttons.css" />
     <link rel="stylesheet" href="~/css/Table.css" />
     <link rel="stylesheet" href="~/css/Global.css" />
-    <link rel="stylesheet" href="~/css/AutoCompleteSearch.css" />
     @RenderSection("Styles", false)
 </head>
 <body>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3" style="font-size:24px;">
             <div class="container">
@@ -47,13 +43,8 @@
                             <li class="nav-item ml-3">
                                 <a class="nav-link text-white effect-box" asp-area="" asp-controller="UserProfile" asp-action="Index">Your Profile</a>
                             </li>
-                            <li>
-                                <form autocomplete="off" action="/action_page.php">
-                                    <div class="autocomplete" style="width:300px;">
-                                        <input id="quickUniversitySearch" type="text" name="quickUniversitySearch" placeholder="Find university or course">
-                                    </div>
-                                </form>
-                                <script src="~/js/AutoCompleteSearch.js"></script>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Forum" asp-action="Index">Forum</a>
                             </li>
                         }
                     </ul>
@@ -66,6 +57,9 @@
             @RenderBody()
         </main>
     </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

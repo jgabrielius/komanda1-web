@@ -15,6 +15,9 @@
     @RenderSection("Styles", false)
 </head>
 <body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3" style="font-size:24px;">
             <div class="container">
@@ -49,9 +52,7 @@
                                     <div class="autocomplete" style="width:300px;">
                                         <input id="quickUniversitySearch" type="text" name="quickUniversitySearch" placeholder="Find university or course">
                                     </div>
-                                    @*<input type="submit">*@
                                 </form>
-                                <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                                 <script src="~/js/AutoCompleteSearch.js"></script>
                             </li>
                         }
@@ -65,9 +66,6 @@
             @RenderBody()
         </main>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

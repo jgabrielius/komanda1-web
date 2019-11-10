@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-controller="Forum" role="form" method="post" enctype="multipart/form-data" id="forumMainPage">
+    
+    <div class="row">
+        <div class="mx-auto text-center">
+            <div class="card text-center" style="width:400px">
+                <div class="card-body">
+                    <h4 class="card-title">For students, by students </h4>
+                    <p class="card-text">
+                        University advisor is a platform for anyone who seek higher education.
+                        We help you get answers to toughest questions related to university choice.
+                    </p>
+                </div>
+                <div style="height:50px">
+                    <a asp-controller="Forum" asp-action="Question" class="btn btn-primary">Ask a question</a>
+                </div>
+                <div style="height:50px">
+                    <a asp-controller="Forum" asp-action="Questions" class="btn btn-primary">Browse</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+

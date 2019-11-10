@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using University_advisor_web.Interfaces;
 
 namespace University_advisor_web.Models
 {
@@ -23,7 +24,9 @@ namespace University_advisor_web.Models
         public string NewEmail { get; set; }
         public string NewEmail2 { get; set; }
         public string SelectedUniversity { get; set; }
+        public string SelectedStatus { get; set; }
         public List<SelectListItem> Universities { get; set; }
+        public List<SelectListItem> Statuses { get; set; }
 
         public UserModel(int userId)
         {
@@ -41,20 +44,25 @@ namespace University_advisor_web.Models
         {
         }
 
-        public void ChangePassword()
+        public void ChangePassword(IPasswordHasher passwordHasher)
         {
-            SqlDriver.Execute($"UPDATE users SET password =@0 WHERE userid=@1;", new ArrayList { NewPassword, UserId });
+            SqlDriver.Execute($"UPDATE users SET password =@0 WHERE userid=@1;", new ArrayList { passwordHasher.CreateMD5(NewPassword), UserId });
         }
         public void ChangeEmail()
         {
             SqlDriver.Execute($"UPDATE users SET email =@0 WHERE userid=@1;", new ArrayList { NewEmail, UserId });
         }
 
+        public void ChangeStatus()
+        {
+            SqlDriver.Execute($"UPDATE users SET status =@0 WHERE userid=@1;", new ArrayList { SelectedStatus, UserId });
+        }
+
         public void ChangeUniversity()
         {
             var newUniversityIdFromDB = SqlDriver.Row("SELECT universityid from universities WHERE name ='" + SelectedUniversity + "';");
             var newUniversityId = newUniversityIdFromDB["universityId"].ToString();
-            SqlDriver.Execute("UPDATE users set universityid =" + newUniversityId + " WHERE userid ='" + UserId + "';");
+            SqlDriver.Execute("UPDATE users SET universityid =@0 WHERE userid =@1;", new ArrayList { newUniversityId, UserId });
         }
 
         public List<SelectListItem> GetAllUniversities()
@@ -69,6 +77,17 @@ namespace University_advisor_web.Models
                 }
             }
             return universities;
+        }
+
+        public List<SelectListItem> GetAllStatuses()
+        {
+            List<SelectListItem> statuses = new List<SelectListItem>
+            {
+                new SelectListItem("Student", "Student"),
+                new SelectListItem("Lecturer", "Lecturer"),
+                new SelectListItem("Graduate", "Graduate")
+            };
+            return statuses;
         }
     }
 

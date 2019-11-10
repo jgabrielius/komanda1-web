@@ -9,12 +9,30 @@ namespace University_advisor_web.Models
     {
         public int universityId { get; set; }
         public string universityName { get; set; }
+        public string description { get; set; }
+        public string variety { get; set; }
+        public string availability { get; set; }
+        public string accessability { get; set; }
+        public string quality { get; set; }
+        public string unions { get; set; }
+        public string cost { get; set; }
 
         public UniversityModel(){}
         public UniversityModel(int universityId)
         {
             this.universityId = universityId;
-            universityName= SqlDriver.Row($"SELECT name FROM universities WHERE universityId = {universityId}")["name"].ToString();
+            var sqlUniversity = SqlDriver.Row($"SELECT name, description FROM universities WHERE universityId = {universityId};");
+            universityName = sqlUniversity["name"].ToString();
+            description = sqlUniversity["description"].ToString();           
+            var sqlUniversityReviews = SqlDriver.Row($"SELECT avg(variety) as variety, avg(availability) as availability," +
+                $"avg(accessability) as accessability, avg(quality) as quality, avg(unions) as unions, avg(cost) as cost" +
+                $" FROM universityReviews WHERE universityId = {universityId};");            
+            variety = sqlUniversityReviews["variety"].ToString();
+            availability = sqlUniversityReviews["availability"].ToString();
+            accessability = sqlUniversityReviews["accessability"].ToString();
+            quality = sqlUniversityReviews["quality"].ToString();
+            unions = sqlUniversityReviews["unions"].ToString();
+            cost = sqlUniversityReviews["cost"].ToString();
         }
 
         public List<Dictionary<string,object>> GetUniversities()

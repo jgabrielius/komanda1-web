@@ -29,24 +29,5 @@ namespace University_advisor_web.Controllers
             }
             return listOfItems;
         }
-
-        // GET: api/University/5
-        [HttpGet("{id}")]
-        public AutoCompleteItemModel Get(int id)
-        {
-            return new AutoCompleteItemModel("string","reviews", id);
-        }
-
-        // POST: api/University
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/University/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
     }
 }

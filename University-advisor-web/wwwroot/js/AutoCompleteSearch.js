@@ -36,13 +36,14 @@ function autocomplete(inp, arr) {
                 countOfShownItems++;
                 const lowerCaseInput = currentInput.toLowerCase();
                 const lowerCaseName = obj.name.toLowerCase();
-                listItem = document.createElement("DIV");
                 const nameStart = obj.name.substr(0, lowerCaseName.indexOf(lowerCaseInput));
                 const nameMiddle = obj.name.substr(lowerCaseName.indexOf(lowerCaseInput), currentInput.length);
                 const nameEnd = obj.name.substr(lowerCaseName.indexOf(lowerCaseInput) + currentInput.length);
                 const combinedName = nameStart + "<strong>" + nameMiddle + "</strong>" + nameEnd;
-                listItem.innerHTML += `<a class="text-white" href="/Review/${obj.aspAction}/${obj.itemId}">${combinedName}</a>`;
 
+                listItem = document.createElement("DIV");
+                listItem.setAttribute("class", "bg-dark");
+                listItem.innerHTML += `<a class="text-white" href="/Review/${obj.aspAction}/${obj.itemId}">${combinedName}</a>`;
                 listItem.addEventListener("click", function (e) {
                     window.location.href = `/Review/${obj.aspAction}/${obj.itemId}`;
                     closeAllLists();

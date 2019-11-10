@@ -24,7 +24,9 @@ namespace University_advisor_web.Models
         public string NewEmail { get; set; }
         public string NewEmail2 { get; set; }
         public string SelectedUniversity { get; set; }
+        public string SelectedStatus { get; set; }
         public List<SelectListItem> Universities { get; set; }
+        public List<SelectListItem> Statuses { get; set; }
 
         public UserModel(int userId)
         {
@@ -51,6 +53,11 @@ namespace University_advisor_web.Models
             SqlDriver.Execute($"UPDATE users SET email =@0 WHERE userid=@1;", new ArrayList { NewEmail, UserId });
         }
 
+        public void ChangeStatus()
+        {
+            SqlDriver.Execute($"UPDATE users SET status =@0 WHERE userid=@1;", new ArrayList { SelectedStatus, UserId });
+        }
+
         public void ChangeUniversity()
         {
             var newUniversityIdFromDB = SqlDriver.Row("SELECT universityid from universities WHERE name ='" + SelectedUniversity + "';");
@@ -70,6 +77,17 @@ namespace University_advisor_web.Models
                 }
             }
             return universities;
+        }
+
+        public List<SelectListItem> GetAllStatuses()
+        {
+            List<SelectListItem> statuses = new List<SelectListItem>
+            {
+                new SelectListItem("Student", "Student"),
+                new SelectListItem("Lecturer", "Lecturer"),
+                new SelectListItem("Graduate", "Graduate")
+            };
+            return statuses;
         }
     }
 

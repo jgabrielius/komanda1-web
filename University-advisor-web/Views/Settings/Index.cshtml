@@ -80,5 +80,21 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-6">
+                <h2> Change Status:</h2>
+
+                <div>
+                    <label> University: </label>
+                    <select asp-items="Model.Statuses" asp-for="SelectedStatus" class="form-control" required=""></select>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <button class="btn btn-primary" asp-controller="Settings" asp-action="ChangeStatus">Change status</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </form>

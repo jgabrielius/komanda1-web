@@ -7,8 +7,10 @@ namespace University_advisor_web.Models
 {
     public class QuestionModel
     {
-        public string Question { get; set; }
-        public string Message { get; set; }
+        public int userId { get; set; }
+        public int questionId { get; set; }
+        public string question { get; set; }
+        public string message { get; set; }
 
     }
 }

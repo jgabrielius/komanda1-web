@@ -27,5 +27,11 @@ namespace University_advisor_web.Controllers
         {
             return View("../Forum/SubmittedQuestion", userQuestion);
         }
+
+        [HttpGet]
+        public IActionResult Questions()
+        {
+            return View();
+        }
     }
 }

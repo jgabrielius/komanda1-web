@@ -20,8 +20,7 @@
             <td>@i.question</td>
             <td>@i.message</td>
             <td>@i.userId</td>
-            @*<td><a class="btn btn-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]">View</a></td>*@
-            <td><a class="btn btn-primary">View question</a></td>
+            <td><a class="btn btn-primary" asp-controller="Forum" asp-action="ViewQuestion" asp-route-id="@i.questionId">View question</a></td>
         </tr>
         }
     </tbody>

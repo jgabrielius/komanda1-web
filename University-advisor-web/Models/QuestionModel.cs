@@ -13,6 +13,19 @@ namespace University_advisor_web.Models
         public string question { get; set; }
         public string message { get; set; }
 
+        public QuestionModel()
+        {
+
+        }
+
+        public QuestionModel(int questionId)
+        {
+            this.questionId = questionId;
+            // Fetch from db question with this questionId. These two lines are temporary.
+            question = "Sample question";
+            message = $"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.";
+        }
+
         public void SaveQuestion()
         {
             SqlDriver.Execute("INSERT INTO questions (userId,questionId,question,message) " +

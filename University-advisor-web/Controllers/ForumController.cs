@@ -34,9 +34,15 @@ namespace University_advisor_web.Controllers
         [HttpGet]
         public IActionResult Questions()
         {
-            // Here has to FetchAllQuestions method.
             var questions = new QuestionModel();
             return View(questions);
+        }
+
+        [HttpGet]
+        public IActionResult ViewQuestion(int questionId)
+        {
+            var model = new QuestionModel(questionId);
+            return View(model);
         }
     }
 }

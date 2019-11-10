@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using University_advisor_web.Interfaces;
 
 namespace University_advisor_web.Models
 {
@@ -41,9 +42,9 @@ namespace University_advisor_web.Models
         {
         }
 
-        public void ChangePassword()
+        public void ChangePassword(IPasswordHasher passwordHasher)
         {
-            SqlDriver.Execute($"UPDATE users SET password =@0 WHERE userid=@1;", new ArrayList { NewPassword, UserId });
+            SqlDriver.Execute($"UPDATE users SET password =@0 WHERE userid=@1;", new ArrayList { passwordHasher.CreateMD5(NewPassword), UserId });
         }
         public void ChangeEmail()
         {
@@ -54,7 +55,7 @@ namespace University_advisor_web.Models
         {
             var newUniversityIdFromDB = SqlDriver.Row("SELECT universityid from universities WHERE name ='" + SelectedUniversity + "';");
             var newUniversityId = newUniversityIdFromDB["universityId"].ToString();
-            SqlDriver.Execute("UPDATE users set universityid =" + newUniversityId + " WHERE userid ='" + UserId + "';");
+            SqlDriver.Execute("UPDATE users SET universityid =" + newUniversityId + " WHERE userid =" + UserId.ToString() + ";");
         }
 
         public List<SelectListItem> GetAllUniversities()

@@ -2,60 +2,61 @@
 @{
     ViewData["Title"] = "Index";
 }
+    <div class="justify-content-center text-center">
+        <form asp-action="SignUp" asp-controller="Registration" role="form" method="post" enctype="multipart/form-data" id="signUpForm">
+            <div class="mb-2">
+                <h2> Sign up form</h2>
+            </div>
 
-<form asp-action="SignUp" asp-controller="Registration" role="form" method="post" enctype="multipart/form-data" id="signUpForm">
-    <div class="mb-2">
-        <h2> Sign up form</h2>
-    </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <label asp-for="User.FirstName">First name</label>
+                    <input asp-for="User.FirstName" type="text" class="form-control" pattern="[a-zA-Z0-9]+" />
+                </div>
+                <div class="col-lg-4">
+                    <label asp-for="User.LastName">Last name</label>
+                    <input asp-for="User.LastName" type="text" class="form-control" required="" pattern="[a-zA-Z0-9]+" />
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col-lg-4">
-            <label asp-for="User.FirstName">First name</label>
-            <input asp-for="User.FirstName" type="text" class="form-control" pattern="[a-zA-Z0-9]+" />
-        </div>
-        <div class="col-lg-4">
-            <label asp-for="User.LastName">Last name</label>
-            <input asp-for="User.LastName" type="text" class="form-control" required="" pattern="[a-zA-Z0-9]+" />
-        </div>
-    </div>
-   
-     <div class="row">
-        <div class="col-lg-4">
-            <label asp-for="User.Username">Username</label>
-            <input asp-for="User.Username" type="text" class="form-control" required=""/>
-        </div>
-        <div class="col-lg-4">
-            <label asp-for="User.Email">Email</label>
-            <input asp-for="User.Email" type="email" class="form-control" required=""/>
-        </div>
-    </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <label asp-for="User.Username">Username</label>
+                    <input asp-for="User.Username" type="text" class="form-control" required="" />
+                </div>
+                <div class="col-lg-4">
+                    <label asp-for="User.Email">Email</label>
+                    <input asp-for="User.Email" type="email" class="form-control" required="" />
+                </div>
+            </div>
 
-     <div class="row" oninput='oldPassword.setCustomValidity(oldPassword.value != newPassword.value ? "Passwords do not match." : "")'>
-        <div class="col-lg-4">
-            <label asp-for="User.Password">Password</label>
-            <input asp-for="User.Password" type="password" id ="oldPassword"class="form-control" required="" />
-        </div>
-        <div class="col-lg-4">
-            <label>Repeat password</label>
-            <input type="password" class="form-control" id="newPassword" required="" />
-        </div>
-    </div>
+            <div class="row justify-content-center" oninput='oldPassword.setCustomValidity(oldPassword.value != newPassword.value ? "Passwords do not match." : "")'>
+                <div class="col-lg-4">
+                    <label asp-for="User.Password">Password</label>
+                    <input asp-for="User.Password" type="password" id="oldPassword" class="form-control" required="" />
+                </div>
+                <div class="col-lg-4">
+                    <label>Repeat password</label>
+                    <input type="password" class="form-control" id="newPassword" required="" />
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col-lg-4">
-            <label> Select university</label>
-            <select asp-items="Model.Universities" asp-for="User.University" class="form-control" required=""></select>
-        </div>
-         <div class="col-lg-4">
-            <label> Select status </label>
-            <select asp-items="Model.Statuses" asp-for="User.Status" class="form-control" required=""></select>
-        </div>
-    </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <label> Select university</label>
+                    <select asp-items="Model.Universities" asp-for="User.University" class="form-control" required=""></select>
+                </div>
+                <div class="col-lg-4">
+                    <label> Select status </label>
+                    <select asp-items="Model.Statuses" asp-for="User.Status" class="form-control" required=""></select>
+                </div>
+            </div>
 
-    <div class="row mt-3">
-        <div class="col-lg-4">
-            <input class="btn btn-primary" type="submit" value="Sign up">
-        </div>
+            <div class="row mt-3 justify-content-center">
+                <div class="col-lg-4">
+                    <input class="btn btn-lg btn-primary" type="submit" value="Sign up">
+                </div>
+            </div>
+
+        </form>
     </div>
-   
-</form>

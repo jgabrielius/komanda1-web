@@ -21,7 +21,7 @@
     <h1>Find Universities</h1>
 
     <form asd-action="SendAddress" asp-controller="Map" role="form" method="POST" enctype="multipart/form-data" id="sendAddressForm">
-        <div class="row">
+        <div class="row align-items-end">
             <div class="col-lg-4">
                 <label asp-for="Address"></label>
                 <input asp-for="Address" type="text" class="form-control" pattern="[a-zA-Z0-9]+" />
@@ -31,7 +31,7 @@
                 <input asp-for="Range" type="number" class="form-control" required="" pattern="[0-9]{1,5}" />
             </div>
             <div class="col-lg-4">
-                <input class="btn btn-primary" type="submit" value="Find">
+                <input class="btn btn-lg btn-primary" type="submit" value="Find">
             </div>
         </div>
     </form>

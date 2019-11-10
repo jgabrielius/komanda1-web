@@ -2,9 +2,13 @@
 @{
     ViewData["Title"] = "Reviews";
 }
-    <h1>Courses for @Model.universityName</h1>
-    <a class="btn btn-primary" asp-controller="Review" asp-action="UniversityReview" asp-route-id="@Model.universityId">Leave a review for university</a>
-    <table class="table table-striped table-bordered w-auto">
+    <div class="d-flex">
+        <h1>Courses for @Model.universityName</h1>
+        <div class="ml-auto align-self-center">
+            <a class="btn btn-lg btn-default" asp-controller="Review" asp-action="UniversityReview" asp-route-id="@Model.universityId">Leave a review for university</a>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered w-100">
         <thead>
             <tr>
                 <th>Group</th>

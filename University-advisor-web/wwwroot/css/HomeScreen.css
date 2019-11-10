@@ -1,0 +1,9 @@
+﻿/* Home page styles */
+.home-container {
+    position: relative;
+}
+.image-text {
+    position: absolute;
+    bottom: 45%;
+    left: 15%;
+}

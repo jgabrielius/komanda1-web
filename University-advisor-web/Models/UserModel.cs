@@ -62,7 +62,7 @@ namespace University_advisor_web.Models
         {
             var newUniversityIdFromDB = SqlDriver.Row("SELECT universityid from universities WHERE name ='" + SelectedUniversity + "';");
             var newUniversityId = newUniversityIdFromDB["universityId"].ToString();
-            SqlDriver.Execute("UPDATE users SET universityid =" + newUniversityId + " WHERE userid =" + UserId.ToString() + ";");
+            SqlDriver.Execute("UPDATE users SET universityid =@0 WHERE userid =@1;", new ArrayList { newUniversityId, UserId });
         }
 
         public List<SelectListItem> GetAllUniversities()

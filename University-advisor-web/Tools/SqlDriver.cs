@@ -14,7 +14,7 @@ namespace University_advisor_web
         {
             try
             {
-                var dbConnection = new SQLiteConnection("Data Source=Database.sqlite;Version=3;");
+                var dbConnection = new SQLiteConnection("Data Source=Database.sqlite;Version=3;foreign keys=true;");
                 dbConnection.Open();
                 return dbConnection;
             }

@@ -1,4 +1,15 @@
-﻿const getUniversities = () => $.ajax({
+﻿let arrayOfElements = [];
+const updateInterval = 60000; //60 seconds
+
+const updateArray = () => {
+    getUniversities().then(universityData => {
+        getCourses().then(courseData => {
+            arrayOfElements = universityData.concat(courseData);
+        }).always(() => setTimeout(updateArray, updateInterval))
+    })
+};
+
+const getUniversities = () => $.ajax({
     type: "GET",
     url: "/api/university",
     success: (res) => res
@@ -10,17 +21,9 @@ const getCourses = () => $.ajax({
     success: (res) => res
 })
 
-getUniversities().then(universityData => {
-    getCourses().then(courseData => {
-        autocomplete(document.getElementById("quickUniversitySearch"), universityData.concat(courseData))
-    })
-});
-
-function autocomplete(inp, arr) {
+function autocomplete(inp) {
     inp.addEventListener("input", function (e) {
-        let listOfItems;
-        let listItem;
-        let countOfShownItems = 0;
+        let listOfItems, listItem, countOfShownItems = 0;
         const currentInput = this.value;
 
         closeAllLists();
@@ -31,7 +34,7 @@ function autocomplete(inp, arr) {
         listOfItems.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(listOfItems);
 
-        arr.forEach(obj => {
+        arrayOfElements.forEach(obj => {
             if (obj.name.toLowerCase().includes(currentInput.toLowerCase()) && countOfShownItems < 10) {
                 countOfShownItems++;
                 const lowerCaseInput = currentInput.toLowerCase();
@@ -66,4 +69,8 @@ function autocomplete(inp, arr) {
         closeAllLists(e.target);
     });
 }
+
+updateArray();
+autocomplete(document.getElementById("quickUniversitySearch"));
+
 

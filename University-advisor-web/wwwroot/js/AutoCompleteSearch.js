@@ -46,7 +46,7 @@ function autocomplete(inp) {
 
                 listItem = document.createElement("DIV");
                 listItem.setAttribute("class", "bg-dark");
-                listItem.innerHTML += `<a class="text-white" href="/Review/${obj.aspAction}/${obj.itemId}">${combinedName}</a>`;
+                listItem.innerHTML += combinedName;
                 listItem.addEventListener("click", function (e) {
                     window.location.href = `/Review/${obj.aspAction}/${obj.itemId}`;
                     closeAllLists();

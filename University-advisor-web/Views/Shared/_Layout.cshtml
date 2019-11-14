@@ -69,6 +69,27 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["errorMessage"] != null)
+            {
+            <div class="modal" id="error-modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="col-12 text-center modal-title">@TempData["errorTitle"]</h3>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="text-center">@TempData["errorMessage"]</h5>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $("#error-modal").modal();
+            </script>
+            }
             @RenderBody()
         </main>
     </div>

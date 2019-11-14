@@ -31,13 +31,14 @@ namespace University_advisor_web
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<ILogInService, LogInService>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IErrorHandler, ErrorHandler>();
             services.AddDistributedMemoryCache();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(10000000);
                 options.Cookie.HttpOnly = true;
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;

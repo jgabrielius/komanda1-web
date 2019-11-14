@@ -13,11 +13,13 @@ namespace University_advisor_web.Controllers
     {
         private readonly ILogger _logger;
         private readonly ILogInService _login;
+        private readonly IErrorHandler _errorHandler;
 
-        public LogInController(ILogger logger, ILogInService login)
+        public LogInController(ILogger logger, ILogInService login, IErrorHandler errorHandler)
         {
             _logger = logger;
             _login = login;
+            _errorHandler = errorHandler;
         }
 
         [HttpGet]
@@ -39,7 +41,7 @@ namespace University_advisor_web.Controllers
             }
             else
             {
-                // Message for user that log in failed.
+                _errorHandler.ShowError(this, "Wrong username or password");
                 _logger.Log("User log in failed.");
             }
             return View("../LogIn/Index", model);

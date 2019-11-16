@@ -43,6 +43,14 @@ namespace University_advisor_web.Models
         public UserModel()
         {
         }
+        public void GetCurrentPassword(int userId)
+        {
+            Password = SqlDriver.Row($"SELECT password FROM users WHERE userId= " + userId.ToString() + ";")["password"].ToString();
+        }
+        public void GetCurrentEmail(int userId)
+        {
+            Email = SqlDriver.Row($"SELECT email FROM users WHERE userId= " + userId.ToString() + ";")["email"].ToString();
+        }
 
         public void ChangePassword(IPasswordHasher passwordHasher)
         {

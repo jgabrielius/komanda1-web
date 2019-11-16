@@ -38,20 +38,20 @@
             <div class="col-6">
                 <h2> Change Email:</h2>
 
-                <div class="row" oninput='currentEmail.setCustomValidity(currentEmail.value != @Model.Email ? "Incorrect email." : "")'>
-                    <div class="col" oninput='currentEmail.setCustomValidity(currentEmail.value == currentEmail.value ? "New email cannot be the same as old one." : "")'>
+                <div class="row">
+                    <div class="col">
                         <label>Current email:</label>
                         <input asp-for="CurrentEmail" type="text" id="currentEmail" class="form-control" />
                     </div>
                 </div>
 
-                <div class="row" oninput='newEmail.setCustomValidity(newEmail.value != newEmail2.value ? "Emails do not match." : "")'>
-                    <div class="col" oninput='currentEmail.setCustomValidity(currentEmail.value == newEmail.value ? "New email cannot be the same as old one." : "")'>
+                <div class="row" >
+                    <div class="col" >
                         <label>New email:</label>
                         <input asp-for="NewEmail" type="text" id="newEmail" class="form-control" />
                     </div>
                 </div>
-                <div class="row" oninput='newEmail.setCustomValidity(newEmail.value != newEmail2.value ? "Emails do not match." : "")'>
+                <div class="row">
                     <div class="col">
                         <label>Confirm new email:</label>
                         <input asp-for="NewEmail2" type="text" id="newEmail2" class="form-control" />

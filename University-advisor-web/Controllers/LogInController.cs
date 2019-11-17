@@ -37,7 +37,7 @@ namespace University_advisor_web.Controllers
                 _logger.Log("User logged in.");
                 _logger.LogStats(model);
                 HttpContext.Session.SetInt32("UserId", model.UserId);
-                return View("../LogIn/LogInSuccessfull", model);
+                return View("../Home/Index", model);
             }
             else
             {

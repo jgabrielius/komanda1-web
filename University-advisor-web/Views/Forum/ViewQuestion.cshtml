@@ -18,16 +18,23 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <label>Replies:</label>
+            </div>
+        </div>
+
         <input type="hidden" asp-for="questionId" />
         @foreach (var i in Model.GetAllReplies())
         {
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="card text-left" style="width:400px">
-                        <div class="card">
+                    <div class="card text-right" style="width:400px">
+                        <div class="card bg-info">
                             <div class="card-body">
                                 <h5 class="card-title">@i["answer"]</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Answered by id: @i["userId"]</h6>
+                                <h6 class="card-subtitle mb-2">Answered by id: @i["userId"]</h6>
                             </div>
                         </div>
                     </div>

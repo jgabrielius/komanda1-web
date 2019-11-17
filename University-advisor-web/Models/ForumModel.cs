@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using University_advisor_web.Tools;
 
 namespace University_advisor_web.Models
 {
@@ -25,7 +26,7 @@ namespace University_advisor_web.Models
             this.questionId = questionId;
             var sqlQuestion = SqlDriver.Row($"SELECT question, message, userId FROM questions WHERE questionId = {questionId};");
             question = sqlQuestion["question"].ToString();
-            userId = Int32.Parse(sqlQuestion["userId"].ToString());
+            userId = sqlQuestion["userId"].ToString().TryParse(0);
             message = sqlQuestion["message"].ToString();
         }
 

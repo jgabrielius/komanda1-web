@@ -11,8 +11,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoidGFkYXNtIiwiYSI6ImNrMmo0dzNkZjFnYmozbXA1NnpwYzR3djcifQ.oHXh2g0sVpiqLu3wmcP5uw'
 }).addTo(map);
 
-locations.forEach(university => {
-    marker = L.marker([university.Latitude, university.Longitude]);
-    marker.bindPopup(university.Name);
+locations.forEach(location => {
+    marker = L.marker([location.Latitude, location.Longitude]);
+    marker.bindPopup(`<a href='/Review/View/${location.Id}'>${location.Name}</a>`);
     marker.addTo(map);
 })

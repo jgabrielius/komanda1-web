@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using University_advisor_web.Constants;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
@@ -33,12 +34,12 @@ namespace University_advisor_web.Controllers
             model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
             if (model.IsDuplicate())
             {
-                _errorHandler.ShowError(this, "You have already submitted this type of review", "Alert");
+                _errorHandler.ShowError(this, Messages.reviewAlreadySubmitted, "Alert");
                 return RedirectToAction("Index");
             }
             else
             {
-                _logger.Log("Course review has been successfully submitted");
+                _logger.Log(Messages.courseReviewSubmitted);
                 return View(model);
             }
         }
@@ -57,11 +58,11 @@ namespace University_advisor_web.Controllers
             model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
             if (model.IsDuplicate())
             {
-                _errorHandler.ShowError(this, "You have already submitted this type of review","Alert");
+                _errorHandler.ShowError(this, Messages.reviewAlreadySubmitted,"Alert");
                 return RedirectToAction("View", new { id = id });
             } else
             {
-                _logger.Log("University review has been successfully submitted");
+                _logger.Log(Messages.universityReviewSubmitted);
                 return View(model);
             }
         }

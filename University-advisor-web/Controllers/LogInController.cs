@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using University_advisor_web.Constants;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
@@ -37,13 +38,11 @@ namespace University_advisor_web.Controllers
                 _logger.Log("User logged in.");
                 _logger.LogStats(model);
                 HttpContext.Session.SetInt32("UserId", model.UserId);
-                HttpContext.Session.SetInt32("UserUniversityId", model.UniversityId);
-                HttpContext.Session.SetInt32("UserCourseId", model.CourseId);
-                return View("../LogIn/LogInSuccessfull", model);
+                return View("../Home/Index", model);
             }
             else
             {
-                _errorHandler.ShowError(this, "Wrong username or password");
+                _errorHandler.ShowError(this, Messages.wrongUsernameOrPassword);
                 _logger.Log("User log in failed.");
             }
             return View("../LogIn/Index", model);

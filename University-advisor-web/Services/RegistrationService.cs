@@ -58,7 +58,6 @@ namespace University_advisor_web.Services
             }
             else
             {
-                // User already exists.
                 return true;
             }
         }

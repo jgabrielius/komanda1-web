@@ -35,7 +35,7 @@ namespace University_advisor_web.Controllers
         {
            if (_login.ValidateFields(model))
             {
-                _logger.Log("User logged in.");
+                _logger.Log(Messages.userLoggedIn);
                 _logger.LogStats(model);
                 HttpContext.Session.SetInt32("UserId", model.UserId);
                 return View("../Home/Index", model);
@@ -43,9 +43,9 @@ namespace University_advisor_web.Controllers
             else
             {
                 _errorHandler.ShowError(this, Messages.wrongUsernameOrPassword);
-                _logger.Log("User log in failed.");
+                _logger.Log(Messages.userLogInError);
             }
-            return View("../LogIn/Index", model);
+            return RedirectToAction("Index", model);
         }
 
     }

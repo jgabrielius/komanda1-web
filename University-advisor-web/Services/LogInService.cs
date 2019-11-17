@@ -12,12 +12,9 @@ namespace University_advisor_web.Services
     public class LogInService : ILogInService
     {
         private readonly IPasswordHasher _passwordHasher;
-        private readonly ILogger _logger;
-
-        public LogInService(IPasswordHasher passwordHasher, ILogger logger)
+        public LogInService(IPasswordHasher passwordHasher)
         {
             _passwordHasher = passwordHasher;
-            _logger = logger;
         }
 
         public bool ValidateFields(UserModel user)

@@ -3,9 +3,9 @@
     ViewData["Title"] = "Reviews";
 }
     <div class="d-flex">
-        <h1>@Model.universityName</h1>
+        <h1>@Model.UniversityName</h1>
         <div class="ml-auto align-self-center">
-            <a class="btn btn-lg btn-default" asp-controller="Review" asp-action="UniversityReview" asp-route-id="@Model.universityId">Leave a review for university</a>
+            <a class="btn btn-lg btn-default" asp-controller="Review" asp-action="UniversityReview" asp-route-id="@Model.UniversityId">Leave a review for university</a>
         </div>
     </div>
 
@@ -13,7 +13,7 @@
     <div class="col-sm-12">
         <div class="panel panel-default text-left">
             <div class="panel-body">
-                @Model.description
+                @Model.Description
             </div>
         </div>
     </div>
@@ -25,27 +25,27 @@
     <br>
     <div class="row">
         <div class="col-sm-2">
-            <h2>@Model.variety</h2>
+            <h2>@Model.Variety</h2>
             <p>Variety</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.availability</h2>
+            <h2>@Model.Availability</h2>
             <p>Availability</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.accessability</h2>
+            <h2>@Model.Accessability</h2>
             <p>Accessability</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.unions</h2>
+            <h2>@Model.Unions</h2>
             <p>Quality</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.cost</h2>
+            <h2>@Model.Cost</h2>
             <p>Unions</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.variety</h2>
+            <h2>@Model.Variety</h2>
             <p>Cost</p>
         </div>
     </div>

@@ -11,13 +11,13 @@ const updateArray = () => {
 
 const getUniversities = () => $.ajax({
     type: "GET",
-    url: "/api/university",
+    url: "/api/AutoCompleteSeach/universities",
     success: (res) => res
 })
 
 const getCourses = () => $.ajax({
     type: "GET",
-    url: "/api/course",
+    url: "/api/AutoCompleteSeach/courses",
     success: (res) => res
 })
 
@@ -72,5 +72,3 @@ function autocomplete(inp) {
 
 updateArray();
 autocomplete(document.getElementById("quickUniversitySearch"));
-
-

@@ -38,6 +38,7 @@ namespace University_advisor_web
             {
                 var command = new SQLiteCommand(sql, dbConnection);
                 var reader = command.ExecuteReader();
+                command.Dispose();
 
                 while (reader.Read())
                 {
@@ -119,6 +120,7 @@ namespace University_advisor_web
 
             //TODO add logging and error handling
             command.ExecuteNonQuery();
+            command.Dispose();
             dbConnection.Close();
             return true;
         }

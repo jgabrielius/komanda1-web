@@ -15,6 +15,7 @@ namespace University_advisor_web.Tools
             var md5 = MD5.Create();
             var inputBytes = Encoding.ASCII.GetBytes(input);
             var outputBytes = md5.ComputeHash(inputBytes);
+            md5.Dispose();
 
             var sb = new StringBuilder();
             for (var i = 0; i < outputBytes.Length; i++)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using University_advisor_web.Constants;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
@@ -10,12 +11,15 @@ namespace University_advisor_web.Controllers
     {
         private readonly ILogger _logger;
         private readonly IRegistrationService _registration;
+        private readonly IErrorHandler _errorHandler;
 
         public RegistrationController(ILogger logger, 
-                                      IRegistrationService registration)
+                                      IRegistrationService registration,
+                                      IErrorHandler errorHandler)
         {
             _logger = logger;
             _registration = registration;
+            _errorHandler = errorHandler;
         }
 
         [HttpGet]
@@ -31,14 +35,14 @@ namespace University_advisor_web.Controllers
         {
             if(_registration.AddUser(model.User))
             {
-                _logger.Log("User has been sucessfully registered");
+                _logger.Log(Messages.userRegistered);
                 _logger.LogStats(model.User);
                 return View("../Registration/UserCreated", model);
             }
             else
             {
-                // Message for user that user cannot be created.
-                _logger.Log("User cannot be created");
+                _errorHandler.ShowError(this, Messages.userRegistrationError);
+                _logger.Log(Messages.userRegistrationError);
                 return View("../Home/Index");
             }
         }

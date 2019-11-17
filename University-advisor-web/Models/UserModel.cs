@@ -25,13 +25,16 @@ namespace University_advisor_web.Models
         public string NewEmail { get; set; }
         public string NewEmail2 { get; set; }
         public string SelectedUniversity { get; set; }
+        public string SelectedCourse { get; set; }
         public string SelectedStatus { get; set; }
         public List<SelectListItem> Universities { get; set; }
+        public List<SelectListItem> Courses { get; set; }
+
         public List<SelectListItem> Statuses { get; set; }
 
         public UserModel(int userId)
         {
-            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status from universities, users, studyProgrammes WHERE users.universityid = universities.universityId and userId = " + userId.ToString() + ";");
+            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status from universities, users, studyProgrammes WHERE users.universityid = universities.universityId AND studyProgrammes.universityid = users.universityid AND studyProgrammes.studyProgramId = users.courseId AND userId = " + userId.ToString() + ";");
             UserId = userId;
             Username = sqlUser["username"].ToString();
             Email = sqlUser["email"].ToString();
@@ -44,6 +47,14 @@ namespace University_advisor_web.Models
 
         public UserModel()
         {
+        }
+        public void GetCurrentPassword(int userId)
+        {
+            Password = SqlDriver.Row($"SELECT password FROM users WHERE userId= " + userId.ToString() + ";")["password"].ToString();
+        }
+        public void GetCurrentEmail(int userId)
+        {
+            Email = SqlDriver.Row($"SELECT email FROM users WHERE userId= " + userId.ToString() + ";")["email"].ToString();
         }
 
         public void ChangePassword(IPasswordHasher passwordHasher)
@@ -58,6 +69,13 @@ namespace University_advisor_web.Models
         public void ChangeStatus()
         {
             SqlDriver.Execute($"UPDATE users SET status =@0 WHERE userid=@1;", new ArrayList { SelectedStatus, UserId });
+        }
+
+        public void ChangeCourse()
+        {
+            var newCourseIdFromDB = SqlDriver.Row("SELECT studyProgramId from studyProgrammes WHERE program ='" + SelectedCourse + "';");
+            var newCourseId = newCourseIdFromDB["studyProgramId"].ToString();
+            SqlDriver.Execute("UPDATE users SET courseId =@0 WHERE userid =@1;", new ArrayList { newCourseId, UserId });
         }
 
         public void ChangeUniversity()
@@ -90,6 +108,20 @@ namespace University_advisor_web.Models
                 new SelectListItem("Graduate", "Graduate")
             };
             return statuses;
+        }
+
+        public List<SelectListItem> GetCourses(int userId)
+        {
+            var courseResult = SqlDriver.Fetch("SELECT * FROM studyProgrammes, users WHERE studyProgrammes.universityId = users.universityId AND users.userId ="  + userId.ToString() + "; ");
+            var courses = new List<SelectListItem>();
+            if (courseResult.Count != 0)
+            {
+                foreach (Dictionary<string, object> row in courseResult)
+                {
+                    courses.Add(new SelectListItem(row["program"].ToString(), row["program"].ToString()));
+                }
+            }
+            return courses;
         }
     }
 

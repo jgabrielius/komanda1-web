@@ -24,15 +24,28 @@ namespace University_advisor_web.Models
             var sqlUniversity = SqlDriver.Row($"SELECT name, description FROM universities WHERE universityId = {universityId};");
             universityName = sqlUniversity["name"].ToString();
             description = sqlUniversity["description"].ToString();           
-            var sqlUniversityReviews = SqlDriver.Row($"SELECT avg(variety) as variety, avg(availability) as availability," +
-                $"avg(accessability) as accessability, avg(quality) as quality, avg(unions) as unions, avg(cost) as cost" +
-                $" FROM universityReviews WHERE universityId = {universityId};");            
-            variety = sqlUniversityReviews["variety"].ToString();
-            availability = sqlUniversityReviews["availability"].ToString();
-            accessability = sqlUniversityReviews["accessability"].ToString();
-            quality = sqlUniversityReviews["quality"].ToString();
-            unions = sqlUniversityReviews["unions"].ToString();
-            cost = sqlUniversityReviews["cost"].ToString();
+            var sqlUniversityReviews = SqlDriver.Row($"SELECT round(avg(variety),1) as variety, round(avg(availability),1) as availability," +
+                $"round(avg(accessability),1) as accessability, round(avg(quality),1) as quality, round(avg(unions),1) as unions, " +
+                $"round(avg(cost),1) as cost" +
+                $" FROM universityReviews WHERE universityId = {universityId};");
+            if (!String.IsNullOrEmpty(sqlUniversityReviews["variety"].ToString()))
+            {
+                variety = sqlUniversityReviews["variety"].ToString();
+                availability = sqlUniversityReviews["availability"].ToString();
+                accessability = sqlUniversityReviews["accessability"].ToString();
+                quality = sqlUniversityReviews["quality"].ToString();
+                unions = sqlUniversityReviews["unions"].ToString();
+                cost = sqlUniversityReviews["cost"].ToString();
+            }
+            else
+            {
+                variety = "N/A";
+                availability = "N/A";
+                accessability = "N/A";
+                quality = "N/A";
+                unions = "N/A";
+                cost = "N/A";
+            }     
         }
 
         public List<Dictionary<string,object>> GetUniversities()
@@ -42,7 +55,9 @@ namespace University_advisor_web.Models
 
         public List<Dictionary<string, object>> GetUniversitiesWithRatings()
         {
-            return SqlDriver.Fetch("SELECT u.universityId,name,avg(variety) as variety,avg(availability) as availability,avg(accessability) as accessability,avg(quality) as quality,avg(unions) as unions,avg(cost) as cost " +
+            return SqlDriver.Fetch("SELECT u.universityId, name, round(avg(variety),1) as variety, round(avg(availability),1) as availability, " +
+                "round(avg(accessability),1) as accessability, round(avg(quality),1) as quality, round(avg(unions),1) as unions, " +
+                "round(avg(cost),1) as cost " +
                 "FROM universities u LEFT JOIN universityReviews ur ON u.universityId=ur.universityId " +
                 "GROUP BY u.universityId,name");
         }
@@ -60,7 +75,9 @@ namespace University_advisor_web.Models
         public List<Dictionary<string, object>> GetCoursesWithRatings()
         {
             return SqlDriver.Fetch($"SELECT *," +
-                $"avg(presentation) as presentation,avg(clarity) as clarity,avg(feedback) as feedback, avg(encouragement) as encouragement,avg(effectiveness) as effectiveness,avg(satisfaction) as satisfaction " +
+                $"round(avg(presentation),1) as presentation, round(avg(clarity),1) as clarity, round(avg(feedback),1) as feedback," +
+                $" round(avg(encouragement),1) as encouragement, round(avg(effectiveness),1) as effectiveness, " +
+                $"round(avg(satisfaction),1) as satisfaction " +
                 $"FROM studyProgrammes left join courseReviews on studyProgramId=courseId" +
                 $" WHERE universityId = {universityId} group by studyProgramId,[group], direction, program, city");
         }

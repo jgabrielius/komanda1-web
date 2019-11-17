@@ -5,15 +5,15 @@ namespace University_advisor_web.Models
 {
     public class UniversityReviewModel
     {
-        public int universityId { get; set; }
-        public string universityName { get; set; }
-        public int userId { get; set; }
-        public string variety { get; set; }
-        public string availability { get; set; }
-        public string accessability { get; set; }
-        public string quality { get; set; }
-        public string unions { get; set; }
-        public string cost { get; set; }
+        public int UniversityId { get; set; }
+        public string UniversityName { get; set; }
+        public int UserId { get; set; }
+        public string Variety { get; set; }
+        public string Availability { get; set; }
+        public string Accessability { get; set; }
+        public string Quality { get; set; }
+        public string Unions { get; set; }
+        public string Cost { get; set; }
 
         public Dictionary<string,string> ratingTypes = new Dictionary<string, string>() {
             {"variety","Variety of courses"},
@@ -27,19 +27,19 @@ namespace University_advisor_web.Models
         public UniversityReviewModel() { }
         public UniversityReviewModel(int universityId)
         {
-            this.universityId = universityId;
-            universityName = SqlDriver.Row($"SELECT name FROM universities WHERE universityId ={universityId}")["name"].ToString();
+            this.UniversityId = universityId;
+            UniversityName = SqlDriver.Row($"SELECT name FROM universities WHERE universityId ={universityId}")["name"].ToString();
         }
 
         public void SaveReviews()
         {
             SqlDriver.Execute("INSERT INTO universityReviews (variety,availability,accessability,quality,unions,cost,universityId,userId) " +
-                "values (@0,@1,@2,@3,@4,@5,@6,@7)", new ArrayList() { variety, availability, accessability, quality, unions, cost, universityId, userId});
+                "values (@0,@1,@2,@3,@4,@5,@6,@7)", new ArrayList() { Variety, Availability, Accessability, Quality, Unions, Cost, UniversityId, UserId});
         }
 
         public bool IsDuplicate()
         {
-            return SqlDriver.Exists($"SELECT * FROM universityReviews WHERE userId ={userId} AND universityId={universityId}");
+            return SqlDriver.Exists($"SELECT * FROM universityReviews WHERE userId ={UserId} AND universityId={UniversityId}");
         }
     }
 }

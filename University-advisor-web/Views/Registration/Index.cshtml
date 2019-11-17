@@ -33,11 +33,11 @@
         <div class="row justify-content-center" oninput='oldPassword.setCustomValidity(oldPassword.value != newPassword.value ? "Passwords do not match." : "")'>
             <div class="col-lg-4">
                 <label asp-for="User.Password">Password</label>
-                <input asp-for="User.Password" type="password" id="oldPassword" class="form-control" required="" />
+                <input asp-for="User.Password" type="password" minlength="6" id="oldPassword" class="form-control" required="" />
             </div>
             <div class="col-lg-4">
                 <label>Repeat password</label>
-                <input type="password" class="form-control" id="newPassword" required="" />
+                <input type="password" minlength="6" class="form-control" id="newPassword" required="" />
             </div>
         </div>
 
@@ -51,7 +51,6 @@
                 <select asp-items="Model.Statuses" asp-for="User.Status" class="form-control" required=""></select>
             </div>
         </div>
-
         <div class="row justify-content-center">
             <div class="col-lg-4">
                 <label> Select Course</label>

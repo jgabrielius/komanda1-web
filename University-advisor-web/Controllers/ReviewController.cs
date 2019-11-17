@@ -30,8 +30,10 @@ namespace University_advisor_web.Controllers
 
         public IActionResult CourseReview(int id)
         {
-            var model = new CourseReviewModel(id);
-            model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            var model = new CourseReviewModel(id)
+            {
+                UserId = HttpContext.Session.GetInt32("UserId") ?? 0
+            };
             if (model.IsDuplicate())
             {
                 _errorHandler.ShowError(this, Messages.reviewAlreadySubmitted, "Alert");
@@ -47,19 +49,21 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult SubmitCourseReview(CourseReviewModel model)
         {
-            model.userId = HttpContext.Session.GetInt32("UserId")??0;
+            model.UserId = HttpContext.Session.GetInt32("UserId")??0;
             model.SaveReviews();
             return RedirectToAction("Index");
         }
 
         public IActionResult UniversityReview(int id)
         {
-            var model = new UniversityReviewModel(id);
-            model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            var model = new UniversityReviewModel(id)
+            {
+                UserId = HttpContext.Session.GetInt32("UserId") ?? 0
+            };
             if (model.IsDuplicate())
             {
                 _errorHandler.ShowError(this, Messages.reviewAlreadySubmitted,"Alert");
-                return RedirectToAction("View", new { id = id });
+                return RedirectToAction("View", new { id });
             } else
             {
                 _logger.Log(Messages.universityReviewSubmitted);
@@ -70,7 +74,7 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult SubmitUniversityReview(UniversityReviewModel model)
         {
-            model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.SaveReviews();
             return RedirectToAction("Index");
         }

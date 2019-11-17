@@ -8,10 +8,12 @@ namespace University_advisor_web.Controllers
     public class ReviewController : Controller
     {
         private readonly ILogger _logger;
+        private readonly IErrorHandler _errorHandler;
 
-        public ReviewController(ILogger logger)
+        public ReviewController(ILogger logger,IErrorHandler errorHandler)
         {
             _logger = logger;
+            _errorHandler = errorHandler;
         }
         public IActionResult Index()
         {
@@ -31,7 +33,7 @@ namespace University_advisor_web.Controllers
             model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
             if (model.IsDuplicate())
             {
-                //TODO once we have error messages add one here
+                _errorHandler.ShowError(this, "You have already submitted this type of review", "Alert");
                 return RedirectToAction("Index");
             }
             else
@@ -55,8 +57,8 @@ namespace University_advisor_web.Controllers
             model.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
             if (model.IsDuplicate())
             {
-                //TODO once we have error messages add one here
-                return RedirectToAction("Index");
+                _errorHandler.ShowError(this, "You have already submitted this type of review","Alert");
+                return RedirectToAction("View", new { id = id });
             } else
             {
                 _logger.Log("University review has been successfully submitted");

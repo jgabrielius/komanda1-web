@@ -9,20 +9,20 @@
                 <h2> Change Password:</h2>
 
 
-                <div class="row" oninput='currentPassword.setCustomValidity(currentPassword.value != @Model.Password ? "Incorrect password." : "")'>
-                    <div class="col" oninput='currentPassword.setCustomValidity(currentPassword.value == newPassword.value ? "New password cannot be the same as old one." : "")'>
+                <div class="row" >
+                    <div class="col" >
                         <label>Current password:</label>
                         <input asp-for="CurrentPassword" type="password" id="currentPassword" class="form-control" />
                     </div>
                 </div>
 
-                <div class="row" oninput='newPassword.setCustomValidity(newPassword.value != newPassword2.value ? "Passwords do not match." : "")'>
-                    <div class="col" oninput='currentPassword.setCustomValidity(currentPassword.value == newPassword.value ? "New password cannot be the same as old one." : "")'>
+                <div class="row" >
+                    <div class="col">
                         <label>New password:</label>
                         <input asp-for="NewPassword" type="password" id="newPassword" class="form-control" />
                     </div>
                 </div>
-                <div class="row" oninput='newPassword.setCustomValidity(newPassword.value != newPassword2.value ? "Passwords do not match." : "")'>
+                <div class="row" >
                     <div class="col">
                         <label>Confirm new password:</label>
                         <input asp-for="NewPassword2" type="password" id="newPassword2" class="form-control" />
@@ -41,20 +41,20 @@
                 <div class="row">
                     <div class="col">
                         <label>Current email:</label>
-                        <input asp-for="CurrentEmail" type="text" id="currentEmail" class="form-control" />
+                        <input asp-for="CurrentEmail" type="email" id="currentEmail" class="form-control" />
                     </div>
                 </div>
 
                 <div class="row" >
                     <div class="col" >
                         <label>New email:</label>
-                        <input asp-for="NewEmail" type="text" id="newEmail" class="form-control" />
+                        <input asp-for="NewEmail" type="email" id="newEmail" class="form-control" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <label>Confirm new email:</label>
-                        <input asp-for="NewEmail2" type="text" id="newEmail2" class="form-control" />
+                        <input asp-for="NewEmail2" type="email" id="newEmail2" class="form-control" />
                     </div>
                 </div>
 

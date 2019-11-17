@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using University_advisor_web.Constants;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
@@ -30,7 +31,7 @@ namespace University_advisor_web.Controllers
         {
             var model = new MapModel(address, "Universities", range);
             // Code to test if logging works correctly.
-            _logger.Log("Nearby universities were successfully displayed");
+            _logger.Log(Messages.nearbyUniversitiesDisplayed);
             return View(model);
         }
     }

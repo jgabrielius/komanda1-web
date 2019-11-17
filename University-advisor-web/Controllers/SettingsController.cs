@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using University_advisor_web.Constants;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
@@ -37,7 +38,7 @@ namespace University_advisor_web.Controllers
             {
                 if (_passwordHasher.CreateMD5(model.CurrentPassword) == _passwordHasher.CreateMD5(model.NewPassword))
                 {
-                    _errorHandler.ShowError(this, "New password can't be the same as old one.");
+                    _errorHandler.ShowError(this, Messages.newPasswordSameAsOldError);
                 }
                 else
                 {
@@ -48,13 +49,13 @@ namespace University_advisor_web.Controllers
                     }
                     else
                     {
-                        _errorHandler.ShowError(this, "Passwords don't match.");
+                        _errorHandler.ShowError(this, Messages.passwordsDontMatch);
                     }
                 }
             }
             else
             {
-                _errorHandler.ShowError(this, "Incorrect password.");
+                _errorHandler.ShowError(this, Messages.incorrectPassword);
             }
             return RedirectToAction("Index", model);
 
@@ -68,7 +69,7 @@ namespace University_advisor_web.Controllers
             {
                 if (model.CurrentEmail == model.NewEmail)
                 {
-                    _errorHandler.ShowError(this, "New email can't be the same as old one.");
+                    _errorHandler.ShowError(this, Messages.newEmailSameAsOldError);
                 }
                 else
                 {
@@ -79,13 +80,13 @@ namespace University_advisor_web.Controllers
                     }
                     else
                     {
-                        _errorHandler.ShowError(this, "Emails don't match.");
+                        _errorHandler.ShowError(this, Messages.emailsDontMatch);
                     }
                 }
             }
             else
             {
-                _errorHandler.ShowError(this, "Incorrect email.");
+                _errorHandler.ShowError(this, Messages.incorrectEmail);
             }
             return RedirectToAction("Index", model);
         }

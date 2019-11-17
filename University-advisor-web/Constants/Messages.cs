@@ -9,6 +9,8 @@ namespace University_advisor_web.Constants
     {
         //Log in
         public static string wrongUsernameOrPassword = "Wrong username or password.";
+        public static string userLoggedIn = "User logged in.";
+        public static string userLogInError = "User log in failed.";
         //Map
         public static string nearbyUniversitiesDisplayed = "Nearby universities were successfully displayed.";
         //Registration

@@ -10,11 +10,13 @@ namespace University_advisor_web.Models
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Name { get; set; }
-        public MarkerModel(double lat, double lon, string name = "")
+        public int Id { get; set; }
+        public MarkerModel(double lat, double lon, string name = "", int id = 0)
         {
             Latitude = lat;
             Longitude = lon;
             Name = name;
+            Id = id;
         }
     }
 }

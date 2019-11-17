@@ -8,5 +8,6 @@ namespace University_advisor_web.Interfaces
     {
         public bool AddUser(UserModel user);
         public List<SelectListItem> GetAllUniversities();
+        public List<SelectListItem> GetAllCourses();
     }
 }

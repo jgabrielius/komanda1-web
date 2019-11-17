@@ -1,26 +1,29 @@
-﻿const getUniversities = () => $.ajax({
+﻿let arrayOfElements = [];
+const updateInterval = 60000; //60 seconds
+
+const updateArray = () => {
+    getUniversities().then(universityData => {
+        getCourses().then(courseData => {
+            arrayOfElements = universityData.concat(courseData);
+        }).always(() => setTimeout(updateArray, updateInterval))
+    })
+};
+
+const getUniversities = () => $.ajax({
     type: "GET",
-    url: "/api/university",
+    url: "/api/AutoCompleteSeach/universities",
     success: (res) => res
 })
 
 const getCourses = () => $.ajax({
     type: "GET",
-    url: "/api/course",
+    url: "/api/AutoCompleteSeach/courses",
     success: (res) => res
 })
 
-getUniversities().then(universityData => {
-    getCourses().then(courseData => {
-        autocomplete(document.getElementById("quickUniversitySearch"), universityData.concat(courseData))
-    })
-});
-
-function autocomplete(inp, arr) {
+function autocomplete(inp) {
     inp.addEventListener("input", function (e) {
-        let listOfItems;
-        let listItem;
-        let countOfShownItems = 0;
+        let listOfItems, listItem, countOfShownItems = 0;
         const currentInput = this.value;
 
         closeAllLists();
@@ -31,7 +34,7 @@ function autocomplete(inp, arr) {
         listOfItems.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(listOfItems);
 
-        arr.forEach(obj => {
+        arrayOfElements.forEach(obj => {
             if (obj.name.toLowerCase().includes(currentInput.toLowerCase()) && countOfShownItems < 10) {
                 countOfShownItems++;
                 const lowerCaseInput = currentInput.toLowerCase();
@@ -43,7 +46,7 @@ function autocomplete(inp, arr) {
 
                 listItem = document.createElement("DIV");
                 listItem.setAttribute("class", "bg-dark");
-                listItem.innerHTML += `<a class="text-white" href="/Review/${obj.aspAction}/${obj.itemId}">${combinedName}</a>`;
+                listItem.innerHTML += combinedName;
                 listItem.addEventListener("click", function (e) {
                     window.location.href = `/Review/${obj.aspAction}/${obj.itemId}`;
                     closeAllLists();
@@ -67,3 +70,5 @@ function autocomplete(inp, arr) {
     });
 }
 
+updateArray();
+autocomplete(document.getElementById("quickUniversitySearch"));

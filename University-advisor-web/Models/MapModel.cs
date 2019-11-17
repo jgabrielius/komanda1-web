@@ -28,7 +28,7 @@ namespace University_advisor_web.Models
             MapCenter = new GeoCoordinate(geoCoordinate.Item1, geoCoordinate.Item2); 
             Range = range;
             Address = address;
-            if (showOnMap == "Universities") LocationsInRange = GetLocationsInRangeMarkers(SqlDriver.Fetch("SELECT name,latitude,longitude FROM universities"));
+            if (showOnMap == "Universities") LocationsInRange = GetLocationsInRangeMarkers(SqlDriver.Fetch("SELECT name,latitude,longitude,universityId FROM universities"));
             else LocationsInRange = new List<MarkerModel>();
         }
         public (double, double) GetCoordinates(string url)
@@ -60,11 +60,13 @@ namespace University_advisor_web.Models
                 var name = location["name"].ToString();
                 var lat = location["latitude"].ToString();
                 var lon = location["longitude"].ToString();
+                var id = Convert.ToInt32(location["universityId"].ToString());
+                
 
                 var distance = GetDistance(MapCenter.Latitude, MapCenter.Longitude, Convert.ToDouble(lat), Convert.ToDouble(lon));
                 if (distance <= Range * 1000 || Range == 0)
                 {
-                    var newMarker = new MarkerModel(Convert.ToDouble(lat), Convert.ToDouble(lon), name);
+                    var newMarker = new MarkerModel(Convert.ToDouble(lat), Convert.ToDouble(lon), name, id);
                     LocationsInRange.Add(newMarker);
                 }
             }

@@ -79,13 +79,13 @@ namespace University_advisor_web.Services
 
         public List<SelectListItem> GetAllCourses()
         {
-            var courseResult = SqlDriver.Fetch("Select program FROM studyProgrammes");
+            var courseResult = SqlDriver.Fetch("Select program, studyProgramId FROM studyProgrammes");
             var courses = new List<SelectListItem>();
             if (courseResult.Count != 0)
             {
                 foreach (Dictionary<string, object> row in courseResult)
                 {
-                    courses.Add(new SelectListItem(row["program"].ToString(), row["program"].ToString()));
+                    courses.Add(new SelectListItem(row["program"].ToString(), row["studyProgramId"].ToString()));
                 }
             }
             return courses;

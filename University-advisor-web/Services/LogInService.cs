@@ -23,10 +23,12 @@ namespace University_advisor_web.Services
         public bool ValidateFields(UserModel user)
         {
             var hashedPassword = _passwordHasher.CreateMD5(user.Password);
-            Dictionary<string, object> result = SqlDriver.Row($"SELECT userid from users WHERE username='{user.Username}' AND password='{hashedPassword}';");
+            Dictionary<string, object> result = SqlDriver.Row($"SELECT userId, universityId, courseId from users WHERE username='{user.Username}' AND password='{hashedPassword}';");
             if(result != null && result.Count > 0)
             {
                 user.UserId = (int)(long)result["userId"];
+                user.UniversityId = (int)(long)result["universityId"];
+                user.CourseId = (int)(long)result["courseId"];
             }
             else
             {

@@ -21,7 +21,7 @@ namespace University_advisor_web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new RegistrationFormModel(_registration.GetAllUniversities());
+            var model = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
             return View(model);
         }
        
@@ -33,14 +33,14 @@ namespace University_advisor_web.Controllers
             {
                 _logger.Log("User has been sucessfully registered");
                 _logger.LogStats(model.User);
+                return View("../Registration/UserCreated", model);
             }
             else
             {
                 // Message for user that user cannot be created.
                 _logger.Log("User cannot be created");
+                return View("../Home/Index");
             }
-
-            return View("../Registration/UserCreated", model);
         }
 
 

@@ -26,11 +26,11 @@ namespace University_advisor_web.Services
             {
                 try
                 {
-                    var universityId = SqlDriver.Row($"SELECT universityId from universities where name='{user.University}';")["universityId"].ToString();
-
-                    if (SqlDriver.Execute("INSERT INTO users (username, first_name, last_name, email, universityId, status, password) " +
-                        "values (@0,@1,@2,@3,@4,@5,@6)", 
-                        new ArrayList() { user.Username, user.FirstName, user.LastName, user.Email, universityId , user.Status, _passwordHasher.CreateMD5(user.Password)}))
+                    var universityId = SqlDriver.Row($"SELECT universityId from universities WHERE name='{user.University}';")["universityId"].ToString();
+                    var courseId = SqlDriver.Row($"SELECT studyProgramId from studyProgrammes WHERE program='{user.Course}';")["studyProgramId"].ToString();
+                    if (SqlDriver.Execute("INSERT INTO users (username, first_name, last_name, email, universityId, courseId, status, password) " +
+                        "values (@0,@1,@2,@3,@4,@5,@6,@7)", 
+                        new ArrayList() { user.Username, user.FirstName, user.LastName, user.Email, universityId, courseId , user.Status, _passwordHasher.CreateMD5(user.Password)}))
                     {
                         return true;
                     }
@@ -65,7 +65,7 @@ namespace University_advisor_web.Services
 
         public List<SelectListItem> GetAllUniversities()
         {
-            var universityResult = SqlDriver.Fetch("SELECT name, universityId FROM universities");
+            var universityResult = SqlDriver.Fetch("SELECT name FROM universities");
             var universities = new List<SelectListItem>();
             if (universityResult.Count != 0)
             {
@@ -75,6 +75,20 @@ namespace University_advisor_web.Services
                 }
             }
             return universities;
+        }
+
+        public List<SelectListItem> GetAllCourses()
+        {
+            var courseResult = SqlDriver.Fetch("Select program FROM studyProgrammes");
+            var courses = new List<SelectListItem>();
+            if (courseResult.Count != 0)
+            {
+                foreach (Dictionary<string, object> row in courseResult)
+                {
+                    courses.Add(new SelectListItem(row["program"].ToString(), row["program"].ToString()));
+                }
+            }
+            return courses;
         }
     }
 }

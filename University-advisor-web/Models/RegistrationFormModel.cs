@@ -12,9 +12,10 @@ namespace University_advisor_web.Models
         {
 
         }
-        public RegistrationFormModel(List<SelectListItem> universityList)
+        public RegistrationFormModel(List<SelectListItem> universityList, List<SelectListItem> coursesList)
         {
             Universities = universityList;
+            Courses = coursesList;
             Statuses = new List<SelectListItem>
             {
                 new SelectListItem("Student", "Student"),
@@ -24,6 +25,7 @@ namespace University_advisor_web.Models
         }
         public UserModel User { get; set; }
         public List<SelectListItem> Universities { get; set; }
+        public List<SelectListItem> Courses { get; set; }
         public List<SelectListItem> Statuses { get; set; }
     }
 }

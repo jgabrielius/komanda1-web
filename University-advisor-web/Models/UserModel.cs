@@ -15,6 +15,7 @@ namespace University_advisor_web.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string University { get; set; }
+        public string Course { get; set; }
         public string Status { get; set; }
         public string Password { get; set; }
         public string CurrentPassword { get; set; }
@@ -30,13 +31,14 @@ namespace University_advisor_web.Models
 
         public UserModel(int userId)
         {
-            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, status from universities, users WHERE users.universityid = universities.universityId and userId = " + userId.ToString() + ";");
+            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status from universities, users, studyProgrammes WHERE users.universityid = universities.universityId and userId = " + userId.ToString() + ";");
             UserId = userId;
             Username = sqlUser["username"].ToString();
             Email = sqlUser["email"].ToString();
             FirstName = sqlUser["first_name"].ToString();
             LastName = sqlUser["last_name"].ToString();
             University = sqlUser["name"].ToString();
+            Course = sqlUser["program"].ToString();
             Status = sqlUser["status"].ToString();
         }
 

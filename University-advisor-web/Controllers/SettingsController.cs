@@ -24,6 +24,7 @@ namespace University_advisor_web.Controllers
             var model = new UserModel(HttpContext.Session.GetInt32("UserId") ?? 0);
             model.Universities = model.GetAllUniversities();
             model.Statuses = model.GetAllStatuses();
+            ModelState.Clear();
             return View(model);
         }
 

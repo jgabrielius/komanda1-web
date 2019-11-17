@@ -25,6 +25,7 @@ namespace University_advisor_web.Controllers
             var model = new UserModel(HttpContext.Session.GetInt32("UserId") ?? 0);
             model.Universities = model.GetAllUniversities();
             model.Statuses = model.GetAllStatuses();
+            model.Courses = model.GetCourses(HttpContext.Session.GetInt32("UserId") ?? 0);
             ModelState.Clear();
             return View(model);
         }
@@ -96,6 +97,14 @@ namespace University_advisor_web.Controllers
         {
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangeUniversity();
+            return View("../Settings/ChangeSuccessfull", model);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeCourse(UserModel model)
+        {
+            model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            model.ChangeCourse();
             return View("../Settings/ChangeSuccessfull", model);
         }
 

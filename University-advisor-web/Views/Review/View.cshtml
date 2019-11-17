@@ -5,12 +5,12 @@
     ViewData["Title"] = "Reviews";
 }
 <div class="d-flex">
-    <h1 id="universityName">@Model.universityName</h1>
+    <h1 id="universityName">@Model.UniversityName</h1>
     <div id="reviewAnchorDiv" class="ml-auto align-self-center">
         <input type="hidden" id="value1" value="" />
         <input type="hidden" id="value2" value="" />
         <script>
-            document.getElementById('value1').value = JSON.stringify(@Model.universityId);
+            document.getElementById('value1').value = JSON.stringify(@Model.UniversityId);
             document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserUniversityId"));
         </script>
         <script src="~/js/AddUniversityReviewAnchor.js" type="text/javascript"></script>
@@ -21,7 +21,7 @@
     <div class="col-sm-12">
         <div class="panel panel-default text-left">
             <div class="panel-body">
-                @Model.description
+                @Model.Description
             </div>
         </div>
     </div>
@@ -33,27 +33,27 @@
     <br>
     <div class="row">
         <div class="col-sm-2">
-            <h2>@Model.variety</h2>
+            <h2>@Model.Variety</h2>
             <p>Variety</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.availability</h2>
+            <h2>@Model.Availability</h2>
             <p>Availability</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.accessability</h2>
+            <h2>@Model.Accessability</h2>
             <p>Accessability</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.unions</h2>
+            <h2>@Model.Unions</h2>
             <p>Quality</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.cost</h2>
+            <h2>@Model.Cost</h2>
             <p>Unions</p>
         </div>
         <div class="col-sm-2">
-            <h2>@Model.variety</h2>
+            <h2>@Model.Variety</h2>
             <p>Cost</p>
         </div>
     </div>

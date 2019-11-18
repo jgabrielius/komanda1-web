@@ -13,7 +13,7 @@ namespace University_advisor_web.Controllers
         private readonly ILogger _logger;
         private readonly IErrorHandler _errorHandler;
 
-        public delegate void Print(int value);
+        public delegate void PrintError(string message,string titl);
 
         public ReviewController(ILogger logger,IErrorHandler errorHandler)
         {
@@ -35,13 +35,14 @@ namespace University_advisor_web.Controllers
 
         public IActionResult CourseReview(int id)
         {
+            PrintError printError = DuplicateCourseReview;
             var model = new CourseReviewModel(id)
             {
                 UserId = HttpContext.Session.GetInt32("UserId") ?? 0
             };
             if (model.IsDuplicate())
             {
-                _errorHandler.ShowError(this, Messages.reviewAlreadySubmitted, "Alert");
+                printError.Invoke(Messages.reviewAlreadySubmitted, "Alert");
                 return RedirectToAction("Index");
             }
             else
@@ -49,6 +50,11 @@ namespace University_advisor_web.Controllers
                 _logger.Log(Messages.courseReviewSubmitted);
                 return View(model);
             }
+        }
+
+        private void DuplicateCourseReview(string message,string title)
+        {
+            _errorHandler.ShowError(this, message, "Alert");
         }
 
         [HttpPost]

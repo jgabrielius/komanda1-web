@@ -44,7 +44,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-4">
                     <label> Select university</label>
-                    <select asp-items="Model.Universities" asp-for="User.University" class="form-control" required=""></select>
+                    <select id="universitySelect" asp-items="Model.Universities" asp-for="User.University" class="form-control" required=""></select>
                 </div>
                 <div class="col-lg-4">
                     <label> Select status </label>
@@ -54,7 +54,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-4">
                     <label> Select Course</label>
-                    <select asp-items="Model.Courses" asp-for="User.Course" class="form-control" required=""></select>
+                    <select id="courseSelect" asp-items="Model.Courses" asp-for="User.Course" class="form-control" required=""></select>
                 </div>
             </div>
 
@@ -66,3 +66,4 @@
 
         </form>
     </div>
+<script src="~/js/ChangeCourseList.js" type="text/javascript"></script>

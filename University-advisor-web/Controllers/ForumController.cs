@@ -4,12 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
 namespace University_advisor_web.Controllers
 {
     public class ForumController : Controller
     {
+        private readonly IErrorHandler _errorHandler;
+        public ForumController(IErrorHandler errorHandler)
+        {
+            _errorHandler = errorHandler;
+        }
         [HttpGet]
         public IActionResult Index()
         {
@@ -19,30 +25,37 @@ namespace University_advisor_web.Controllers
         [HttpGet]
         public IActionResult Question()
         {
-            var userQuestion = new QuestionModel();
-            return View(userQuestion);
+            var forumModel = new ForumModel();
+            return View(forumModel);
         }
 
         [HttpPost]
-        public IActionResult Question(QuestionModel userQuestion)
+        public IActionResult Question(ForumModel forumModel)
         {
-            //userQuestion.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
-            //userQuestion.SaveQuestion();
-            return View("../Forum/SubmittedQuestion", userQuestion);
+            forumModel.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            forumModel.SaveQuestion();
+            return View("../Forum/SubmittedQuestion", forumModel);
         }
 
         [HttpGet]
         public IActionResult Questions()
         {
-            var questions = new QuestionModel();
-            return View(questions);
+            var forumModel = new ForumModel();
+            return View(forumModel);
         }
 
-        [HttpGet]
-        public IActionResult ViewQuestion(int questionId)
+        public IActionResult ViewQuestion(int id)
         {
-            var model = new QuestionModel(questionId);
-            return View(model);
+            var forumModel = new ForumModel(id);
+            return View(forumModel);
+        }
+
+        public IActionResult Reply(ForumModel forumModel)
+        {
+            forumModel.userIdReply = HttpContext.Session.GetInt32("UserId") ?? 0;
+            forumModel.SaveReply();
+            forumModel.answer = String.Empty;
+            return RedirectToAction("Questions");
         }
     }
 }

@@ -28,5 +28,11 @@ namespace University_advisor_web.Constants
         public static string newPasswordSameAsOldError = "New password can't be the same as old one.";
         public static string passwordsDontMatch = "Passwords don't match.";
         public static string incorrectPassword = "Incorrect password.";
+        //Settings
+        public static string emailChangeSuccessfull = "Email changed successfully.";
+        public static string passwordChangeSuccessfull = "Password changed successfully.";
+        public static string universityChangeSuccessfull = "University changed successfully.";
+        public static string courseChangeSuccessfull = "Course changed successfully.";
+        public static string statusChangeSuccessfull = "Status changed successfully.";
     }
 }

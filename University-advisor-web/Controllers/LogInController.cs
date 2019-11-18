@@ -41,6 +41,8 @@ namespace University_advisor_web.Controllers
                 failedLogIn.Invoke(Messages.userLoggedIn);
                 _logger.LogStats(model);
                 HttpContext.Session.SetInt32("UserId", model.UserId);
+                HttpContext.Session.SetInt32("UserUniversityId", model.UniversityId);
+                HttpContext.Session.SetInt32("UserCourseId", model.CourseId);
                 return View("../Home/Index", model);
             }
             else

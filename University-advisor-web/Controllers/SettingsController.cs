@@ -97,6 +97,7 @@ namespace University_advisor_web.Controllers
         {
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangeUniversity();
+            HttpContext.Session.SetInt32("UserUniversityId", Convert.ToInt32(model.UniversityId));
             return View("../Settings/ChangeSuccessfull", model);
         }
 
@@ -105,6 +106,9 @@ namespace University_advisor_web.Controllers
         {
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangeCourse();
+            HttpContext.Session.SetInt32("UserCourseId", Convert.ToInt32(model.CourseId));
+
+
             return View("../Settings/ChangeSuccessfull", model);
         }
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using University_advisor_web.Interfaces;
 
@@ -77,6 +78,7 @@ namespace University_advisor_web.Models
         {
             var newCourseIdFromDB = SqlDriver.Row("SELECT studyProgramId from studyProgrammes WHERE program ='" + SelectedCourse + "';");
             var newCourseId = newCourseIdFromDB["studyProgramId"].ToString();
+            CourseId = Convert.ToInt32(newCourseId);
             SqlDriver.Execute("UPDATE users SET courseId =@0 WHERE userid =@1;", new ArrayList { newCourseId, UserId });
         }
 
@@ -84,6 +86,7 @@ namespace University_advisor_web.Models
         {
             var newUniversityIdFromDB = SqlDriver.Row("SELECT universityid from universities WHERE name ='" + SelectedUniversity + "';");
             var newUniversityId = newUniversityIdFromDB["universityId"].ToString();
+            UniversityId = Convert.ToInt32(newUniversityId);
             SqlDriver.Execute("UPDATE users SET universityid =@0 WHERE userid =@1;", new ArrayList { newUniversityId, UserId });
         }
 

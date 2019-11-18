@@ -16,6 +16,7 @@ namespace University_advisor_web.Models
         public int answerId { get; set; }
         public int userIdReply { get; set; }
         public string answer { get; set; }
+        private delegate int Randomize();
         public ForumModel()
         {
 
@@ -32,8 +33,12 @@ namespace University_advisor_web.Models
 
         public void SaveQuestion()
         {
-            Random random = new Random();
-            int id = random.Next();
+            Randomize randomize = delegate ()
+            {
+                Random random = new Random();
+                return random.Next();
+            };
+            var id = randomize();
             questionId = id;
             SqlDriver.Execute("INSERT INTO questions (userId,questionId,question,message) " +
                 "values (@0,@1,@2,@3)", new ArrayList() { userId, questionId, question, message});
@@ -41,8 +46,12 @@ namespace University_advisor_web.Models
 
         public void SaveReply()
         {
-            Random random = new Random();
-            int id = random.Next();
+            Randomize randomize = delegate ()
+            {
+                Random random = new Random();
+                return random.Next();
+            };
+            var id = randomize();
             answerId = id;
             SqlDriver.Execute("INSERT INTO answers (userId,answerId,questionId,answer) " +
                 "values (@0,@1,@2,@3)", new ArrayList() { userIdReply, answerId, questionId, answer });

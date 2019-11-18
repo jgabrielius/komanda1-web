@@ -29,7 +29,6 @@ namespace University_advisor_web.Controllers
             return View(model);
         }
        
-
         [HttpPost]
         public IActionResult SignUp(RegistrationFormModel model)
         {
@@ -37,7 +36,7 @@ namespace University_advisor_web.Controllers
             {
                 _logger.Log(Messages.userRegistered);
                 _logger.LogStats(model.User);
-                return View("../Registration/UserCreated", model);
+                return View("../Home/Index");
             }
             else
             {

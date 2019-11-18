@@ -1,0 +1,35 @@
+﻿@model ForumModel
+@{
+    ViewData["Title"] = "SubmittedQuestion";
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <h6>Your question: </h6>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <label><i>@Model.question</i></label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <h6>Description: </h6>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <label><i>@Model.message</i></label>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-lg-4">
+        <a asp-controller="Forum" asp-action="Index" class="btn btn-primary">Go back</a>
+    </div>
+</div>
+

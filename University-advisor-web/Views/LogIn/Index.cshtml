@@ -1,0 +1,37 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="text-center">
+        <form asp-controller="LogIn" role="form" method="post" enctype="multipart/form-data" id="logInForm">
+
+            <div class="mb-2">
+                <h2> Log In</h2>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <label asp-for="Username">Username</label>
+                    <input asp-for="Username" type="text" class="form-control" required="" />
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <label asp-for="Password">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" required="" />
+                </div>
+            </div>
+
+            <div class="row mt-3  justify-content-center">
+                <div class="col-lg-2">
+                    <button class="btn btn-lg btn-primary" asp-controller="LogIn" asp-action="LogIn">Log in</button>
+                </div>
+                <div class="col-lg-2">
+                    <a class="btn btn-lg btn-default" asp-controller="Registration" asp-action="Index">Sign Up</a>
+                </div>
+            </div>
+
+        </form>
+    </div>

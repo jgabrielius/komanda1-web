@@ -1,4 +1,4 @@
-﻿@model QuestionModel
+﻿@model ForumModel
 @{
     ViewData["Title"] = "Questions";
 }
@@ -16,11 +16,11 @@
         @foreach (var i in Model.GetAllQuestions())
         {
         <tr>
-            <td>@i.questionId</td>
-            <td>@i.question</td>
-            <td>@i.message</td>
-            <td>@i.userId</td>
-            <td><a class="btn btn-primary" asp-controller="Forum" asp-action="ViewQuestion" asp-route-id="@i.questionId">View question</a></td>
+            <td>@i["questionId"]</td>
+            <td>@i["question"]</td>
+            <td>@i["message"]</td>
+            <td>@i["userId"]</td>
+            <td><a class="btn btn-primary" asp-controller="Forum" asp-action="ViewQuestion" asp-route-id="@i["questionId"]">View question</a></td>
         </tr>
         }
     </tbody>

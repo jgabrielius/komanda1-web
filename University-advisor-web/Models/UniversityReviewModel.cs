@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
+using System;
+using University_advisor_web.Constants;
 
 namespace University_advisor_web.Models
 {
@@ -14,6 +16,8 @@ namespace University_advisor_web.Models
         public string Quality { get; set; }
         public string Unions { get; set; }
         public string Cost { get; set; }
+
+        public event EventHandler<DuplicateReviewEventArgs> DuplicateReview;
 
         public Dictionary<string,string> ratingTypes = new Dictionary<string, string>() {
             {"variety","Variety of courses"},
@@ -39,7 +43,21 @@ namespace University_advisor_web.Models
 
         public bool IsDuplicate()
         {
-            return SqlDriver.Exists($"SELECT * FROM universityReviews WHERE userId ={UserId} AND universityId={UniversityId}");
+            if(SqlDriver.Exists($"SELECT * FROM universityReviews WHERE userId ={UserId} AND universityId={UniversityId}"))
+            {
+                DuplicateReviewEventArgs args = new DuplicateReviewEventArgs();
+                args.Message = Messages.reviewAlreadySubmitted;
+                args.Id = UniversityId;
+                DuplicateReview?.Invoke(this, args);
+                return true;
+            }
+            return false;
+        }
+
+        public class DuplicateReviewEventArgs : EventArgs
+        {
+            public string Message { get; set; }
+            public int Id { get; set; }
         }
     }
 }

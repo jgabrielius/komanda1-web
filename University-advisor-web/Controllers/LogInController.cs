@@ -16,6 +16,8 @@ namespace University_advisor_web.Controllers
         private readonly ILogInService _login;
         private readonly IErrorHandler _errorHandler;
 
+        private delegate void FailedLogIn(string s);
+
         public LogInController(ILogger logger, ILogInService login, IErrorHandler errorHandler)
         {
             _logger = logger;
@@ -33,11 +35,14 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult LogIn(UserModel model)
         {
-           if (_login.ValidateFields(model))
+            FailedLogIn failedLogIn = LogFailedLogIn;
+            if (_login.ValidateFields(model))
             {
-                _logger.Log(Messages.userLoggedIn);
+                failedLogIn.Invoke(Messages.userLoggedIn);
                 _logger.LogStats(model);
                 HttpContext.Session.SetInt32("UserId", model.UserId);
+                HttpContext.Session.SetInt32("UserUniversityId", model.UniversityId);
+                HttpContext.Session.SetInt32("UserCourseId", model.CourseId);
                 return View("../Home/Index", model);
             }
             else
@@ -46,6 +51,11 @@ namespace University_advisor_web.Controllers
                 _logger.Log(Messages.userLogInError);
             }
             return RedirectToAction("Index", model);
+        }
+
+        private void LogFailedLogIn(string message)
+        {
+            _logger.Log(message);
         }
 
     }

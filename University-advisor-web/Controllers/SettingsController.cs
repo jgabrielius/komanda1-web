@@ -46,7 +46,8 @@ namespace University_advisor_web.Controllers
                     if (_passwordHasher.CreateMD5(model.NewPassword) == _passwordHasher.CreateMD5(model.NewPassword2))
                     {
                         model.ChangePassword(_passwordHasher);
-                        return View("../Settings/ChangeSuccessfull", model);
+                        _errorHandler.ShowError(this, Messages.passwordChangeSuccessfull, "Success");
+                        return RedirectToAction("Index", model);
                     }
                     else
                     {
@@ -77,7 +78,8 @@ namespace University_advisor_web.Controllers
                     if (model.NewEmail == model.NewEmail2)
                     {
                         model.ChangeEmail();
-                        return View("../Settings/ChangeSuccessfull", model);
+                        _errorHandler.ShowError(this, Messages.emailChangeSuccessfull, "Success");
+                        return RedirectToAction("Index", model);
                     }
                     else
                     {
@@ -97,7 +99,9 @@ namespace University_advisor_web.Controllers
         {
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangeUniversity();
-            return View("../Settings/ChangeSuccessfull", model);
+            HttpContext.Session.SetInt32("UserUniversityId", Convert.ToInt32(model.UniversityId));
+            _errorHandler.ShowError(this, Messages.universityChangeSuccessfull, "Success");
+            return RedirectToAction("Index", model);
         }
 
         [HttpPost]
@@ -105,7 +109,9 @@ namespace University_advisor_web.Controllers
         {
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangeCourse();
-            return View("../Settings/ChangeSuccessfull", model);
+            HttpContext.Session.SetInt32("UserCourseId", Convert.ToInt32(model.CourseId));
+            _errorHandler.ShowError(this, Messages.courseChangeSuccessfull, "Success");
+            return RedirectToAction("Index", model);
         }
 
         [HttpPost]
@@ -113,7 +119,8 @@ namespace University_advisor_web.Controllers
         {
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangeStatus();
-            return View("../Settings/ChangeSuccessfull", model);
+            _errorHandler.ShowError(this, Messages.statusChangeSuccessfull, "Success");
+            return RedirectToAction("Index", model);
         }
     }
 }

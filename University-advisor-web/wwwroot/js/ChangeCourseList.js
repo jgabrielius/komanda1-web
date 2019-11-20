@@ -2,11 +2,19 @@
 let courseArray = [];
 const updateInterval = 60000; //60 seconds
 
-const updateArray = () => {
-    getUniversities().then(universityData => {
+$(function () {
+    updateArray(() => { renewCourseList(); });
+    changeCourseList();
+})
+
+const updateArray = (callback) => {
+    getUniversities(callback).then(universityData => {
         getCourses().then(courseData => {
             universityArray = universityData;
             courseArray = courseData;
+            if (callback !== null) {
+                callback();
+            }
         }).always(() => setTimeout(updateArray, updateInterval))
     })
 };
@@ -25,7 +33,6 @@ const getCourses = () => $.ajax({
 
 function renewCourseList() {
         if(this.value == null) this.value = "Alytus College";
-        console.log(this.value)
         const universityInfo = universityArray.find(university => university.name === this.value);
         const filteredCourses = courseArray
                                     .filter(course => course.universityId === universityInfo.itemId)
@@ -42,8 +49,5 @@ function renewCourseList() {
 }
 
 function changeCourseList() {
-    $("#universitySelect").change(renewCourseList).change();
+    $("#universitySelect").change(renewCourseList);
 };
-
-updateArray();
-changeCourseList();

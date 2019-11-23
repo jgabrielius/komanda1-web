@@ -13,6 +13,7 @@
             <th data-toggle="tooltip" data-placement="top" title="Student unions">Unions</th>
             <th data-toggle="tooltip" data-placement="top" title="Cost of studying">Cost</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +28,28 @@
             <td>@i["unions"]</td>
             <td>@i["cost"]</td>
             <td><a class="btn btn-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]">View</a></td>
+            <td><button class="btn btn-default" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality=">@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]">Compare</button></td>
         </tr>
         }
     </tbody>
 </table>
+<div class="footer fixed-bottom h-25 bg-dark">
+    <h1 class="text-center">University compare</h1>
+    <div id="uni-compare-wrapper" class="d-flex m-auto" style="width:90%">
+        <table class="table table-striped table-bordered w-100">
+            <thead>
+                <tr id="uni-row">
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="variety-row"></tr>
+                <tr id="availability-row"></tr>
+                <tr id="accessability-row"></tr>
+                <tr id="quality-row"></tr>
+                <tr id="unions-row"></tr>
+                <tr id="cost-row"></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/js/UniCompare.js"></script>

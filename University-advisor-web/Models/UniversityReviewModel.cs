@@ -16,6 +16,7 @@ namespace University_advisor_web.Models
         public string Quality { get; set; }
         public string Unions { get; set; }
         public string Cost { get; set; }
+        public string Review { get; set; }
 
         public event EventHandler<DuplicateReviewEventArgs> DuplicateReview;
 
@@ -37,9 +38,12 @@ namespace University_advisor_web.Models
 
         public void SaveReviews()
         {
-            SqlDriver.Execute("INSERT INTO universityReviews (variety,availability,accessability,quality,unions,cost,universityId,userId) " +
-                "values (@0,@1,@2,@3,@4,@5,@6,@7)", new ArrayList() { Variety, Availability, Accessability, Quality, Unions, Cost, UniversityId, UserId});
+            SqlDriver.Execute("INSERT INTO universityReviews (variety,availability,accessability,quality,unions,cost,review,date,universityId,userId) " +
+                "values (@0,@1,@2,@3,@4,@5,@6,@7,@8,@9)", new ArrayList() { Variety, Availability, Accessability, Quality, Unions, Cost, Review, DateTime.Now.ToString(), UniversityId, UserId });
+
         }
+
+
 
         public bool IsDuplicate()
         {

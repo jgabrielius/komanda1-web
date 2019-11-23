@@ -55,7 +55,10 @@ namespace University_advisor_web.Models
 
         public List<Dictionary<string, object>> GetAllReviews()
         {
-            return SqlDriver.Fetch($"SELECT userid, review, date FROM universityReviews WHERE review IS NOT NULL AND universityId ={UniversityId}");
+            return SqlDriver.Fetch($"SELECT users.status, studyProgrammes.program, universityReviews.review," +
+                $"  universityReviews.date FROM universityReviews, studyProgrammes, users WHERE review IS NOT NULL AND " +
+                $"studyProgrammes.studyProgramId=users.courseId AND users.userId=universityReviews.userId " +
+                $"AND universityReviews.universityId={UniversityId}");
         }
 
         public List<Dictionary<string, object>> GetUniversitiesWithRatings()

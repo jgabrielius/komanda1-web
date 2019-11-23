@@ -59,7 +59,27 @@
     </div>
 </div>
 <br>
+<h3>Latest reviews:</h3>
+@foreach (var i in Model.GetAllReviews())
+{
+    <div class="row" style="margin-top:10px;">
+        <div class="col-lg-4">
+            <div class="card text-left" style="width:700px">
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <h5 class="card-title">Review by <b>@i["status"]</b> from <b>@i["program"]</b></h5>
+                        <h6 class="card-body">@i["review"]</h6>
+                        <h6 class="card-subtitle mb-2">Posted on @i["date"]</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
+<div class="row" style="margin-top:20px;">
+    <h3>Courses: </h3>
+</div>
 <table class="table table-striped table-bordered w-100">
     <thead>
         <tr>
@@ -95,7 +115,7 @@
 </table>
 @{
     var courseDataList = new List<int>();
-    foreach(var row in Model.GetCourses())
+    foreach (var row in Model.GetCourses())
     {
         courseDataList.Add(Convert.ToInt32(row["studyProgramId"].ToString()));
     }

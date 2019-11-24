@@ -45,5 +45,9 @@ namespace University_advisor_web.Constants
         public static string usernameChangedSuccessfull = "Username changed successfully.";
         public static string firstNameChangedSuccessfull = "First name changed successfully.";
         public static string lastNameChangedSuccessfull = "Last name changed successfully.";
+        //Vision API
+        public static string visionApiError = "Something is not right with Vision API. Try again later";
+        public static string uploadedDocumentIsValid = "Uploaded document is valid. Match is: ";
+        public static string uploadedDocumentIsInvalid = "Uploaded document is invalid. Match is only: ";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -67,30 +68,18 @@ namespace University_advisor_web.Controllers
         public IActionResult ChangeEmail(UserModel model)
         {
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
-            if (model.CurrentEmail == model.Email)
+            model.GetCurrentEmail(model.UserId);
+            if (model.NewEmail == model.Email)
             {
-                if (model.CurrentEmail == model.NewEmail)
-                {
-                    _errorHandler.ShowError(this, Messages.newEmailSameAsOldError);
-                }
-                else
-                {
-                    if (model.NewEmail == model.NewEmail2)
-                    {
-                        model.ChangeEmail();
-                        _errorHandler.ShowError(this, Messages.emailChangeSuccessfull, "Success");
-                        return RedirectToAction("Index", model);
-                    }
-                    else
-                    {
-                        _errorHandler.ShowError(this, Messages.emailsDontMatch);
-                    }
-                }
+                _errorHandler.ShowError(this, Messages.newEmailSameAsOldError);
             }
             else
             {
-                _errorHandler.ShowError(this, Messages.incorrectEmail);
+                model.ChangeEmail();
+                _errorHandler.ShowError(this, Messages.emailChangeSuccessfull, "Success");
+                return RedirectToAction("Index", model);
             }
+
             return RedirectToAction("Index", model);
         }
 

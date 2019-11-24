@@ -26,26 +26,18 @@ const mergeSort = (array) => {
     const mergeSortedArrays = (leftArray, rightArray) => {
         let sortedArray = [];
 
-        // In case if arrays are not of size 1.
         while (leftArray.length && rightArray.length) {
             let minimumElement = null;
 
-            // Find minimum element of two arrays.
             if ((leftArray[0].index <= rightArray[0].index)) {
                 minimumElement = leftArray.shift();
             } else {
                 minimumElement = rightArray.shift();
             }
 
-            // Call visiting callback.
-            //this.callbacks.visitingCallback(minimumElement);
-
-            // Push the minimum element of two arrays to the sorted array.
             sortedArray.push(minimumElement);
         }
 
-        // If one of two array still have elements we need to just concatenate
-        // this element to the sorted array since it is already sorted.
         if (leftArray.length) {
             sortedArray = sortedArray.concat(leftArray);
         }
@@ -104,12 +96,13 @@ function autocomplete(inp) {
             const nameMiddle = arrayOfSelectedItems[i].name.substr(lowerCaseName.indexOf(lowerCaseInput), currentInput.length);
             const nameEnd = arrayOfSelectedItems[i].name.substr(lowerCaseName.indexOf(lowerCaseInput) + currentInput.length);
             const combinedName = nameStart + "<strong>" + nameMiddle + "</strong>" + nameEnd;
+            const address = `/Review/${arrayOfSelectedItems[i].aspAction}/${arrayOfSelectedItems[i].itemId}`;
 
             listItem = document.createElement("DIV");
             listItem.setAttribute("class", "bg-dark");
             listItem.innerHTML += combinedName;
             listItem.addEventListener("click", function (e) {
-                window.location.href = `/Review/${arrayOfSelectedItems[i].aspAction}/${arrayOfSelectedItems[i].itemId}`;
+                window.location.href = address;
                 closeAllLists();
             });
             listOfItems.appendChild(listItem)

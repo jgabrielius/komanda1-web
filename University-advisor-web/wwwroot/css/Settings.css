@@ -1,0 +1,10 @@
+﻿.blok {
+    margin: 15px;
+}
+.width-200 {
+    max-width: 200px;
+    min-width: 150px;
+}
+.width-200 li {
+    margin-bottom: 20px;
+}

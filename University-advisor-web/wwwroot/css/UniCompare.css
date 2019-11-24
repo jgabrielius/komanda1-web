@@ -1,0 +1,11 @@
+﻿#collapseFooter {
+    transition: height 1s ease;
+}
+
+#expandIcon {
+    transition: transform 1s ease;
+}
+
+a {
+    cursor: pointer;
+}

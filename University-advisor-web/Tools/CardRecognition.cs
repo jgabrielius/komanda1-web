@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using University_advisor_web.Interfaces;
+using University_advisor_web.Models;
 
 namespace University_advisor_web.Tools
 {
@@ -35,13 +36,11 @@ namespace University_advisor_web.Tools
                 var rate = Match(stringResponse);
                 if (rate > 40)
                 {
-                    validationResponse.Successful = true;
                     validationResponse.SetInformation(rate);
                     return validationResponse;
                 }
                 else
                 {
-                    validationResponse.Successful = false;
                     validationResponse.SetInformation(rate);
                     return validationResponse;
                 }
@@ -49,7 +48,7 @@ namespace University_advisor_web.Tools
             catch (Exception e)
             {
                 _logger.Log("Something is not right with Vision API" + e.StackTrace, "ERROR");
-                validationResponse.Successful = false;
+                validationResponse.SetInformation(-1);
                 return validationResponse;
             }
         }

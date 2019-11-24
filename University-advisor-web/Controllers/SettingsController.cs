@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using University_advisor_web.Constants;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
+using University_advisor_web.Tools;
 
 namespace University_advisor_web.Controllers
 {
@@ -14,11 +15,13 @@ namespace University_advisor_web.Controllers
     {
         private readonly IPasswordHasher _passwordHasher;
         private readonly IErrorHandler _errorHandler;
+        private readonly ILogger _logger;
 
-        public SettingsController(IPasswordHasher passwordHasher, IErrorHandler errorHandler)
+        public SettingsController(IPasswordHasher passwordHasher, IErrorHandler errorHandler, ILogger logger)
         {
             _passwordHasher = passwordHasher;
             _errorHandler = errorHandler;
+            _logger = logger;
         }
         public IActionResult Index()
         {
@@ -120,6 +123,15 @@ namespace University_advisor_web.Controllers
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangeStatus();
             _errorHandler.ShowError(this, Messages.statusChangeSuccessfull, "Success");
+            return RedirectToAction("Index", model);
+        }
+
+        [HttpPost]
+        public IActionResult UploadFile(UserModel model)
+        {
+            var rec = new CardRecognition(_logger);
+            var result = rec.StartStudentCardValidation(model.File);
+            _errorHandler.ShowError(this, result.Information, "Information");
             return RedirectToAction("Index", model);
         }
     }

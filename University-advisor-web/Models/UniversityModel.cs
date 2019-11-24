@@ -53,6 +53,14 @@ namespace University_advisor_web.Models
             return SqlDriver.Fetch("SELECT * FROM universities");
         }
 
+        public List<Dictionary<string, object>> GetAllReviews()
+        {
+            return SqlDriver.Fetch($"SELECT users.status, studyProgrammes.program, universityReviews.review," +
+                $"  universityReviews.date FROM universityReviews, studyProgrammes, users WHERE review IS NOT NULL AND " +
+                $"studyProgrammes.studyProgramId=users.courseId AND users.userId=universityReviews.userId " +
+                $"AND universityReviews.universityId={UniversityId}");
+        }
+
         public List<Dictionary<string, object>> GetUniversitiesWithRatings()
         {
             return SqlDriver.Fetch("SELECT u.universityId, name, round(avg(variety),1) as variety, round(avg(availability),1) as availability, " +

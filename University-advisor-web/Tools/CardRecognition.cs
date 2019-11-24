@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using University_advisor_web.Constants;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
@@ -47,7 +48,7 @@ namespace University_advisor_web.Tools
             }
             catch (Exception e)
             {
-                _logger.Log("Something is not right with Vision API" + e.StackTrace, "ERROR");
+                _logger.Log(Messages.visionApiError + e.StackTrace, "ERROR");
                 validationResponse.SetInformation(-1);
                 return validationResponse;
             }

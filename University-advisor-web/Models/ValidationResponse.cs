@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using University_advisor_web.Constants;
 
 namespace University_advisor_web.Models
 {
@@ -13,17 +14,17 @@ namespace University_advisor_web.Models
         {
             if (rate > 40)
             {
-                Information = "Uploaded document is valid. Match is: " + rate + "%";
+                Information = Messages.uploadedDocumentIsValid + rate + "%";
                 Successful = true;
             }
             else if (rate == -1)
             {
-                Information = "Something is not right with Vision API. Try again later";
+                Information = Messages.visionApiError;
                 Successful = false;
             }
             else
             {
-                Information = "Uploaded document is invalid. Match is only: " + rate + "%";
+                Information = Messages.uploadedDocumentIsInvalid + rate + "%";
                 Successful = false;
             }
 

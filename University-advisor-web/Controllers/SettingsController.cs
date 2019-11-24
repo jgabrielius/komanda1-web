@@ -75,9 +75,16 @@ namespace University_advisor_web.Controllers
             }
             else
             {
-                model.ChangeEmail();
-                _errorHandler.ShowError(this, Messages.emailChangeSuccessfull, "Success");
-                return RedirectToAction("Index", model);
+                if (!model.CheckEmailExists(model.NewEmail))
+                {
+                    model.ChangeEmail();
+                    _errorHandler.ShowError(this, Messages.emailChangeSuccessfull, "Success");
+                    return RedirectToAction("Index", model);
+                }
+                else 
+                {
+                    _errorHandler.ShowError(this, Messages.sameEmailExists);
+                }
             }
 
             return RedirectToAction("Index", model);
@@ -109,6 +116,71 @@ namespace University_advisor_web.Controllers
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.ChangeStatus();
             _errorHandler.ShowError(this, Messages.statusChangeSuccessfull, "Success");
+            return RedirectToAction("Index", model);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeUsername(UserModel model)
+        {
+            model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            model.SetUserData(model.UserId);
+            if (model.NewUsername == model.Username)
+            {
+                _errorHandler.ShowError(this, Messages.newUsernameSameAsOldError);
+            }
+            else
+            {
+                if (!model.CheckUsernameExists(model.NewUsername))
+                {
+                    model.ChangeUsername();
+                    _errorHandler.ShowError(this, Messages.usernameChangedSuccessfull, "Success");
+                    return RedirectToAction("Index", model);
+                }
+                else
+                {
+                    _errorHandler.ShowError(this, Messages.sameUsernameExists);
+                }
+            }
+
+            return RedirectToAction("Index", model);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeFirstName(UserModel model)
+        {
+            model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            model.SetUserData(model.UserId);
+            if (model.NewFirstName == model.FirstName)
+            {
+                _errorHandler.ShowError(this, Messages.newFirstNameSameAsOldError);
+            }
+            else
+            {
+                model.ChangeFirstName();
+                _errorHandler.ShowError(this, Messages.firstNameChangedSuccessfull, "Success");
+                return RedirectToAction("Index", model);
+            }
+
+            return RedirectToAction("Index", model);
+        }
+
+
+        [HttpPost]
+        public IActionResult ChangeLastName(UserModel model)
+        {
+            model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            model.SetUserData(model.UserId);
+            if (model.NewLastName == model.LastName)
+            {
+                _errorHandler.ShowError(this, Messages.newLastNameSameAsOldError);
+            }
+            else
+            {
+                model.ChangeLastName();
+                _errorHandler.ShowError(this, Messages.lastNameChangedSuccessfull, "Success");
+                return RedirectToAction("Index", model);
+            }
+
             return RedirectToAction("Index", model);
         }
     }

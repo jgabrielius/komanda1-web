@@ -22,8 +22,9 @@ namespace University_advisor_web.Tools
         {
             _logger = logger;
         }
-        public bool StartStudentCardValidation(IFormFile file)
+        public ValidationResponse StartStudentCardValidation(IFormFile file)
         {
+            var validationResponse = new ValidationResponse();
             try
             {
                 using var fileStream = file.OpenReadStream();
@@ -32,20 +33,24 @@ namespace University_advisor_web.Tools
                 var response = client.DetectText(image);
                 var stringResponse = TransformToString(response);
                 var rate = Match(stringResponse);
-                _logger.Log("Student card match: " + rate + "%");
                 if (rate > 40)
                 {
-                    return true;
+                    validationResponse.Successful = true;
+                    validationResponse.SetInformation(rate);
+                    return validationResponse;
                 }
                 else
                 {
-                    return false;
+                    validationResponse.Successful = false;
+                    validationResponse.SetInformation(rate);
+                    return validationResponse;
                 }
             }
             catch (Exception e)
             {
                 _logger.Log("Something is not right with Vision API" + e.StackTrace, "ERROR");
-                return false;
+                validationResponse.Successful = false;
+                return validationResponse;
             }
         }
 

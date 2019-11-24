@@ -35,9 +35,7 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult SignUp(RegistrationFormModel model)
         {
-            var rec = new CardRecognition(_logger);
-            var result = rec.StartStudentCardValidation(model.File);
-            if (_registration.AddUser(model.User) && result)
+            if (_registration.AddUser(model.User))
             {
                 _logger.Log(Messages.userRegistered);
                 _logger.LogStats(model.User);

@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Reviews";
 }
+<link rel="stylesheet" href="~/css/UniCompare.css" />
 <table class="table table-striped table-bordered w-100">
     <thead>
         <tr>
@@ -12,6 +13,7 @@
             <th data-toggle="tooltip" data-placement="top" title="Quality of academic facilities">Quality</th>
             <th data-toggle="tooltip" data-placement="top" title="Student unions">Unions</th>
             <th data-toggle="tooltip" data-placement="top" title="Cost of studying">Cost</th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -27,7 +29,33 @@
             <td>@i["unions"]</td>
             <td>@i["cost"]</td>
             <td><a class="btn btn-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]">View</a></td>
+            <td><button class="btn btn-default" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]">Compare</button></td>
         </tr>
         }
     </tbody>
 </table>
+<div style="height:200px;"></div>
+<div class="footer fixed-bottom uni-footer bg-dark text-center" id="collapseFooter" style="height:20%;">
+    <a id="expandBtn" onclick="expandFooter()">
+        <i id="expandIcon" class="fa fa-chevron-up fa-5x"></i>
+    </a>
+    <h1 class="text-center">University compare</h1>
+    <div id="uni-compare-wrapper" class="d-flex m-auto" style="width:90%">
+        <table class="table table-striped table-bordered w-100">
+            <thead>
+                <tr id="uni-row">
+                    <th class="d-none uni-hidden"></th>
+                </tr>
+            </thead>
+            <tbody class="d-none uni-hidden">
+                <tr id="variety-row"><td>Variety</td></tr>
+                <tr id="availability-row"><td>Availability</td></tr>
+                <tr id="accessability-row"><td>Access</td></tr>
+                <tr id="quality-row"><td>Quality</td></tr>
+                <tr id="unions-row"><td>Unions</td></tr>
+                <tr id="cost-row"><td>Cost</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/js/UniCompare.js"></script>

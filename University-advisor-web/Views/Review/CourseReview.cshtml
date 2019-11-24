@@ -4,10 +4,12 @@
 }
 @section Styles {
     <link href="@Url.Content("~/css/RadioButton.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/css/star-rating.css" />
+
 }
 <form asp-action="SubmitCourseReview" asp-controller="Review" role="form" method="post" enctype="multipart/form-data">
     <div class="mb-2">
-        <h2> Leave a review for @Model.StudyProgramName</h2>
+        <h2> Leave a review for <b>@Model.StudyProgramName</b></h2>
         <h4>1 – Very Unsatisfied | 2 – Unsatisfied | 3 – Neutral | 4 – Satisfied | 5 – Very Satisfied</h4>
     </div>
     <input type="hidden" asp-for="StudyProgramId" />
@@ -16,14 +18,15 @@
         <div class="row">
             <div class="col-4">
                 @item.Value
-                
+
             </div>
-            @for (int i = 1; i <= 5; i++)
-            {
-                <div class="radio col-1">
-                    <label><input type="radio" name="@item.Key" value="@i">@i</label>
-                </div>
-            }
+            <fieldset class="rating">
+                <input type="radio" id="star5-@item.Key" required="" name="@item.Key" value="5" /><label for="star5-@item.Key">5 stars</label>
+                <input type="radio" id="star4-@item.Key" required="" name="@item.Key" value="4" /><label for="star4-@item.Key">4 stars</label>
+                <input type="radio" id="star3-@item.Key" required="" name="@item.Key" value="3" /><label for="star3-@item.Key">3 stars</label>
+                <input type="radio" id="star2-@item.Key" required="" name="@item.Key" value="2" /><label for="star2-@item.Key">2 stars</label>
+                <input type="radio" id="star1-@item.Key" required="" name="@item.Key" value="1" /><label for="star1-@item.Key">1 star</label>
+            </fieldset>
         </div>
     }
     <div class="row mt-3">

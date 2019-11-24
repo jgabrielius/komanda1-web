@@ -4,18 +4,19 @@
 @{
     ViewData["Title"] = "Reviews";
 }
-<div class="d-flex">
-    <h1 id="universityName">@Model.UniversityName</h1>
-    <div id="reviewAnchorDiv" class="ml-auto align-self-center">
-        <input type="hidden" id="value1" value="" />
-        <input type="hidden" id="value2" value="" />
-        <script>
+    <div class="d-flex">
+        <img src=@Model.Image class="rounded float-left" style="height:150px;width:auto;margin-right:10px;" alt="@Model.UniversityName">
+        <h1 id="universityName">@Model.UniversityName</h1>
+        <div id="reviewAnchorDiv" class="ml-auto align-self-center">
+            <input type="hidden" id="value1" value="" />
+            <input type="hidden" id="value2" value="" />
+            <script>
             document.getElementById('value1').value = JSON.stringify(@Model.UniversityId);
             document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserUniversityId"));
-        </script>
-        <script src="~/js/AddUniversityReviewAnchor.js" type="text/javascript"></script>
+            </script>
+            <script src="~/js/AddUniversityReviewAnchor.js" type="text/javascript"></script>
+        </div>
     </div>
-</div>
 
 <div class="row" style="margin-top:20px;">
     <div class="col-sm-12">

@@ -16,14 +16,16 @@ namespace University_advisor_web.Models
         public string Quality { get; set; }
         public string Unions { get; set; }
         public string Cost { get; set; }
+        public string Image { get; set; }
 
         public UniversityModel(){}
         public UniversityModel(int universityId)
         {
             this.UniversityId = universityId;
-            var sqlUniversity = SqlDriver.Row($"SELECT name, description FROM universities WHERE universityId = {universityId};");
+            var sqlUniversity = SqlDriver.Row($"SELECT name, description, image FROM universities WHERE universityId = {universityId};");
             UniversityName = sqlUniversity["name"].ToString();
-            Description = sqlUniversity["description"].ToString();           
+            Description = sqlUniversity["description"].ToString();
+            Image = sqlUniversity["image"].ToString();
             var sqlUniversityReviews = SqlDriver.Row($"SELECT round(avg(variety),1) as variety, round(avg(availability),1) as availability," +
                 $"round(avg(accessability),1) as accessability, round(avg(quality),1) as quality, round(avg(unions),1) as unions, " +
                 $"round(avg(cost),1) as cost" +

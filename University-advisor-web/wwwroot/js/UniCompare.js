@@ -23,8 +23,9 @@
 }
 
 function appendUniversity(university) {
-    let header = document.createElement('th');
-    header.textContent = university.name;
+    let header = document.createElement('th'),
+        button = '<a onclick="removeUniversity(this)" data-id="' + university.id + '"><i class="fa fa-times-circle ml-1 fa-lg"></i></a>';
+    header.innerHTML = university.name + button;
     header.classList.add('text-center');
     document.querySelector('#uni-row').appendChild(header);
 
@@ -48,3 +49,59 @@ function appendUniversity(university) {
     document.querySelector('#cost-row').appendChild(cell);
 
 }
+
+function removeUniversity(btn) {
+    let table = document.querySelector('#uni-compare-wrapper table'),
+        universities = JSON.parse(localStorage.getItem('unicompare')),
+        index;
+
+    //get index in table
+    for (let i = 0; i < universities.length; i++) {
+        if (universities[i].id == btn.getAttribute('data-id')) {
+            index = i;
+            universities.splice(index, 1);
+            localStorage.removeItem('unicompare');
+            localStorage.setItem('unicompare', JSON.stringify(universities));
+        }
+    }
+
+    //remove column
+    for (let i = 0; i < table.rows.length; i++) {
+        table.rows[i].deleteCell(index+1);
+    }
+}
+
+function displayCompare() {
+    var hiddenElements = document.querySelectorAll('.uni-hidden');
+    for (let i = 0; i < test.length; i++) {
+        hiddenElements[i].classList.remove('d-none')
+    }
+}
+
+function expandFooter() {
+    let footer = document.querySelector('#collapseFooter'),
+        hidden = document.querySelectorAll('.uni-hidden'),
+        icon = document.querySelector('#expandIcon');
+    if (footer.style.height === "20%") {
+        //expand
+        footer.style.height = window.innerHeight - document.querySelector('nav').clientHeight + "px";
+        icon.style.transform = "rotate(180deg)";
+        for (let i = 0; i < hidden.length; i++) {
+            hidden[i].classList.remove('d-none');
+        }
+    } else {
+        //collapse
+        footer.style.height = "20%";
+        icon.style.transform = "rotate(0deg)";
+        for (let i = 0; i < hidden.length; i++) {
+            hidden[i].classList.add('d-none');
+        }
+    }
+}
+
+$(function () {
+    let universities = JSON.parse(localStorage.getItem('unicompare'));
+    for (let i = 0; i < universities.length; i++) {
+        appendUniversity(universities[i]);
+    }
+})

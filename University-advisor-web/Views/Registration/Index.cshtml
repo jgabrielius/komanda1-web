@@ -56,6 +56,10 @@
                     <label> Select Course</label>
                     <select id="courseSelect" asp-items="Model.Courses" asp-for="User.Course" class="form-control" required=""></select>
                 </div>
+                <div class="col-lg-4">
+                    <label>Upload valid LSP</label>
+                    <input asp-for="File" type="file" name="file" id="file" required="" />
+                </div>
             </div>
 
             <div class="row mt-3 justify-content-center">

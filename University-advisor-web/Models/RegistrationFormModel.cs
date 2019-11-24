@@ -28,6 +28,5 @@ namespace University_advisor_web.Models
         public List<SelectListItem> Universities { get; set; }
         public List<SelectListItem> Courses { get; set; }
         public List<SelectListItem> Statuses { get; set; }
-        public IFormFile File { get; set; }
     }
 }

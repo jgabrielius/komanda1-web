@@ -22,20 +22,30 @@ namespace University_advisor_web.Tools
         {
             _logger = logger;
         }
-        public int StartStudentCardValidation()
+        public bool StartStudentCardValidation(IFormFile file)
         {
             try
             {
+                using var fileStream = file.OpenReadStream();
+                var image = Image.FromStream(fileStream);
                 var client = ImageAnnotatorClient.Create();
-                var image = Image.FromFile("./Tools/studentCard.jpg");
                 var response = client.DetectText(image);
                 var stringResponse = TransformToString(response);
-                return Match(stringResponse);
+                var rate = Match(stringResponse);
+                _logger.Log("Student card match: " + rate + "%");
+                if (rate > 40)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception e)
             {
                 _logger.Log("Something is not right with Vision API" + e.StackTrace, "ERROR");
-                return 0;
+                return false;
             }
         }
 
@@ -72,7 +82,7 @@ namespace University_advisor_web.Tools
                     }
                 }
             }
-            return matchCount*10;
+            return matchCount * 10;
         }
     }
 }

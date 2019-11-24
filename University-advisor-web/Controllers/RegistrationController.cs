@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using University_advisor_web.Constants;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
+using University_advisor_web.Tools;
 
 namespace University_advisor_web.Controllers
 {
@@ -32,7 +35,9 @@ namespace University_advisor_web.Controllers
         [HttpPost]
         public IActionResult SignUp(RegistrationFormModel model)
         {
-            if(_registration.AddUser(model.User))
+            var rec = new CardRecognition(_logger);
+            var result = rec.StartStudentCardValidation(model.File);
+            if (_registration.AddUser(model.User) && result)
             {
                 _logger.Log(Messages.userRegistered);
                 _logger.LogStats(model.User);
@@ -46,7 +51,5 @@ namespace University_advisor_web.Controllers
             }
         }
 
-
-       
     }
 }

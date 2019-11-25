@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="~/css/Table.css" />
     <link rel="stylesheet" href="~/css/Global.css" />
     <link rel="stylesheet" href="~/css/AutoCompleteSearch.css" />
+    <link rel="stylesheet" href="~/css/Settings.css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     @RenderSection("Styles", false)
 </head>
 <body>
@@ -56,7 +58,7 @@
                             <li>
                                 <form autocomplete="off" action="/action_page.php">
                                     <div class="autocomplete" style="width:300px;">
-                                        <input id="quickUniversitySearch" type="text" name="quickUniversitySearch" placeholder="Find university or course">
+                                        <input id="quickUniversitySearch" style="height: 45px;" type="text" name="quickUniversitySearch" placeholder="Find university or course">
                                     </div>
                                 </form>
                                 <script src="~/js/AutoCompleteSearch.js"></script>

@@ -21,11 +21,56 @@ const getCourses = () => $.ajax({
     success: (res) => res
 })
 
-function autocomplete(inp) {
-    inp.addEventListener("input", function (e) {
-        let listOfItems, listItem, countOfShownItems = 0;
-        const currentInput = this.value;
+const mergeSort = (array) => {
 
+    const mergeSortedArrays = (leftArray, rightArray) => {
+        let sortedArray = [];
+
+        while (leftArray.length && rightArray.length) {
+            let minimumElement = null;
+
+            if ((leftArray[0].index <= rightArray[0].index)) {
+                minimumElement = leftArray.shift();
+            } else {
+                minimumElement = rightArray.shift();
+            }
+
+            sortedArray.push(minimumElement);
+        }
+
+        if (leftArray.length) {
+            sortedArray = sortedArray.concat(leftArray);
+        }
+
+        if (rightArray.length) {
+            sortedArray = sortedArray.concat(rightArray);
+        }
+
+        return sortedArray;
+    }
+
+    const sort = (originalArray) => {
+
+        if (originalArray.length <= 1) return originalArray;
+        console.log
+        const middleIndex = Math.floor(originalArray.length / 2);
+        const leftArray = originalArray.slice(0, middleIndex);
+        const rightArray = originalArray.slice(middleIndex, originalArray.length);
+
+        const leftSortedArray = sort(leftArray);
+        const rightSortedArray = sort(rightArray);
+
+        return mergeSortedArrays(leftSortedArray, rightSortedArray);
+    }
+
+    return sort(array);
+};
+
+function autocomplete(inp) {
+    let listOfItems, listItem, arrayOfSelectedItems;
+    inp.addEventListener("input", function (e) {
+        const currentInput = this.value;
+        arrayOfSelectedItems = [];
         closeAllLists();
         if (!currentInput) { return false; }
 
@@ -35,25 +80,33 @@ function autocomplete(inp) {
         this.parentNode.appendChild(listOfItems);
 
         arrayOfElements.forEach(obj => {
-            if (obj.name.toLowerCase().includes(currentInput.toLowerCase()) && countOfShownItems < 10) {
-                countOfShownItems++;
-                const lowerCaseInput = currentInput.toLowerCase();
-                const lowerCaseName = obj.name.toLowerCase();
-                const nameStart = obj.name.substr(0, lowerCaseName.indexOf(lowerCaseInput));
-                const nameMiddle = obj.name.substr(lowerCaseName.indexOf(lowerCaseInput), currentInput.length);
-                const nameEnd = obj.name.substr(lowerCaseName.indexOf(lowerCaseInput) + currentInput.length);
-                const combinedName = nameStart + "<strong>" + nameMiddle + "</strong>" + nameEnd;
-
-                listItem = document.createElement("DIV");
-                listItem.setAttribute("class", "bg-dark");
-                listItem.innerHTML += combinedName;
-                listItem.addEventListener("click", function (e) {
-                    window.location.href = `/Review/${obj.aspAction}/${obj.itemId}`;
-                    closeAllLists();
-                });
-                listOfItems.appendChild(listItem); 
+            if (obj.name.toLowerCase().includes(currentInput.toLowerCase())) {
+                obj["index"] = obj.name.toLowerCase().indexOf(currentInput.toLowerCase());
+                arrayOfSelectedItems.push(obj);
             }
-        })
+        });
+
+        arrayOfSelectedItems = mergeSort(arrayOfSelectedItems);
+
+
+        for (i = 0; i < 10; i++) {
+            const lowerCaseInput = currentInput.toLowerCase();
+            const lowerCaseName = arrayOfSelectedItems[i].name.toLowerCase();
+            const nameStart = arrayOfSelectedItems[i].name.substr(0, lowerCaseName.indexOf(lowerCaseInput));
+            const nameMiddle = arrayOfSelectedItems[i].name.substr(lowerCaseName.indexOf(lowerCaseInput), currentInput.length);
+            const nameEnd = arrayOfSelectedItems[i].name.substr(lowerCaseName.indexOf(lowerCaseInput) + currentInput.length);
+            const combinedName = nameStart + "<strong>" + nameMiddle + "</strong>" + nameEnd;
+            const address = `/Review/${arrayOfSelectedItems[i].aspAction}/${arrayOfSelectedItems[i].itemId}`;
+
+            listItem = document.createElement("DIV");
+            listItem.setAttribute("class", "bg-dark");
+            listItem.innerHTML += combinedName;
+            listItem.addEventListener("click", function (e) {
+                window.location.href = address;
+                closeAllLists();
+            });
+            listOfItems.appendChild(listItem)
+        }
     });
 
     function closeAllLists(elmnt) {

@@ -198,6 +198,18 @@ namespace University_advisor_web.Models
         {
             return new UniversityModel().GetUniversities();
         }
+
+
+        public List<Dictionary<string, object>> GetUserQuestions(int userId)
+        {
+            return new ForumModel().GetAllUserQuestions(userId);
+        }
+
+        public List<Dictionary<string, object>> GetUserRepliedQuestions(int userId)
+        {
+            return new ForumModel().GetAllUserRepliedQuestions(userId);
+
+        }
     }
 
 

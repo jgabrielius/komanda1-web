@@ -61,6 +61,16 @@ namespace University_advisor_web.Models
         {
             return SqlDriver.Fetch($"SELECT * FROM questions");
         }
+
+        public List<Dictionary<string, object>> GetAllUserQuestions(int userId) {
+            return SqlDriver.Fetch($"SELECT * FROM questions WHERE userId = {userId};");
+        }
+
+        public List<Dictionary<string, object>> GetAllUserRepliedQuestions(int userId)
+        {
+            return SqlDriver.Fetch($"SELECT questions.questionId, questions.userId, question, message FROM questions, answers WHERE answers.userId = {userId} AND answers.questionId = questions.questionId;");
+        }
+
         public List<Dictionary<string, object>> GetAllReplies()
         {
             return SqlDriver.Fetch($"SELECT * FROM answers WHERE questionId={questionId}");

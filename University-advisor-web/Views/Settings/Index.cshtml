@@ -171,6 +171,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <h4> Add student card:</h4>
+
+                                <div>
+                                    <label> Upload valid LSP: </label>
+                                    <input asp-for="File" type="file" name="file" id="file" />
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <button class="btn btn-primary" asp-controller="Settings" asp-action="UploadFile">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

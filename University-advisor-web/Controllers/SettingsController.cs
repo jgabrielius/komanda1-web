@@ -18,10 +18,11 @@ namespace University_advisor_web.Controllers
         private readonly IErrorHandler _errorHandler;
         private readonly ILogger _logger;
 
-        public SettingsController(IPasswordHasher passwordHasher, IErrorHandler errorHandler)
+        public SettingsController(IPasswordHasher passwordHasher, IErrorHandler errorHandler, ILogger logger)
         {
             _passwordHasher = passwordHasher;
             _errorHandler = errorHandler;
+            _logger = logger;
         }
         public IActionResult Index()
         {

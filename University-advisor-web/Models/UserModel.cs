@@ -182,6 +182,22 @@ namespace University_advisor_web.Models
             }
             return courses;
         }
+
+        public int QuestionsCount() {
+            var questionsCount = SqlDriver.Fetch("SELECT * FROM questions WHERE userId =" + UserId + "; ");
+            if(questionsCount != null) return questionsCount.Count;
+            return 0;
+        }
+        public int AnswersCount()
+        {
+            var answersCount = SqlDriver.Fetch("SELECT * FROM answers WHERE userId =" + UserId + "; ");
+            if (answersCount != null) return answersCount.Count;
+            return 0;
+        }
+        public List<Dictionary<string, object>> GetUniversities()
+        {
+            return new UniversityModel().GetUniversities();
+        }
     }
 
 

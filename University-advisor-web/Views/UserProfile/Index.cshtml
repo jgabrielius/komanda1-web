@@ -2,26 +2,40 @@
 @{
     ViewData["Title"] = "Your profile";
 }
-<h2>Your profile:</h2>
-
-<div class="row">
-    <div class="col-lg-2" style="text-align:right">
-        <h3> Username: </h3>
-        <h3> First name: </h3>
-        <h3> Last name: </h3>
-        <h3> Email: </h3>
-        <h3> University: </h3>
-        <h3> Course: </h3>
-        <h3> Status: </h3>
+@section Styles {
+    <link rel="stylesheet" href="~/css/Profile.css" />
+}
+<div class="container justify-content-center mr-300 mt-5 width-100proc">
+    <div class="row">
+        <h2>@Model.FirstName  @Model.LastName (@Model.Username)</h2>
     </div>
-    <div class="col-lg-10">
-        <h3>@Model.Username</h3>
-        <h3>@Model.FirstName</h3>
-        <h3>@Model.LastName</h3>
-        <h3>@Model.Email</h3>
-        <h3>@Model.University</h3>
-        <h3>@Model.Course</h3>
-        <h3>@Model.Status</h3>
+    <div class="row d-block">
+        @Model.QuestionsCount() questions | @Model.AnswersCount() answers
     </div>
 </div>
 
+<div class="container width-100proc">
+    <div class="linksToContent text-center mt-5">
+        <ul class="nav tab-menu nav-pills">
+            <li class="active"><a href="#preferences" data-toggle="tab">Preferences</a></li>
+            <li><a href="#forum" data-toggle="tab">Forum</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane well active in active" id="preferences">
+            <div class="row">
+                @foreach (var i in Model.GetUniversities())
+                {
+                    <div class="card" style="width: 18rem;">
+                        <img src=@i["image"] class="card-img">
+                        <div class="card-body">
+                            <h6 class="card-title">@i["name"]</h6>
+                            <div class="btn btn-primary"><a>Add to prefenrences</a></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="tab-pane well fade" id="forum"></div>
+    </div>
+</div>

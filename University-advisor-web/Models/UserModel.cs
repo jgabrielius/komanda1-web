@@ -12,8 +12,11 @@ namespace University_advisor_web.Models
     {
         public int UserId { get; set; }
         public string Username { get; set; }
+        public string NewUsername { get; set; }
         public string FirstName { get; set; }
+        public string NewFirstName { get; set; }
         public string LastName { get; set; }
+        public string NewLastName { get; set; }
         public string Email { get; set; }
         public string University { get; set; }
         public int UniversityId { get; set; }
@@ -24,9 +27,7 @@ namespace University_advisor_web.Models
         public string CurrentPassword { get; set; }
         public string NewPassword { get; set; }
         public string NewPassword2 { get; set; }
-        public string CurrentEmail { get; set; }
         public string NewEmail { get; set; }
-        public string NewEmail2 { get; set; }
         public string SelectedUniversity { get; set; }
         public string SelectedCourse { get; set; }
         public string SelectedStatus { get; set; }
@@ -61,6 +62,46 @@ namespace University_advisor_web.Models
             Email = SqlDriver.Row($"SELECT email FROM users WHERE userId= " + userId.ToString() + ";")["email"].ToString();
         }
 
+        public void SetUserData(int userId)
+        {
+            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";");
+            UserId = userId;
+            Username = sqlUser["username"].ToString();
+            Email = sqlUser["email"].ToString();
+            FirstName = sqlUser["first_name"].ToString();
+            LastName = sqlUser["last_name"].ToString();
+            University = sqlUser["name"].ToString();
+            Course = sqlUser["program"].ToString();
+            Status = sqlUser["status"].ToString();
+        }
+
+        public bool CheckUsernameExists(string username)
+        {
+            var row = SqlDriver.Row($"SELECT username from users where username='{username}';");
+
+            if (row == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public bool CheckEmailExists(string email)
+        {
+            var row = SqlDriver.Row($"SELECT email from users where email='{email}';");
+
+            if (row == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void ChangePassword(IPasswordHasher passwordHasher)
         {
             SqlDriver.Execute($"UPDATE users SET password =@0 WHERE userid=@1;", new ArrayList { passwordHasher.CreateMD5(NewPassword), UserId });
@@ -81,6 +122,18 @@ namespace University_advisor_web.Models
             var newCourseId = newCourseIdFromDB["studyProgramId"].ToString();
             CourseId = Convert.ToInt32(newCourseId);
             SqlDriver.Execute("UPDATE users SET courseId =@0 WHERE userid =@1;", new ArrayList { newCourseId, UserId });
+        }
+        public void ChangeFirstName()
+        {
+            SqlDriver.Execute($"UPDATE users SET first_name =@0 WHERE userid=@1;", new ArrayList { NewFirstName, UserId });
+        }
+        public void ChangeLastName()
+        {
+            SqlDriver.Execute($"UPDATE users SET last_name =@0 WHERE userid=@1;", new ArrayList { NewLastName, UserId });
+        }
+        public void ChangeUsername()
+        {
+            SqlDriver.Execute($"UPDATE users SET username =@0 WHERE userid=@1;", new ArrayList { NewUsername, UserId });
         }
 
         public void ChangeUniversity()
@@ -128,6 +181,22 @@ namespace University_advisor_web.Models
                 }
             }
             return courses;
+        }
+
+        public int QuestionsCount() {
+            var questionsCount = SqlDriver.Fetch("SELECT * FROM questions WHERE userId =" + UserId + "; ");
+            if(questionsCount != null) return questionsCount.Count;
+            return 0;
+        }
+        public int AnswersCount()
+        {
+            var answersCount = SqlDriver.Fetch("SELECT * FROM answers WHERE userId =" + UserId + "; ");
+            if (answersCount != null) return answersCount.Count;
+            return 0;
+        }
+        public List<Dictionary<string, object>> GetUniversities()
+        {
+            return new UniversityModel().GetUniversities();
         }
     }
 

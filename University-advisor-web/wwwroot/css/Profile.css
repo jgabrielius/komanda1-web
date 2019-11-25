@@ -1,0 +1,19 @@
+﻿.mr-300 {
+    margin-right: 300px
+}
+.linksToContent a {
+    text-decoration: $link-decoration;
+    font-size: 25px;
+    color: white;
+    margin: 0 5px;
+
+    @include hover {
+        text-decoration: $link-hover-decoration;
+    }
+}
+.width-100proc {
+    width: 100%;
+}
+.card img {
+    height: 12rem;
+}

@@ -24,20 +24,30 @@ namespace University_advisor_web.Constants
         public static string newEmailSameAsOldError = "New email can't be the same as old one.";
         public static string emailsDontMatch = "Emails don't match.";
         public static string incorrectEmail = "Incorrect email.";
+        public static string sameEmailExists = "Email aleady taken.";
         //Password
         public static string newPasswordSameAsOldError = "New password can't be the same as old one.";
         public static string passwordsDontMatch = "Passwords don't match.";
         public static string incorrectPassword = "Incorrect password.";
+        //Username
+        public static string newUsernameSameAsOldError = "New username can't be the same as old one.";
+        public static string sameUsernameExists = "Username already taken.";
+        //FirstName
+        public static string newFirstNameSameAsOldError = "New first name can't be the same as old one.";
+        //LastName
+        public static string newLastNameSameAsOldError = "New last name can't be the same as old one.";
         //Settings
         public static string emailChangeSuccessfull = "Email changed successfully.";
         public static string passwordChangeSuccessfull = "Password changed successfully.";
         public static string universityChangeSuccessfull = "University changed successfully.";
         public static string courseChangeSuccessfull = "Course changed successfully.";
         public static string statusChangeSuccessfull = "Status changed successfully.";
+        public static string usernameChangedSuccessfull = "Username changed successfully.";
+        public static string firstNameChangedSuccessfull = "First name changed successfully.";
+        public static string lastNameChangedSuccessfull = "Last name changed successfully.";
         //Vision API
         public static string visionApiError = "Something is not right with Vision API. Try again later";
         public static string uploadedDocumentIsValid = "Uploaded document is valid. Match is: ";
         public static string uploadedDocumentIsInvalid = "Uploaded document is invalid. Match is only: ";
-
     }
 }

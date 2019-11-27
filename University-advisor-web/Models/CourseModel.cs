@@ -27,7 +27,7 @@ namespace University_advisor_web.Models
 
         public List<Dictionary<string, object>> GroupList()
         {
-            return SqlDriver.Fetch("SELECT DISTINCT(group) FROM studyProgrammes");
+            return SqlDriver.Fetch("SELECT * FROM courseGroup");
         }
 
         public List<Dictionary<string, object>> DirectionList()

@@ -18,11 +18,43 @@ namespace University_advisor_web.Models
         public string Cost { get; set; }
         public string Image { get; set; }
 
+        public int RankCountry { get; set; }
+        public int RankWorld { get; set; }
+        public string ControlType { get; set; }
+        public string EntityType { get; set; }
+        public string AcademicCalendar { get; set; }
+        public string CampusSetting { get; set; }
+        public string ReligiousAffiliation { get; set; }
+        public string Library { get; set; }
+        public string Housing { get; set; }
+        public string SportFacilities { get; set; }
+        public string FinancialAids { get; set; }
+        public string StudyAbroad { get; set; }
+        public string DistanceLearning { get; set; }
+        public string FacebookLink { get; set; }
+        public string TwitterLink { get; set; }
+        public string LinkedinLink { get; set; }
+        public string YoutubeLink { get; set; }
+        public string InstagramLink { get; set; }
+        public string WikipediaLink { get; set; }
+        public string Acronym { get; set; }
+        public string Founded { get; set; }
+        public string MottoNative { get; set; }
+        public string MottoEnglish { get; set; }
+        public string TelephoneNum { get; set; }
+        public string FaxNum { get; set; }
+        public string LocalUndergraduateCost { get; set; }
+        public string InternationalUndergraduateCost { get; set; }
+        public string LocalPostgraduateCost { get; set; }
+        public string InternationalPostgraduateCost { get; set; }
+
+
         public UniversityModel(){}
         public UniversityModel(int universityId)
         {
             this.UniversityId = universityId;
             var sqlUniversity = SqlDriver.Row($"SELECT name, description, image FROM universities WHERE universityId = {universityId};");
+            var sqlUniversityDetails = SqlDriver.Fetch($"SELECT * FROM university_details_lt WHERE universityId = {universityId}");
             UniversityName = sqlUniversity["name"].ToString();
             Description = sqlUniversity["description"].ToString();
             Image = sqlUniversity["image"].ToString();
@@ -47,7 +79,39 @@ namespace University_advisor_web.Models
                 Quality = "N/A";
                 Unions = "N/A";
                 Cost = "N/A";
-            }     
+            }
+            foreach (var university in sqlUniversityDetails)
+            {
+                RankCountry = Convert.ToInt32(university["rank_country"].ToString());
+                RankWorld = Convert.ToInt32(university["rank_world"].ToString());
+                ControlType = university["control_type"].ToString();
+                EntityType = university["entity_type"].ToString();
+                AcademicCalendar = university["academic_calendar"].ToString();
+                CampusSetting = university["campus_setting"].ToString();
+                ReligiousAffiliation = university["religious_affiliation"].ToString();
+                Library = university["library"].ToString();
+                Housing = university["housing"].ToString();
+                SportFacilities = university["sport_facilities"].ToString();
+                FinancialAids = university["financial_aids"].ToString();
+                StudyAbroad = university["study_abroad"].ToString();
+                DistanceLearning = university["distance_learning"].ToString();
+                FacebookLink = university["facebook_link"].ToString();
+                TwitterLink = university["twitter_link"].ToString();
+                LinkedinLink = university["linkedin_link"].ToString();
+                YoutubeLink = university["youtube_link"].ToString();
+                InstagramLink = university["instagram_link"].ToString();
+                WikipediaLink = university["wikipedia_link"].ToString();
+                Acronym = university["acronym"].ToString();
+                Founded = university["founded"].ToString();
+                MottoNative = university["motto_native"].ToString();
+                MottoEnglish = university["motto_english"].ToString();
+                TelephoneNum = university["tel_nr"].ToString();
+                FaxNum = university["fax_nr"].ToString();
+                LocalUndergraduateCost = university["local_undergraduate_cost"].ToString();
+                InternationalUndergraduateCost = university["international_undergraduate_cost"].ToString();
+                LocalPostgraduateCost = university["local_postgraduate_cost"].ToString();
+                InternationalPostgraduateCost = university["international_postgraduate_cost"].ToString();
+            }
         }
 
         public List<Dictionary<string,object>> GetUniversities()

@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 @{ bool loggedin = HttpContextAccessor.HttpContext.Session.GetInt32("UserId") != null;}
+@section Styles {
+    <link rel="stylesheet" href="~/css/General.css" />
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +15,7 @@
     <link rel="stylesheet" href="~/css/Table.css" />
     <link rel="stylesheet" href="~/css/Global.css" />
     <link rel="stylesheet" href="~/css/AutoCompleteSearch.css" />
-    <link rel="stylesheet" href="~/css/Settings.css" />
+    <link rel="stylesheet" href="~/css/General.css" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     @RenderSection("Styles", false)
 </head>
@@ -22,53 +25,61 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3" style="font-size:24px;">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse navbar-wrapper collapse d-sm-inline-flex flex-sm-row-reverse">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse navbar-wrapper collapse d-sm-inline-flex flex-sm-row-reverse">
+                @if (!loggedin)
+                {
                     <ul class="justify-content-center navbar-nav flex-grow-1">
                         <li class="nav-item ml-3">
                             <a class="nav-link text-white effect-box" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (!loggedin)
-                        {
-                            <li class="nav-item ml-3">
-                                <a class="nav-link text-white effect-box" asp-area="" asp-controller="LogIn" asp-action="Index">Log In</a>
-                            </li>
-                        }
-                        @if (loggedin)
-                        {
-                            <li class="nav-item ml-3">
-                                <a class="nav-link text-white effect-box" asp-area="" asp-controller="Review" asp-action="Index">Reviews</a>
-                            </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link text-white effect-box" asp-area="" asp-controller="Map" asp-action="Index">Map</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white effect-box" asp-area="" asp-controller="Forum" asp-action="Index">Forum</a>
-                            </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link text-white effect-box" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
-                            </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link text-white effect-box" asp-area="" asp-controller="UserProfile" asp-action="Index">Profile</a>
-                            </li>                         
-                            <li>
-                                <form autocomplete="off" action="/action_page.php">
-                                    <div class="autocomplete" style="width:300px;">
-                                        <input id="quickUniversitySearch" style="height: 45px;" type="text" name="quickUniversitySearch" placeholder="Find university or course">
-                                    </div>
-                                </form>
-                                <script src="~/js/AutoCompleteSearch.js"></script>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="LogOut" asp-action="Index">Log out</a>
-                            </li>
-                        }
+                        <li class="nav-item ml-3">
+                            <a class="nav-link text-white effect-box" asp-area="" asp-controller="LogIn" asp-action="Index">Log In</a>
+                        </li>
                     </ul>
-                </div>
+                }
+                @if (loggedin)
+                {
+                    <div class="dropdown float-right">
+                        <button class="btn btn-secondary menu-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item nav-link text-white" asp-area="" asp-controller="UserProfile" asp-action="Index">Profile</a>
+                            <a class="dropdown-item nav-link text-white" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                            <a class="dropdown-item nav-link text-white" asp-area="" asp-controller="Preferences" asp-action="Index">Preferences</a>
+                        </div>
+                    </div>
+
+                    <ul class="justify-content-center navbar-nav flex-grow-1">
+                        <li class="nav-item ml-3">
+                            <a class="nav-link text-white effect-box" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link text-white effect-box" asp-area="" asp-controller="Review" asp-action="Index">Reviews</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link text-white effect-box" asp-area="" asp-controller="Map" asp-action="Index">Map</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white effect-box" asp-area="" asp-controller="Forum" asp-action="Index">Forum</a>
+                        </li>
+                        <li>
+                            <form autocomplete="off" action="/action_page.php">
+                                <div class="autocomplete" style="width:300px;">
+                                    <input id="quickUniversitySearch" style="height: 45px;" type="text" name="quickUniversitySearch" placeholder="Find university or course">
+                                </div>
+                            </form>
+                            <script src="~/js/AutoCompleteSearch.js"></script>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="LogOut" asp-action="Index">Log out</a>
+                        </li>
+                    </ul>
+
+                }
             </div>
         </nav>
     </header>
@@ -76,24 +87,24 @@
         <main role="main" class="pb-3">
             @if (TempData["errorMessage"] != null)
             {
-            <div class="modal" id="error-modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="col-12 text-center modal-title">@TempData["errorTitle"]</h3>
-                        </div>
-                        <div class="modal-body">
-                            <h5 class="text-center">@TempData["errorMessage"]</h5>
-                        </div>
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Ok</button>
+                <div class="modal" id="error-modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="col-12 text-center modal-title">@TempData["errorTitle"]</h3>
+                            </div>
+                            <div class="modal-body">
+                                <h5 class="text-center">@TempData["errorMessage"]</h5>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Ok</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <script>
-                $("#error-modal").modal();
-            </script>
+                <script>
+                    $("#error-modal").modal();
+                </script>
             }
             @RenderBody()
         </main>

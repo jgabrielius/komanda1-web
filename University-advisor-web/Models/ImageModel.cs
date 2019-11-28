@@ -13,12 +13,9 @@ namespace University_advisor_web.Models
         public string ImageAddress { get; set; }
         public string Title { get; set; }
         public string AuthorCredit { get; set; }
-        public ImageModel(){ }
-        public ImageModel(int iconId, string imageAddress, string title, string authorCredit = "") {
-            ImageId = iconId;
-            ImageAddress = imageAddress;
-            Title = title;
-            AuthorCredit = authorCredit;
+        public ImageModel()
+        { 
+
         }
         public List<ImageModel> GetAllIcons() 
         {
@@ -26,11 +23,16 @@ namespace University_advisor_web.Models
             var iconsList = new List<ImageModel>();
             foreach (var icon in sqlSelectIcons)
             {
-                ImageId = Convert.ToInt32(icon["iconId"].ToString());
-                ImageAddress = icon["iconAddress"].ToString();
-                Title = icon["title"].ToString();
-                AuthorCredit = icon["credit"].ToString();
-                var newIcon = new ImageModel(ImageId, ImageAddress, Title, AuthorCredit);
+                var imageId = Convert.ToInt32(icon["iconId"].ToString());
+                var imageAddress = icon["iconAddress"].ToString();
+                var title = icon["title"].ToString();
+                var authorCredit = icon["credit"].ToString();
+                var newIcon = new ImageModel { 
+                    ImageId = imageId, 
+                    ImageAddress = imageAddress,
+                    Title = title,
+                    AuthorCredit = authorCredit,
+                };
                 iconsList.Add(newIcon);
             }
             return iconsList;

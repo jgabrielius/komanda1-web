@@ -48,8 +48,10 @@ namespace University_advisor_web.Models
         public string LocalPostgraduateCost { get; set; }
         public string InternationalPostgraduateCost { get; set; }
 
+        public UniversityModel()
+        {
 
-        public UniversityModel(){}
+        }
         public UniversityModel(int universityId)
         {
             this.UniversityId = universityId;

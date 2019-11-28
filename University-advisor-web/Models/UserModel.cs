@@ -199,6 +199,11 @@ namespace University_advisor_web.Models
             return new UniversityModel().GetUniversities();
         }
 
+        public List<Dictionary<string, object>> GetCourseGroups()
+        {
+            return new CourseModel().GroupList();
+        }
+
 
         public List<Dictionary<string, object>> GetUserQuestions(int userId)
         {

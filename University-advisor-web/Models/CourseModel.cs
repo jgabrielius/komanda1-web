@@ -20,6 +20,20 @@ namespace University_advisor_web.Models
             var sqlData = SqlDriver.Fetch("SELECT * FROM studyProgrammes");
             return sqlData;
         }
+        public List<Dictionary<string, object>> CityList()
+        {
+            return SqlDriver.Fetch("SELECT DISTINCT(city) FROM studyProgrammes");
+        }
+
+        public List<Dictionary<string, object>> GroupList()
+        {
+            return SqlDriver.Fetch("SELECT * FROM courseGroup");
+        }
+
+        public List<Dictionary<string, object>> DirectionList()
+        {
+            return SqlDriver.Fetch("SELECT DISTINCT(direction) FROM studyProgrammes");
+        }
     }
 
 }

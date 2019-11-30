@@ -33,6 +33,7 @@ namespace University_advisor_web.Controllers
         public IActionResult Question(ForumModel forumModel)
         {
             forumModel.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            forumModel.date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             forumModel.SaveQuestion();
             return View("../Forum/SubmittedQuestion", forumModel);
         }
@@ -53,6 +54,7 @@ namespace University_advisor_web.Controllers
         public IActionResult Reply(ForumModel forumModel)
         {
             forumModel.userIdReply = HttpContext.Session.GetInt32("UserId") ?? 0;
+            forumModel.date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             forumModel.SaveReply();
             forumModel.answer = String.Empty;
             return RedirectToAction("Questions");

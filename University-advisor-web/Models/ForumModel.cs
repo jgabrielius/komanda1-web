@@ -16,6 +16,7 @@ namespace University_advisor_web.Models
         public int answerId { get; set; }
         public int userIdReply { get; set; }
         public string answer { get; set; }
+        public string date;
         private delegate int Randomize();
         public ForumModel()
         {
@@ -40,8 +41,8 @@ namespace University_advisor_web.Models
             };
             var id = randomize();
             questionId = id;
-            SqlDriver.Execute("INSERT INTO questions (userId,questionId,question,message) " +
-                "values (@0,@1,@2,@3)", new ArrayList() { userId, questionId, question, message});
+            SqlDriver.Execute("INSERT INTO questions (userId,questionId,question,message,timestamp) " +
+                "values (@0,@1,@2,@3,@4)", new ArrayList() { userId, questionId, question, message, date});
         }
 
         public void SaveReply()
@@ -53,8 +54,8 @@ namespace University_advisor_web.Models
             };
             var id = randomize();
             answerId = id;
-            SqlDriver.Execute("INSERT INTO answers (userId,answerId,questionId,answer) " +
-                "values (@0,@1,@2,@3)", new ArrayList() { userIdReply, answerId, questionId, answer });
+            SqlDriver.Execute("INSERT INTO answers (userId,answerId,questionId,answer,timestamp) " +
+                "values (@0,@1,@2,@3,@4)", new ArrayList() { userIdReply, answerId, questionId, answer, date });
         }
 
         public List<Dictionary<string, object>> GetAllQuestions()
@@ -74,6 +75,11 @@ namespace University_advisor_web.Models
         public List<Dictionary<string, object>> GetAllReplies()
         {
             return SqlDriver.Fetch($"SELECT * FROM answers WHERE questionId={questionId}");
+        }
+
+        public List<Dictionary<string, object>> GetUserById(object userId)
+        {
+            return SqlDriver.Fetch($"SELECT first_name, last_name, status FROM users WHERE userId={(Int64)userId}");
         }
     }
 

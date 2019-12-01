@@ -9,3 +9,7 @@
 a {
     cursor: pointer;
 }
+
+button.add-compare {
+    transition: opacity 1s ease;
+}

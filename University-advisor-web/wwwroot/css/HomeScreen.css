@@ -1,31 +1,22 @@
-﻿/* Home page styles */
-.home-container {
+﻿.home-title {
     position: relative;
+    text-align: center
 }
-.image-text {
+
+.home-title:before {
+    content: "";
+    display: block;
+    border-top: solid 2px #bebebe;
+    width: 100%;
+    height: 2px;
     position: absolute;
-    bottom: 45%;
-    left: 15%;
+    top: 50%;
+    z-index: 0;
 }
-.features {
-    font-size:20px;
-    margin-top:20px;
-    margin-bottom:20px;
-}
-.features-wrapper{
-    margin-top:30px;
-}
-.container{
-    width:100%;
-    max-width:none;
-    margin:0;
-    padding:0;
-}
-.features-item {
-    margin-right: 10px;
-    margin-left: 10px;
-    border: 2px solid white;
-    padding: 5px;
-    cursor:default;
-    width:20%;
+
+.home-title span {
+    background: #222;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
 }

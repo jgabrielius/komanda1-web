@@ -29,7 +29,7 @@
             <td>@i["unions"]</td>
             <td>@i["cost"]</td>
             <td><a class="btn btn-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]">View</a></td>
-            <td><button class="btn btn-default" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]">Compare</button></td>
+            <td><button class="btn btn-default add-compare" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]">Compare</button></td>
         </tr>
         }
     </tbody>

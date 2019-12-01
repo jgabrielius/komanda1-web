@@ -1,33 +1,70 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model HomeModel
+@{
+    ViewData["Title"] = "Home";
 }
-<link rel="stylesheet" href="~/css/HomeScreen.css" />
-<div class="home-container">
-    <img src="~/img/natural.jpg" style="width:100%" />
-    <div class="image-text">
-        <h1>University advisor</h1>
-        <h3>We are here to help you with your journey</h3>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/HomeScreen.css" />
+    <link rel="stylesheet" href="~/lib/leaflet/leaflet.css" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/lib/leaflet/leaflet.js"></script>
+    <style>
+        #map {
+            height: 60vh;
+            z-index: 50;
+        }
+
+        #sendAddressForm {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="margin:0px 0px 20px 0px">
+        <h1 class="home-title"><span>About</span></h1>
+        <p class="lead">University Advisor is here to help you with your journey to choosing the right university. Find universities near you or check reviews and ratings of a specific university. Can't decide between few options? Compare ratings of selected universities with UniCompare or head to forums and ask away! University Advisor has it all!</p>
     </div>
-</div>
-<div class="features text-center">
-    <h1>Features</h1>
-    <div class="d-flex justify-content-center features-wrapper">
-        <div class="features-item">Reviews</div>
-        <div class="features-item">UniCompare</div>
-        <div class="features-item">Sign up</div>
+    <div style="margin:20px 0px 20px 0px">
+        <h1 class="home-title"><span>Search universities</span></h1>
+        <form class="d-flex" autocomplete="off" action="/action_page.php">
+            <div class="autocomplete text-center m-auto" style="width:70%;">
+                <input class="form-control text-center" id="quickUniversitySearch" style="height: 45px;" type="text" name="quickUniversitySearch" placeholder="Find university or course">
+            </div>
+        </form>
+        <script src="~/js/AutoCompleteSearch.js"></script>
     </div>
-    <div class="d-flex justify-content-center features-wrapper">
-        <div class="features-item">About us</div>
-        <div class="features-item">Contact us</div>
+    <div style="margin:20px 0px 20px 0px">
+        <h1 class="home-title"><span>Find Universities</span></h1>
+
+        <form asd-action="SendAddress" asp-controller="Home" role="form" method="POST" enctype="multipart/form-data" id="sendAddressForm">
+            <div class="row align-items-end">
+                <div class="col-lg-6 d-flex align-items-center">
+                    <label class="mr-3 mb-0 ml-3" for="Address">Address</label>
+                    <input name="Address" value="@Model.Map.Address" type="text" class="form-control" pattern="[a-zA-Z0-9]+" />
+                </div>
+                <div class="col-lg-4 d-flex align-items-center">
+                    <label class="mr-3 mb-0" for="Range">Range</label>
+                    <input name="Range" value="@Model.Map.Range" type="number" class="form-control" required="" pattern="[0-9]{1,5}" />
+                </div>
+                <div class="col-lg-2">
+                    <input class="btn btn-lg btn-primary" type="submit" value="Find">
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="d-flex justify-content-center features-wrapper">
-        <div class="features-item">Top university list</div>
-    </div>
-</div>
-<div class="home-container">
-    <img src="~/img/vu.png" style="width:100%" />
-    <div class="image-text">
-        <h1>Vilnius University c# course is amazing!</h1>
-        <h3>- some software engineering student</h3>
-    </div>
-</div>
+    @{
+        var locationData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Map));
+    }
+    <input type="hidden" id="locationsData" value="" />
+    <script>
+        document.getElementById('locationsData').value = JSON.stringify(@locationData);
+    </script>
+
+    <div id="map"></div>
+
+    <script src="~/js/AddMarkersToMap.js" type="text/javascript"></script>
+
+
+</body>
+</html>

@@ -19,7 +19,8 @@ namespace University_advisor_web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var forumModel = new ForumModel();
+            return View(forumModel);
         }
 
         [HttpGet]
@@ -36,13 +37,6 @@ namespace University_advisor_web.Controllers
             forumModel.date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             forumModel.SaveQuestion();
             return View("../Forum/SubmittedQuestion", forumModel);
-        }
-
-        [HttpGet]
-        public IActionResult Questions()
-        {
-            var forumModel = new ForumModel();
-            return View(forumModel);
         }
 
         public IActionResult ViewQuestion(int id)

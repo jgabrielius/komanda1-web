@@ -5,13 +5,14 @@
 
 <form asp-controller="Forum" role="form" method="post" enctype="multipart/form-data">
 
+    @{ var usr = Model.GetUserById(Model.userId);}
     <div class="row">
         <div class="col-lg-4">
             <div class="card text-left m-1" style="width:400px">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@Model.question</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Asked by id: @Model.userId</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Asked by: @usr[0]["first_name"] @usr[0]["last_name"], @usr[0]["status"]</h6>
                         <p class="card-text">@Model.message</p>
                     </div>
                 </div>
@@ -34,9 +35,9 @@
                 <div class="card m-1" style="width:600px; background-color: rgba(58, 133, 191, 0.75); border-radius: 25px; ">
                     <div class="card-body">
                         <h5 class="text-body">@Html.Raw(i["answer"])</h5>
-                        <i >Answered: @i["timestamp"]</i>
+                        <i>Answered: @i["timestamp"]</i>
                         <br />
-                        <i >By: @user[0]["first_name"] @user[0]["last_name"], @user[0]["status"]</i>
+                        <i>By: @user[0]["first_name"] @user[0]["last_name"], @user[0]["status"]</i>
                     </div>
                 </div>
             </div>

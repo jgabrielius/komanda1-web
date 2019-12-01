@@ -33,6 +33,12 @@ namespace University_advisor_web.Controllers
             return View(model);
         }
 
+        public IActionResult ViewCourse(int id)
+        {
+            var model = new CourseModel(id);
+            return View(model);
+        }
+
         public IActionResult CourseReview(int id)
         {
             PrintError printError = DuplicateCourseReview;

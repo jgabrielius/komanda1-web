@@ -11,7 +11,7 @@ namespace University_advisor_web.Controllers
         public IActionResult Index()
         {
             HttpContext.Session.Clear();
-            return View("../Home/Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

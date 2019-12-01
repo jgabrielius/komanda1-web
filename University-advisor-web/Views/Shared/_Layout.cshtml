@@ -45,12 +45,14 @@
                 @if (loggedin)
                 {
                     <div class="dropdown float-right">
-                        <button class="btn btn-secondary menu-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cog fa-2x"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item nav-link text-white" asp-area="" asp-controller="UserProfile" asp-action="Index">Profile</a>
+                            <a class="dropdown-item nav-link text-white" asp-area="" asp-controller="UserProfile" asp-action="Index"><i class="fa fa-user"></i>Profile</a>
                             <a class="dropdown-item nav-link text-white" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
                             <a class="dropdown-item nav-link text-white" asp-area="" asp-controller="Preferences" asp-action="Index">Preferences</a>
+                            <a class="dropdown-item nav-link text-white" asp-area="" asp-controller="LogOut" asp-action="Index">Log out</a>
                         </div>
                     </div>
 
@@ -71,9 +73,6 @@
                                 </div>
                             </form>
                             <script src="~/js/AutoCompleteSearch.js"></script>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="LogOut" asp-action="Index">Log out</a>
                         </li>
                     </ul>
 

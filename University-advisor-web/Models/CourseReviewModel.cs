@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
+using System;
 
 namespace University_advisor_web.Models
 {
@@ -14,6 +15,7 @@ namespace University_advisor_web.Models
         public string Encouragement { get; set; }
         public string Effectiveness { get; set; }
         public string Satisfaction { get; set; }
+        public string Review { get; set; }
 
         public Dictionary<string,string> ratingTypes = new Dictionary<string, string>() {
             {"presentation","Presentation of content"},
@@ -33,8 +35,8 @@ namespace University_advisor_web.Models
 
         public void SaveReviews()
         {
-            SqlDriver.Execute("INSERT INTO courseReviews (presentation,clarity,feedback,encouragement,effectiveness,satisfaction,courseId,userId) " +
-                "values (@0,@1,@2,@3,@4,@5,@6,@7)", new ArrayList() {Presentation,Clarity,Feedback,Encouragement,Effectiveness,Satisfaction,StudyProgramId,UserId});
+            SqlDriver.Execute("INSERT INTO courseReviews (presentation,clarity,feedback,encouragement,effectiveness,satisfaction,review,date,courseId,userId) " +
+                "values (@0,@1,@2,@3,@4,@5,@6,@7,@8,@9)", new ArrayList() {Presentation,Clarity,Feedback,Encouragement,Effectiveness,Satisfaction,Review,DateTime.Now.ToString(), StudyProgramId,UserId});
         }
 
         public bool IsDuplicate()

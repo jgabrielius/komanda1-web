@@ -120,6 +120,10 @@ namespace University_advisor_web.Models
         {
             return SqlDriver.Fetch("SELECT * FROM universities");
         }
+        public long CountReviews()
+        {
+            return (long)SqlDriver.Row($"SELECT COUNT(*) as count FROM universityReviews WHERE review IS NOT NULL AND universityId={UniversityId}")["count"];
+        }
 
         public List<Dictionary<string, object>> GetAllReviews()
         {

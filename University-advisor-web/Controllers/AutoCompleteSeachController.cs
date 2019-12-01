@@ -24,7 +24,7 @@ namespace University_advisor_web.Controllers
                 listOfItems.Add(
                     new AutoCompleteItemModel(
                         $"{course["program"].ToString()} ({course["name"].ToString()})",
-                        "CourseReview",
+                        "ViewCourse",
                         Convert.ToInt32(course["studyProgramId"].ToString()))
                     );
             }

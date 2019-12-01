@@ -29,6 +29,14 @@
             </fieldset>
         </div>
     }
+
+    <div class="row mt-3">
+        <div class="col-lg-4">
+            <label asp-for="Review">Additional comments(Optional):</label>
+            <textarea asp-for="Review" asp-class="form-control" placeholder="Leave a review..." pattern="[a-zA-Z0-9]+" style="height:200px; width:700px"></textarea>
+        </div>
+    </div>
+
     <div class="row mt-3">
         <div class="col-lg-4">
             <input class="btn btn-primary" type="submit" value="Submit">

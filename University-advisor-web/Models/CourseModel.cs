@@ -55,7 +55,7 @@ namespace University_advisor_web.Models
         }
         public long CountReviews()
         {
-            return (long)SqlDriver.Row($"SELECT COUNT(*) as count FROM courseReviews WHERE courseId={StudyProgramId}")["count"];
+            return (long)SqlDriver.Row($"SELECT COUNT(*) as count FROM courseReviews WHERE review IS NOT NULL AND courseId={StudyProgramId}")["count"];
         }
         public List<Dictionary<string, object>> GetAllReviews()
         {

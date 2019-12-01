@@ -1,0 +1,80 @@
+﻿@model CourseModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "ViewCourse";
+}
+
+<h1>@Model.StudyProgramName</h1>
+
+<div id="reviewAnchorDiv" class="ml-auto mr-5 mt-auto mb-auto">
+    <input type="hidden" id="value1" value="" />
+    <input type="hidden" id="value2" value="" />
+    <script>
+            document.getElementById('value1').value = JSON.stringify(@Model.StudyProgramId);
+            document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserCourseId"));
+    </script>
+    <script src="~/js/AddCoursesReviewAnchor.js" type="text/javascript"></script>
+</div>
+
+<div class="row" style="margin-top:20px;">
+    <div class="col-sm-12">
+        <div class="panel panel-default text-left">
+            <div class="panel-body">
+                @Model.Description
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center" style="margin-top:20px;">
+    <h3>Average reviews:</h3>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+            <h2>@Model.Presentation</h2>
+            <p>Presentation</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Clarity</h2>
+            <p>Clarity</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Feedback</h2>
+            <p>Feedback</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Encouragement</h2>
+            <p>Encouragement</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Effectiveness</h2>
+            <p>Effectiveness</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Satisfaction</h2>
+            <p>Satisfaction</p>
+        </div>
+    </div>
+</div>
+
+<a class="btn btn-primary" data-toggle="collapse" data-target="#reviews">Show Reviews</a>
+<div id="reviews" class="collapse">
+    @foreach (var i in Model.GetAllReviews())
+    {
+        <div class="row" style="margin-top:10px;">
+            <div class="col-lg-4">
+                <div class="card text-left" style="width:700px">
+                    <div class="card bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">Review by <b>@i["status"]</b> from <b>@i["program"]</b></h5>
+                            <h6 class="card-body">@i["review"]</h6>
+                            <h6 class="card-subtitle mb-2">Posted on @i["date"]</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <h4>Total reviews: @Model.CountReviews()</h4>
+</div>

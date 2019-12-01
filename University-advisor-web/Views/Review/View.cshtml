@@ -70,24 +70,26 @@
     </div>
 </div>
 <br>
-<h3>Latest reviews:</h3>
-@foreach (var i in Model.GetAllReviews())
-{
-    <div class="row" style="margin-top:10px;">
-        <div class="col-lg-4">
-            <div class="card text-left" style="width:700px">
-                <div class="card bg-info">
-                    <div class="card-body">
-                        <h5 class="card-title">Review by <b>@i["status"]</b> from <b>@i["program"]</b></h5>
-                        <h6 class="card-body">@i["review"]</h6>
-                        <h6 class="card-subtitle mb-2">Posted on @i["date"]</h6>
+<a class="btn btn-primary" data-toggle="collapse" data-target="#reviews">Show Reviews</a>
+<div id="reviews" class="collapse">
+    @foreach (var i in Model.GetAllReviews())
+    {
+        <div class="row" style="margin-top:10px;">
+            <div class="col-lg-4">
+                <div class="card text-left" style="width:700px">
+                    <div class="card bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">Review by <b>@i["status"]</b> from <b>@i["program"]</b></h5>
+                            <h6 class="card-body">@i["review"]</h6>
+                            <h6 class="card-subtitle mb-2">Posted on @i["date"]</h6>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-}
-
+    }
+    <h4>Total reviews: @Model.CountReviews()</h4>
+</div>
 <div class="row" style="margin-top:20px;">
     <h3>Courses: </h3>
 </div>
@@ -104,38 +106,26 @@
             <th data-toggle="tooltip" data-placement="top" title="Encouragment of participation/discussion">Encouragment</th>
             <th data-toggle="tooltip" data-placement="top" title="Overall teaching effectiveness">Teaching effectiveness</th>
             <th data-toggle="tooltip" data-placement="top" title="How satisfied were you with this course">Satisfaction</th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var i in Model.GetCoursesWithRatings())
         {
-            <tr>
-                <td>@i["group"]</td>
-                <td>@i["direction"]</td>
-                <td>@i["program"]</td>
-                <td><a class="btn btn-primary" href="@i["AIKOS_link"]" target="_blank">Aikos</a></td>
-                <td>@i["presentation"]</td>
-                <td>@i["clarity"]</td>
-                <td>@i["feedback"]</td>
-                <td>@i["encouragement"]</td>
-                <td>@i["effectiveness"]</td>
-                <td>@i["satisfaction"]</td>
-                <td id="@i["studyProgramId"]"></td>
-            </tr>
+        <tr>
+            <td>@i["group"]</td>
+            <td>@i["direction"]</td>
+            <td>@i["program"]</td>
+            <td><a class="btn btn-primary" href="@i["AIKOS_link"]" target="_blank">Aikos</a></td>
+            <td>@i["presentation"]</td>
+            <td>@i["clarity"]</td>
+            <td>@i["feedback"]</td>
+            <td>@i["encouragement"]</td>
+            <td>@i["effectiveness"]</td>
+            <td>@i["satisfaction"]</td>
+            <td><a class="btn btn-primary" asp-controller="Review" asp-action="ViewCourse" asp-route-id="@i["studyProgramId"]">View</a></td>
+        </tr>
         }
     </tbody>
 </table>
-@{
-    var courseDataList = new List<int>();
-    foreach (var row in Model.GetCourses())
-    {
-        courseDataList.Add(Convert.ToInt32(row["studyProgramId"].ToString()));
-    }
-    var courseData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(courseDataList));
-}
-<script type="text/javascript">
-        document.getElementById('value1').value = JSON.stringify(@courseData);
-        document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserCourseId"));
-</script>
-<script src="~/js/AddCoursesReviewAnchor.js" type="text/javascript"></script>

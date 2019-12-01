@@ -8,32 +8,221 @@
 @{
 }
 
+@{
+    var iconList = new ImageModel().GetAllIcons();
+    var cityId = 1;
+}
 <div class="container">
     <div class="tab-content">
-        <div class="tab-pane well active in active" id="preferences">
+        <div class="tab-pane fade show active" id="cities-tab">
             <div class="grid-fit-max">
-                @{
-                    var iconList = new ImageModel().GetAllIcons();
+                @foreach (var i in Model.GetCourseCities())
+                {
+                    <div class="card card-preference">
+                        <div class="card-header card-preference-header">
+                            @*
+                                    @{
+                                    var groupIcon = iconList.Find(icon => icon.ImageId == Convert.ToInt32(i["imageId"].ToString()));
+                                }
+                                <img class="card-img-top" src="@groupIcon.ImageAddress" alt="@i["group"]" ) />
+                            *@
+                        </div>
+                        <div class="card-body card-preference-body">
+                            <div class="card-preference-title">
+                                <h6 class="text-center d-flex justify-content-center">@i["city"]</h6>
+                            </div>
+                            <button onclick="selectButton('@i["city"]' + 'cityBtn')" id="@i["city"]cityBtn" class="btn btn-primary card-preference-btn">Select</button>
+                        </div>
+                    </div>
+                    cityId = cityId + 1;
                 }
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="groups-tab">
+            <div class="grid-fit-max">
                 @foreach (var i in Model.GetCourseGroups())
                 {
-                    <div class="card" style="width: 18rem; text-align:left;">
-                        <div class="card-header">
+                    <div class="card card-preference">
+                        <div class="card-header card-preference-header">
                             @{
                                 var groupIcon = iconList.Find(icon => icon.ImageId == Convert.ToInt32(i["imageId"].ToString()));
                             }
                             <img class="card-img-top" src="@groupIcon.ImageAddress" alt="@i["group"]" ) />
                         </div>
-
-                        <div class="card-body" style="height: 30px;">
-                            <h6>@i["group"]</h6>
-                        </div>
-                        <div class="card-footer" style="padding: 2px;">
-                            <div class="btn btn-primary" style="display: flex; height: 50px; width: 100%; border-radius: 0px; align-items: center; justify-content:center; font-size: 20px;"><a>Add to preferences</a></div>
+                        <div class="card-body card-preference-body">
+                            <div class="card-preference-title">
+                                <h6 class="text-center d-flex justify-content-center">@i["group"]</h6>
+                            </div>
+                            <button onclick="selectButton(@i["groupId"] + 'groupBtn')" id="@i["groupId"]groupBtn" class="btn btn-primary card-preference-btn">Select</button>
                         </div>
                     </div>
                 }
             </div>
         </div>
+        <div class="tab-pane fade show" id="directions-tab">
+            <div class="grid-fit-max" id="directions-container">
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="cities-tab">
+
+        </div>
+    </div>
+    <div id="switchTabButtons" class="linksToContent mt-5 width-100proc">
+        <button id="backBtn" class="btn btn-danger" disabled>Back</button>
+        <button id="nextBtn" class="btn btn-success">Next</button>
     </div>
 </div>
+
+
+
+<script type="text/javascript">
+    const getGroups = () => $.ajax({
+        type: "GET",
+        url: "/api/courses/groups",
+        success: (res) => res
+    });
+    const getCoursesWithDetails = () => $.ajax({
+        type: "GET",
+        url: "/api/courses/details",
+        success: (res) => res
+    });
+
+    let groupArray = [];
+    let courseArray = []
+    getGroups().then(data => groupArray = data);
+    getCoursesWithDetails().then(data => courseArray = data);
+
+
+    let selectedCities, selectedGroups, selectedDirections;
+    const tabIdList = $(".tab-pane").map(function () {
+        return this.id;
+    }).get()
+
+    function selectButton(id) {
+        let item = $("#" + id);
+        if (item.hasClass("btn-success")) {
+            item.removeClass("btn-success");
+            item.removeClass("selected")
+            item.addClass("btn-primary")
+        }
+        else if (item.hasClass("btn-primary")) {
+            item.removeClass("btn-primary");
+            item.addClass("btn-success")
+            item.addClass("selected")
+        }
+    }
+
+    $("#nextBtn").on('click', nextBtnClick);
+
+    function nextBtnClick() {
+        if ($("#cities-tab").hasClass("active")) {
+            selectedCities = $(".selected[id*='cityBtn']").map(function () {
+                return this.id.replace("cityBtn", "");
+            }).get();
+        }
+        
+        if ($("#groups-tab").hasClass("active")) {
+            selectedGroups = $(".selected[id*='groupBtn']").map(function () {
+                return this.id.replace("groupBtn", "");
+            }).get();
+
+        }
+
+        for (i = 0; i < tabIdList.length; i++)
+        {
+            if ($("#" + tabIdList[i]).hasClass("active"))
+            {
+                if (i === tabIdList.length - 3)
+                {
+                    $("#nextBtn").html("Finish")
+                    $("#nextBtn").off('click').on('click', setPreferences)
+                    addCourses();
+                }
+                if (i === 0) $("#backBtn").removeAttr("disabled");
+                $("#" + tabIdList[i]).removeClass("active");
+                $("#" + tabIdList[i + 1]).addClass("active");
+                i = tabIdList.length;
+            }
+        }
+    };
+
+    function courseFilter(course) {
+        return selectedCities.includes(course.city) && selectedGroups.includes(course.group)
+    }
+
+    function addCourses()
+    {
+        //get selected courses
+        const filteredArray = courseArray.filter(course => selectedCities.includes(course.city) && selectedGroups.includes(groupArray.find(item => item.group === course.group).groupId.toString()))
+        //get unique directions of courses
+        const uniqueDirections = [...new Set(filteredArray.map(course => course.direction))]
+        //create object ready for display
+        const filteredObject = filteredArray.map(course => {
+            return {
+                group: course.group,
+                direction: course.direction,
+                courseId: course.studyProgramId
+            }
+        })
+        console.log(uniqueDirections)
+        uniqueDirections.forEach(course => {
+            let container = document.getElementById("directions-container")
+            container.appendChild(createCardElement(course));
+        })
+    }
+
+    function createCardElement(course)
+    {
+        let courseCard = document.createElement("DIV");
+        courseCard.setAttribute("class", "card card-preference");
+
+        let courseCardBody = document.createElement("DIV");
+        courseCardBody.setAttribute("class", "card-body card-preference-body");
+
+        let courseCardTitle = document.createElement("DIV");
+        courseCardTitle.setAttribute("class", "card-preference-title");
+
+        let courseCardTitleText = document.createElement("h6");
+        courseCardTitleText.setAttribute("class", "text-center d-flex justify-content-center");
+        courseCardTitleText.innerHTML = course.direction;
+
+        let courseCardButton = document.createElement("button");
+        courseCardButton.onclick = selectButton(course.courseId + 'courseBtn')
+        courseCardButton.setAttribute("id", `${course.courseId}groupBtn`)
+        courseCardButton.setAttribute("class", `btn btn-primary card-preference-btn`)
+        courseCardButton.innerHTML = "Select";
+
+        courseCardTitle.appendChild(courseCardTitleText);
+        courseCardBody.appendChild(courseCardTitle);
+        courseCardBody.appendChild(courseCardButton);
+        courseCard.appendChild(courseCardBody);
+
+        return courseCard;
+    }
+
+    
+
+    function setPreferences() {
+        console.log("finish")
+    }
+
+    $("#backBtn").click(() => {
+        for (i = 0; i < tabIdList.length; i++)
+        {
+            if ($("#" + tabIdList[i]).hasClass("active") && i > 0)
+            {
+                if (i === tabIdList.length - 2)
+                {
+                    $("#nextBtn").html("Next")
+                    $("#nextBtn").off('click').on('click', nextBtnClick)
+                }
+                if (i === 1) $("#backBtn").attr("disabled", true);
+                $("#" + tabIdList[i]).removeClass("active");
+                $("#" + tabIdList[i - 1]).addClass("active");
+                i = tabIdList.length;
+            }
+        }
+    })
+
+</script>

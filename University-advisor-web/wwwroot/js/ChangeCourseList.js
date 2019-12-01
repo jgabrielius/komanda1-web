@@ -21,7 +21,7 @@ const updateArray = (callback) => {
 
 const getUniversities = () => $.ajax({
     type: "GET",
-    url: "/api/AutoCompleteSeach/universities",
+    url: "/api/AutoCompleteSearch/universities",
     success: (res) => res
 })
 

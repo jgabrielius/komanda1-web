@@ -36,6 +36,12 @@ namespace University_advisor_web.Models
         public List<SelectListItem> Courses { get; set; }
 
         public List<SelectListItem> Statuses { get; set; }
+        public List<string> SchoolSubjectPreferences { get; set; }
+        public List<string> GroupPreferences { get; set; }
+        public List<string> DirectionPreferences { get; set; }
+        public List<string> CityPreferences { get; set; }
+
+
 
         public UserModel(int userId)
         {
@@ -199,9 +205,19 @@ namespace University_advisor_web.Models
             return new UniversityModel().GetUniversities();
         }
 
+        public List<Dictionary<string, object>> GetCourses()
+        {
+            return new CourseModel().CoursesList();
+        }
+
         public List<Dictionary<string, object>> GetCourseGroups()
         {
             return new CourseModel().GroupList();
+        }
+
+        public List<Dictionary<string, object>> GetCourseCities() 
+        {
+            return new CourseModel().CityList();
         }
 
 

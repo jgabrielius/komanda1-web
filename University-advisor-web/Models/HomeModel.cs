@@ -7,7 +7,7 @@ namespace University_advisor_web.Models
 {
     public class HomeModel
     {
-        public MapModel Map { get; set; } = new MapModel("Vilnius", "Universities");
+        public MapModel Map { get; set; } 
         public UserModel User { get; set; }
 
         public HomeModel() { }

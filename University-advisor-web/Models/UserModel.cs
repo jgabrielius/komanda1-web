@@ -213,7 +213,11 @@ namespace University_advisor_web.Models
         public List<Dictionary<string, object>> GetUserRepliedQuestions(int userId)
         {
             return new ForumModel().GetAllUserRepliedQuestions(userId);
-
+        }
+        public List<Dictionary<string, object>> GetUserById(object userId)
+        {
+            int user = Convert.ToInt32(userId);
+            return SqlDriver.Fetch($"SELECT first_name, last_name, status FROM users WHERE userId={user}");
         }
     }
 

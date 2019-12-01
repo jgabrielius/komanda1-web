@@ -34,19 +34,20 @@
                             <th style="width: 10%" data-toggle="tooltip" data-placement="top">Question id</th>
                             <th style="width: 25%" data-toggle="tooltip" data-placement="top">Question</th>
                             <th style="width: 40%" data-toggle="tooltip" data-placement="top">Message</th>
-                            <th style="width: 10%" data-toggle="tooltip" data-placement="top">Asked by</th>
-                            <th style="width: 15%"></th>
+                            <th style="width: 15%" data-toggle="tooltip" data-placement="top">Asked by</th>
+                            <th style="width: 10%"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var i in Model.GetUserQuestions(Model.UserId))
                         {
+                            var user = Model.GetUserById(i["userId"]);
                             <tr>
                                 <td style="width: 10%">@i["questionId"]</td>
                                 <td style="width: 25%">@i["question"]</td>
                                 <td style="width: 40%">@i["message"]</td>
-                                <td style="width: 10%">@i["userId"]</td>
-                                <td style="width: 15%"><a class="btn btn-primary" asp-controller="Forum" asp-action="ViewQuestion" asp-route-id="@i["questionId"]">View question</a></td>
+                                <td style="width: 15%">@user[0]["first_name"] @user[0]["last_name"], @user[0]["status"]</td>
+                                <td style="width: 10%"><a class="btn btn-primary" asp-controller="Forum" asp-action="ViewQuestion" asp-route-id="@i["questionId"]">View question</a></td>
                             </tr>
                         }
                     </tbody>
@@ -58,20 +59,21 @@
                             <th style="width: 10%" data-toggle="tooltip" data-placement="top">Question id</th>
                             <th style="width: 25%" data-toggle="tooltip" data-placement="top">Question</th>
                             <th style="width: 40%" data-toggle="tooltip" data-placement="top">Message</th>
-                            <th style="width: 10%" data-toggle="tooltip" data-placement="top">Asked by</th>
-                            <th style="width: 15%"></th>
+                            <th style="width: 15%" data-toggle="tooltip" data-placement="top">Asked by</th>
+                            <th style="width: 10%"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var i in Model.GetUserRepliedQuestions(Model.UserId))
                         {
-                        <tr>
-                            <td style="width: 10%">@i["questionId"]</td>
-                            <td style="width: 25%">@i["question"]</td>
-                            <td style="width: 40%">@i["message"]</td>
-                            <td style="width: 10%">@i["userId"]</td>
-                            <td><a class="btn btn-primary" asp-controller="Forum" asp-action="ViewQuestion" asp-route-id="@i["questionId"]">View question</a></td>
-                        </tr>
+                            var user = Model.GetUserById(i["userId"]);
+                            <tr>
+                                <td style="width: 10%">@i["questionId"]</td>
+                                <td style="width: 25%">@i["question"]</td>
+                                <td style="width: 40%">@i["message"]</td>
+                                <td style="width: 15%">@user[0]["first_name"] @user[0]["last_name"], @user[0]["status"]</td>
+                                <td style="width: 10%"><a class="btn btn-primary" asp-controller="Forum" asp-action="ViewQuestion" asp-route-id="@i["questionId"]">View question</a></td>
+                            </tr>
                         }
                     </tbody>
                 </table>

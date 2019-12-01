@@ -19,7 +19,8 @@ namespace University_advisor_web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var forumModel = new ForumModel();
+            return View(forumModel);
         }
 
         [HttpGet]
@@ -33,15 +34,9 @@ namespace University_advisor_web.Controllers
         public IActionResult Question(ForumModel forumModel)
         {
             forumModel.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            forumModel.date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             forumModel.SaveQuestion();
             return View("../Forum/SubmittedQuestion", forumModel);
-        }
-
-        [HttpGet]
-        public IActionResult Questions()
-        {
-            var forumModel = new ForumModel();
-            return View(forumModel);
         }
 
         public IActionResult ViewQuestion(int id)
@@ -53,6 +48,7 @@ namespace University_advisor_web.Controllers
         public IActionResult Reply(ForumModel forumModel)
         {
             forumModel.userIdReply = HttpContext.Session.GetInt32("UserId") ?? 0;
+            forumModel.date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             forumModel.SaveReply();
             forumModel.answer = String.Empty;
             return RedirectToAction("Questions");

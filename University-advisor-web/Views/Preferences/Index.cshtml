@@ -13,19 +13,16 @@
     var cityId = 1;
 }
 <div class="container">
-    <div class="tab-content">
+    <div class="tab-content m-5">
         <div class="tab-pane fade show active" id="cities-tab">
+            <div class="text-center">
+                <h2 class="d-inline mr-2">Choose Cities</h2><p class="d-inline">or not...</p>
+            </div>
             <div class="grid-fit-max">
                 @foreach (var i in Model.GetCourseCities())
                 {
                     <div class="card card-preference">
                         <div class="card-header card-preference-header">
-                            @*
-                                    @{
-                                    var groupIcon = iconList.Find(icon => icon.ImageId == Convert.ToInt32(i["imageId"].ToString()));
-                                }
-                                <img class="card-img-top" src="@groupIcon.ImageAddress" alt="@i["group"]" ) />
-                            *@
                         </div>
                         <div class="card-body card-preference-body">
                             <div class="card-preference-title">
@@ -39,6 +36,9 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="groups-tab">
+            <div class="text-center">
+                <h2 class="d-inline mr-2">Choose study groups</h2>
+            </div>
             <div class="grid-fit-max">
                 @foreach (var i in Model.GetCourseGroups())
                 {
@@ -60,6 +60,9 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="directions-tab">
+            <div class="text-center">
+                <h2 class="d-inline mr-2">Choose study directions</h2>
+            </div>
             <div class="grid-fit-max" id="directions-container">
 
             </div>
@@ -68,9 +71,9 @@
 
         </div>
     </div>
-    <div id="switchTabButtons" class="linksToContent mt-5 width-100proc">
-        <button id="backBtn" class="btn btn-danger" disabled>Back</button>
-        <button id="nextBtn" class="btn btn-success">Next</button>
+    <div id="switchTabButtons" class="linksToContent mt-5 width-100proc text-center">
+        <button id="backBtn" class="btn btn-danger btn-lg" disabled>Back</button>
+        <button id="nextBtn" class="btn btn-success btn-lg">Next</button>
     </div>
 </div>
 
@@ -90,6 +93,11 @@
 
     let groupArray = [];
     let courseArray = []
+
+    let cities;
+    let groups;
+    let directions;
+
     getGroups().then(data => groupArray = data);
     getCoursesWithDetails().then(data => courseArray = data);
 
@@ -98,6 +106,17 @@
     const tabIdList = $(".tab-pane").map(function () {
         return this.id;
     }).get()
+
+    function changeNextBtn() {
+        if ($("#groups-tab").hasClass("active")) {
+            if ($(".selected[id*='groupBtn']").length !== 0) $("#nextBtn").attr("disabled", false);
+            else $("#nextBtn").attr("disabled", true);
+        }
+        if ($("#directions-tab").hasClass("active")) {
+            if ($(".selected[id*='directionBtn']").length !== 0) $("#nextBtn").attr("disabled", false);
+            else $("#nextBtn").attr("disabled", true);
+        }
+    }
 
     function selectButton(id) {
         let item = $("#" + id);
@@ -111,6 +130,7 @@
             item.addClass("btn-success")
             item.addClass("selected")
         }
+        changeNextBtn();
     }
 
     $("#nextBtn").on('click', nextBtnClick);
@@ -128,6 +148,8 @@
             }).get();
 
         }
+        $("#nextBtn").attr("disabled", true);
+
 
         for (i = 0; i < tabIdList.length; i++)
         {
@@ -154,60 +176,76 @@
     function addCourses()
     {
         //get selected courses
-        const filteredArray = courseArray.filter(course => selectedCities.includes(course.city) && selectedGroups.includes(groupArray.find(item => item.group === course.group).groupId.toString()))
+        let filteredArray;
+        if (selectedCities.length === 0) filteredArray = courseArray.filter(course => selectedGroups.includes(groupArray.find(item => item.group === course.group).groupId.toString()));
+        else filteredArray = courseArray.filter(course => selectedCities.includes(course.city) && selectedGroups.includes(groupArray.find(item => item.group === course.group).groupId.toString()));
         //get unique directions of courses
-        const uniqueDirections = [...new Set(filteredArray.map(course => course.direction))]
-        //create object ready for display
-        const filteredObject = filteredArray.map(course => {
+        directions = [...new Set(filteredArray.map(course => course.direction))].map(direction => {
             return {
-                group: course.group,
-                direction: course.direction,
-                courseId: course.studyProgramId
+                id: direction.replace(" ", ""),
+                name: direction,
             }
         })
-        console.log(uniqueDirections)
-        uniqueDirections.forEach(course => {
+        
+        directions.forEach(course => {
             let container = document.getElementById("directions-container")
             container.appendChild(createCardElement(course));
         })
     }
 
-    function createCardElement(course)
+    function createCardElement(item)
     {
-        let courseCard = document.createElement("DIV");
-        courseCard.setAttribute("class", "card card-preference");
+        let card = document.createElement("DIV");
+        card.setAttribute("class", "card card-preference");
 
-        let courseCardBody = document.createElement("DIV");
-        courseCardBody.setAttribute("class", "card-body card-preference-body");
+        let cardBody = document.createElement("DIV");
+        cardBody.setAttribute("class", "card-body card-preference-body");
 
-        let courseCardTitle = document.createElement("DIV");
-        courseCardTitle.setAttribute("class", "card-preference-title");
+        let cardTitle = document.createElement("DIV");
+        cardTitle.setAttribute("class", "card-preference-title");
 
-        let courseCardTitleText = document.createElement("h6");
-        courseCardTitleText.setAttribute("class", "text-center d-flex justify-content-center");
-        courseCardTitleText.innerHTML = course.direction;
+        let cardTitleText = document.createElement("h6");
+        cardTitleText.setAttribute("class", "text-center d-flex justify-content-center");
+        cardTitleText.innerHTML = item.name;
 
-        let courseCardButton = document.createElement("button");
-        courseCardButton.onclick = selectButton(course.courseId + 'courseBtn')
-        courseCardButton.setAttribute("id", `${course.courseId}groupBtn`)
-        courseCardButton.setAttribute("class", `btn btn-primary card-preference-btn`)
-        courseCardButton.innerHTML = "Select";
+        let cardButton = document.createElement("input");
+        cardButton.type = "button";
+        cardButton.value = "Select"
+        cardButton.onclick = function (event) {
+            return selectButton.call(this, item.id + 'directionBtn');
+        };
+        cardButton.setAttribute("id", `${item.id}directionBtn`)
+        cardButton.setAttribute("class", `btn btn-primary card-preference-btn`)
 
-        courseCardTitle.appendChild(courseCardTitleText);
-        courseCardBody.appendChild(courseCardTitle);
-        courseCardBody.appendChild(courseCardButton);
-        courseCard.appendChild(courseCardBody);
+        cardTitle.appendChild(cardTitleText);
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardButton);
+        card.appendChild(cardBody);
 
-        return courseCard;
+        return card;
     }
 
-    
-
     function setPreferences() {
-        console.log("finish")
+        if ($("#directions-tab").hasClass("active")) {
+            selectedDirections = $(".selected[id*='directionBtn']").map(function () {
+                return this.id.replace("directionBtn", "");
+            }).get();
+
+        }
+        cities = selectedCities
+        directions = directions.filter(direction => selectedDirections.includes(direction.id));
+        groups = groupArray.filter(group => selectedGroups.includes(group.groupId.toString()))
+        $(function () {
+            $("#postUserId").val(`@Model.UserId`);
+            $("#postGroupPreferences").val(`${groups.map(group => group.group).join()}`);
+            $("#postDirectionPreferences").val(`${directions.map(direction => direction.name).join()}`);
+            $("#postCityPreferences").val(`${cities.join()}`);
+            $("#preferencesForm").submit();
+        });
     }
 
     $("#backBtn").click(() => {
+        $("#nextBtn").attr("disabled", false);
         for (i = 0; i < tabIdList.length; i++)
         {
             if ($("#" + tabIdList[i]).hasClass("active") && i > 0)
@@ -216,6 +254,7 @@
                 {
                     $("#nextBtn").html("Next")
                     $("#nextBtn").off('click').on('click', nextBtnClick)
+                    $("#directions-container").empty();
                 }
                 if (i === 1) $("#backBtn").attr("disabled", true);
                 $("#" + tabIdList[i]).removeClass("active");
@@ -226,3 +265,9 @@
     })
 
 </script>
+<form asp-action="PostPreferences" asp-controller="UserProfile" role="form" method="post" enctype="multipart/form-data" id="preferencesForm">
+    <input id="postUserId" asp-for="UserId" type="hidden"/>
+    <input id="postGroupPreferences" asp-for="GroupPreferences" type="hidden"/>
+    <input id="postDirectionPreferences" asp-for="DirectionPreferences" type="hidden"/>
+    <input id="postCityPreferences" asp-for="CityPreferences" type="hidden"/>
+</form>

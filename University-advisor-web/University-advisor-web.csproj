@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CKEditor" Version="3.6.4" />
     <PackageReference Include="Elasticsearch.Net" Version="7.4.0" />
     <PackageReference Include="GeoCoordinate.NetCore" Version="1.0.0.1" />
     <PackageReference Include="Google.Cloud.Storage.V1" Version="2.3.0" />

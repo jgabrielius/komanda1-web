@@ -11,13 +11,13 @@ const updateArray = () => {
 
 const getUniversities = () => $.ajax({
     type: "GET",
-    url: "/api/AutoCompleteSeach/universities",
+    url: "/api/AutoCompleteSearch/universities",
     success: (res) => res
 })
 
 const getCourses = () => $.ajax({
     type: "GET",
-    url: "/api/AutoCompleteSeach/courses",
+    url: "/api/AutoCompleteSearch/courses",
     success: (res) => res
 })
 
@@ -72,7 +72,7 @@ function autocomplete(inp) {
         const currentInput = this.value;
         arrayOfSelectedItems = [];
         closeAllLists();
-        if (!currentInput) { return false; }
+        if (!currentInput) return false;
 
         listOfItems = document.createElement("DIV");
         listOfItems.setAttribute("id", this.id + "autocomplete-list");
@@ -88,7 +88,7 @@ function autocomplete(inp) {
 
         arrayOfSelectedItems = mergeSort(arrayOfSelectedItems);
 
-
+        if (arrayOfSelectedItems.length === 0 ) return false;
         for (i = 0; i < 10; i++) {
             const lowerCaseInput = currentInput.toLowerCase();
             const lowerCaseName = arrayOfSelectedItems[i].name.toLowerCase();

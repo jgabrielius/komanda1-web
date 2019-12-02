@@ -64,7 +64,7 @@ namespace University_advisor_web.Models
                 $"studyProgrammes.studyProgramId=users.courseId AND users.userId=courseReviews.userId " +
                 $"AND courseReviews.courseId={StudyProgramId}");
         }
-        public List<Dictionary<string, object>> getAllCoursesData()
+        public List<Dictionary<string, object>> CoursesList()
         {
             var sqlData = SqlDriver.Fetch("SELECT * FROM studyProgrammes");
             return sqlData;

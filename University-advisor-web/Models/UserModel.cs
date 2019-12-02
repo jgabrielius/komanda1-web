@@ -36,6 +36,12 @@ namespace University_advisor_web.Models
         public List<SelectListItem> Courses { get; set; }
 
         public List<SelectListItem> Statuses { get; set; }
+        public string SchoolSubjectPreferences { get; set; }
+        public string GroupPreferences { get; set; }
+        public string DirectionPreferences { get; set; }
+        public string CityPreferences { get; set; }
+
+
 
         public UserModel(int userId)
         {
@@ -135,6 +141,22 @@ namespace University_advisor_web.Models
         {
             SqlDriver.Execute($"UPDATE users SET username =@0 WHERE userid=@1;", new ArrayList { NewUsername, UserId });
         }
+        public void ChangeCityPreferences()
+        {
+            SqlDriver.Execute($"UPDATE users SET city =@0 WHERE userid=@1;", new ArrayList { CityPreferences, UserId });
+        }
+        public void ChangeGroupPreferences()
+        {
+            SqlDriver.Execute($"UPDATE users SET studyGroup =@0 WHERE userid=@1;", new ArrayList { GroupPreferences, UserId });
+        }
+        public void ChangeDirectionPreferences()
+        {
+            SqlDriver.Execute($"UPDATE users SET studyDirection =@0 WHERE userid=@1;", new ArrayList { DirectionPreferences, UserId });
+        }
+        public void ChangeSchoolSubjectPreferences()
+        {
+            SqlDriver.Execute($"UPDATE users SET schoolSubject =@0 WHERE userid=@1;", new ArrayList { SchoolSubjectPreferences, UserId });
+        }
 
         public void ChangeUniversity()
         {
@@ -199,9 +221,19 @@ namespace University_advisor_web.Models
             return new UniversityModel().GetUniversities();
         }
 
+        public List<Dictionary<string, object>> GetCourses()
+        {
+            return new CourseModel().CoursesList();
+        }
+
         public List<Dictionary<string, object>> GetCourseGroups()
         {
             return new CourseModel().GroupList();
+        }
+
+        public List<Dictionary<string, object>> GetCourseCities() 
+        {
+            return new CourseModel().CityList();
         }
 
 

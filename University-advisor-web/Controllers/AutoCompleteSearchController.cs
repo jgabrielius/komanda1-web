@@ -10,7 +10,7 @@ namespace University_advisor_web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AutoCompleteSeachController : ControllerBase
+    public class AutoCompleteSearchController : ControllerBase
     {
         // GET: api/AutoCompleteSeach
         [HttpGet("courses")]

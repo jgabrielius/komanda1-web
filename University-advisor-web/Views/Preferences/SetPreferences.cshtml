@@ -1,0 +1,87 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Set Preferences";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/Profile.css" />
+}
+@{
+}
+
+@{
+    var iconList = new ImageModel().GetAllIcons();
+    var cityId = 1;
+}
+<div class="container">
+    <div class="tab-content m-5">
+        <div class="tab-pane fade show active" id="cities-tab">
+            <div class="text-center">
+                <h2 class="d-inline mr-2">Choose Cities</h2><p class="d-inline">or not...</p>
+            </div>
+            <div class="grid-fit-max">
+                @foreach (var i in Model.GetCourseCities())
+                {
+                    <div class="card card-preference">
+                        <div class="card-header card-preference-header">
+                        </div>
+                        <div class="card-body card-preference-body">
+                            <div class="card-preference-title">
+                                <h6 class="text-center d-flex justify-content-center">@i["city"]</h6>
+                            </div>
+                            <button onclick="selectButton('@i["city"]' + 'cityBtn')" id="@i["city"]cityBtn" class="btn btn-primary card-preference-btn">Select</button>
+                        </div>
+                    </div>
+                    cityId = cityId + 1;
+                }
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="groups-tab">
+            <div class="text-center">
+                <h2 class="d-inline mr-2">Choose study groups</h2>
+            </div>
+            <div class="grid-fit-max">
+                @foreach (var i in Model.GetCourseGroups())
+                {
+                    <div class="card card-preference">
+                        <div class="card-header card-preference-header">
+                            @{
+                                var groupIcon = iconList.Find(icon => icon.ImageId == Convert.ToInt32(i["imageId"].ToString()));
+                            }
+                            <img class="card-img-top" src="@groupIcon.ImageAddress" alt="@i["group"]" ) />
+                        </div>
+                        <div class="card-body card-preference-body">
+                            <div class="card-preference-title">
+                                <h6 class="text-center d-flex justify-content-center">@i["group"]</h6>
+                            </div>
+                            <button onclick="selectButton(@i["groupId"] + 'groupBtn')" id="@i["groupId"]groupBtn" class="btn btn-primary card-preference-btn">Select</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="directions-tab">
+            <div class="text-center">
+                <h2 class="d-inline mr-2">Choose study directions</h2>
+            </div>
+            <div id="directions-container">
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="cities-tab">
+
+        </div>
+    </div>
+    <div id="switchTabButtons" class="linksToContent mt-5 width-100proc text-center">
+        <button id="backBtn" class="btn btn-danger btn-lg" disabled>Back</button>
+        <button id="nextBtn" class="btn btn-success btn-lg">Next</button>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/SetPreferences.js"></script>
+
+<form asp-action="PostPreferences" asp-controller="Preferences" role="form" method="post" enctype="multipart/form-data" id="preferencesForm">
+    <input id="postUserId" asp-for="UserId" type="hidden" value="@Model.UserId"/>
+    <input id="postGroupPreferences" asp-for="GroupPreferences" type="hidden"/>
+    <input id="postDirectionPreferences" asp-for="DirectionPreferences" type="hidden"/>
+    <input id="postCityPreferences" asp-for="CityPreferences" type="hidden"/>
+</form>

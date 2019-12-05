@@ -6,21 +6,21 @@
     <div class="blok-body">
         <div class="row">
             <!-- Nav tabs -->
-            <ul class="nav tab-menu nav-pills col-sm-4 nav-stacked pr15 width-200 h5 d-block">
-                <li class="active"><a href="#profile" data-toggle="tab">Edit profile</a></li>
-                <li><a href="#settings" data-toggle="tab">Account settings</a></li>
+            <ul class="nav tab-menu nav-pills col-sm-4 nav-stacked pr15 width-200 h5 d-block" id="navTabs">
+                <li><a id="profileTab" href="#profile" data-toggle="tab">Edit profile</a></li>
+                <li><a id="settingsTab" href="#settings" data-toggle="tab">Account settings</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content col-sm-8">
-                <div class="tab-pane well active in active" id="profile">
+                <div class="tab-pane well fade in active" id="profile">
                     <h2>Edit profile</h2>
-                    <form asp-controller="Settings" role="form" method="post" enctype="multipart/form-data" id="settingsForm">
+                    <form asp-controller="Settings" role="form" method="post" enctype="multipart/form-data" id="profileForm">
                         <div class="row">
                             <div class="col-6">
                                 <div class="row">
                                     <div class="col">
                                         <label>First name</label>
-                                        <input asp-for="NewFirstName" type="text" id="changeFirstName" class="form-control" value="@Model.FirstName"/>
+                                        <input asp-for="NewFirstName" type="text" id="changeFirstName" class="form-control" value="@Model.FirstName" />
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -33,7 +33,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label>Last name</label>
-                                        <input asp-for="NewLastName" type="text" id="changeLastName" class="form-control" value="@Model.LastName"/>
+                                        <input asp-for="NewLastName" type="text" id="changeLastName" class="form-control" value="@Model.LastName" />
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -48,7 +48,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label>Username</label>
-                                        <input asp-for="NewUsername" type="text" id="changeUsername" class="form-control" value="@Model.Username"/>
+                                        <input asp-for="NewUsername" type="text" id="changeUsername" class="form-control" value="@Model.Username" />
                                     </div>
                                 </div>
                                 <div class="row mt-3 d-block">
@@ -99,7 +99,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label>New email:</label>
-                                        <input asp-for="NewEmail" type="email" id="newEmail" class="form-control" value="@Model.Email"/>
+                                        <input asp-for="NewEmail" type="email" id="newEmail" class="form-control" value="@Model.Email" />
                                     </div>
                                 </div>
 
@@ -196,3 +196,15 @@
 <input type="hidden" name="University" id="University" value="@Model.University">
 <input type="hidden" name="Status" id="Status" value="@Model.Status">
 <input type="hidden" name="Course" id="Course" value="@Model.Course">
+
+<script type="text/javascript">
+    $(document).ready(function(){
+	    $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+		    localStorage.setItem('activeTab', $(e.target).attr('href'));
+	    });
+	    var activeTab = localStorage.getItem('activeTab');
+	    if(activeTab){
+		    $('#navTabs a[href="' + activeTab + '"]').tab('show');
+	    }
+    });
+</script>

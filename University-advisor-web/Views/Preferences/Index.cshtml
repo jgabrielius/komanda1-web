@@ -1,273 +1,45 @@
-﻿@model UserModel
-@{
-    ViewData["Title"] = "Preferences";
-}
+﻿@model List<RecommendationModel>
 @section Styles {
     <link rel="stylesheet" href="~/css/Profile.css" />
 }
 @{
+    ViewData["Title"] = "Recommendations";
 }
 
-@{
-    var iconList = new ImageModel().GetAllIcons();
-    var cityId = 1;
+@if (Model == null)
+{
+    <div>Set your preferences!</div>
 }
-<div class="container">
-    <div class="tab-content m-5">
-        <div class="tab-pane fade show active" id="cities-tab">
-            <div class="text-center">
-                <h2 class="d-inline mr-2">Choose Cities</h2><p class="d-inline">or not...</p>
-            </div>
-            <div class="grid-fit-max">
-                @foreach (var i in Model.GetCourseCities())
-                {
-                    <div class="card card-preference">
-                        <div class="card-header card-preference-header">
-                        </div>
-                        <div class="card-body card-preference-body">
-                            <div class="card-preference-title">
-                                <h6 class="text-center d-flex justify-content-center">@i["city"]</h6>
-                            </div>
-                            <button onclick="selectButton('@i["city"]' + 'cityBtn')" id="@i["city"]cityBtn" class="btn btn-primary card-preference-btn">Select</button>
-                        </div>
-                    </div>
-                    cityId = cityId + 1;
-                }
-            </div>
-        </div>
-        <div class="tab-pane fade show" id="groups-tab">
-            <div class="text-center">
-                <h2 class="d-inline mr-2">Choose study groups</h2>
-            </div>
-            <div class="grid-fit-max">
-                @foreach (var i in Model.GetCourseGroups())
-                {
-                    <div class="card card-preference">
-                        <div class="card-header card-preference-header">
-                            @{
-                                var groupIcon = iconList.Find(icon => icon.ImageId == Convert.ToInt32(i["imageId"].ToString()));
-                            }
-                            <img class="card-img-top" src="@groupIcon.ImageAddress" alt="@i["group"]" ) />
-                        </div>
-                        <div class="card-body card-preference-body">
-                            <div class="card-preference-title">
-                                <h6 class="text-center d-flex justify-content-center">@i["group"]</h6>
-                            </div>
-                            <button onclick="selectButton(@i["groupId"] + 'groupBtn')" id="@i["groupId"]groupBtn" class="btn btn-primary card-preference-btn">Select</button>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        <div class="tab-pane fade show" id="directions-tab">
-            <div class="text-center">
-                <h2 class="d-inline mr-2">Choose study directions</h2>
-            </div>
-            <div class="grid-fit-max" id="directions-container">
-
-            </div>
-        </div>
-        <div class="tab-pane fade" id="cities-tab">
-
-        </div>
-    </div>
-    <div id="switchTabButtons" class="linksToContent mt-5 width-100proc text-center">
-        <button id="backBtn" class="btn btn-danger btn-lg" disabled>Back</button>
-        <button id="nextBtn" class="btn btn-success btn-lg">Next</button>
-    </div>
+else
+{
+<div class="m-3">
+    <h3 style="max-width: 500px; margin: 0; display: inline">Our recommendations</h3>
+    <a style="width:100px; height: 50px; border-radius: 0;" class="btn btn-danger float-right" asp-controller="Preferences" asp-action="SetPreferences">Change preferences</a>
 </div>
-
-
-
-<script type="text/javascript">
-    const getGroups = () => $.ajax({
-        type: "GET",
-        url: "/api/courses/groups",
-        success: (res) => res
-    });
-    const getCoursesWithDetails = () => $.ajax({
-        type: "GET",
-        url: "/api/courses/details",
-        success: (res) => res
-    });
-
-    let groupArray = [];
-    let courseArray = []
-
-    let cities;
-    let groups;
-    let directions;
-
-    getGroups().then(data => groupArray = data);
-    getCoursesWithDetails().then(data => courseArray = data);
-
-
-    let selectedCities, selectedGroups, selectedDirections;
-    const tabIdList = $(".tab-pane").map(function () {
-        return this.id;
-    }).get()
-
-    function changeNextBtn() {
-        if ($("#groups-tab").hasClass("active")) {
-            if ($(".selected[id*='groupBtn']").length !== 0) $("#nextBtn").attr("disabled", false);
-            else $("#nextBtn").attr("disabled", true);
-        }
-        if ($("#directions-tab").hasClass("active")) {
-            if ($(".selected[id*='directionBtn']").length !== 0) $("#nextBtn").attr("disabled", false);
-            else $("#nextBtn").attr("disabled", true);
-        }
-    }
-
-    function selectButton(id) {
-        let item = $("#" + id);
-        if (item.hasClass("btn-success")) {
-            item.removeClass("btn-success");
-            item.removeClass("selected")
-            item.addClass("btn-primary")
-        }
-        else if (item.hasClass("btn-primary")) {
-            item.removeClass("btn-primary");
-            item.addClass("btn-success")
-            item.addClass("selected")
-        }
-        changeNextBtn();
-    }
-
-    $("#nextBtn").on('click', nextBtnClick);
-
-    function nextBtnClick() {
-        if ($("#cities-tab").hasClass("active")) {
-            selectedCities = $(".selected[id*='cityBtn']").map(function () {
-                return this.id.replace("cityBtn", "");
-            }).get();
-        }
-        
-        if ($("#groups-tab").hasClass("active")) {
-            selectedGroups = $(".selected[id*='groupBtn']").map(function () {
-                return this.id.replace("groupBtn", "");
-            }).get();
-
-        }
-        $("#nextBtn").attr("disabled", true);
-
-
-        for (i = 0; i < tabIdList.length; i++)
-        {
-            if ($("#" + tabIdList[i]).hasClass("active"))
-            {
-                if (i === tabIdList.length - 3)
-                {
-                    $("#nextBtn").html("Finish")
-                    $("#nextBtn").off('click').on('click', setPreferences)
-                    addCourses();
-                }
-                if (i === 0) $("#backBtn").removeAttr("disabled");
-                $("#" + tabIdList[i]).removeClass("active");
-                $("#" + tabIdList[i + 1]).addClass("active");
-                i = tabIdList.length;
-            }
-        }
-    };
-
-    function courseFilter(course) {
-        return selectedCities.includes(course.city) && selectedGroups.includes(course.group)
-    }
-
-    function addCourses()
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(700px, 900px)); grid-gap: 20px; margin: 15px 0;">
+    @foreach (var university in Model)
     {
-        //get selected courses
-        let filteredArray;
-        if (selectedCities.length === 0) filteredArray = courseArray.filter(course => selectedGroups.includes(groupArray.find(item => item.group === course.group).groupId.toString()));
-        else filteredArray = courseArray.filter(course => selectedCities.includes(course.city) && selectedGroups.includes(groupArray.find(item => item.group === course.group).groupId.toString()));
-        //get unique directions of courses
-        directions = [...new Set(filteredArray.map(course => course.direction))].map(direction => {
-            return {
-                id: direction.replace(" ", ""),
-                name: direction,
-            }
-        })
-        
-        directions.forEach(course => {
-            let container = document.getElementById("directions-container")
-            container.appendChild(createCardElement(course));
-        })
-    }
-
-    function createCardElement(item)
-    {
-        let card = document.createElement("DIV");
-        card.setAttribute("class", "card card-preference");
-
-        let cardBody = document.createElement("DIV");
-        cardBody.setAttribute("class", "card-body card-preference-body");
-
-        let cardTitle = document.createElement("DIV");
-        cardTitle.setAttribute("class", "card-preference-title");
-
-        let cardTitleText = document.createElement("h6");
-        cardTitleText.setAttribute("class", "text-center d-flex justify-content-center");
-        cardTitleText.innerHTML = item.name;
-
-        let cardButton = document.createElement("input");
-        cardButton.type = "button";
-        cardButton.value = "Select"
-        cardButton.onclick = function (event) {
-            return selectButton.call(this, item.id + 'directionBtn');
-        };
-        cardButton.setAttribute("id", `${item.id}directionBtn`)
-        cardButton.setAttribute("class", `btn btn-primary card-preference-btn`)
-
-        cardTitle.appendChild(cardTitleText);
-        cardBody.appendChild(cardTitle);
-        cardBody.appendChild(cardButton);
-        card.appendChild(cardBody);
-
-        return card;
-    }
-
-    function setPreferences() {
-        if ($("#directions-tab").hasClass("active")) {
-            selectedDirections = $(".selected[id*='directionBtn']").map(function () {
-                return this.id.replace("directionBtn", "");
-            }).get();
-
-        }
-        cities = selectedCities
-        directions = directions.filter(direction => selectedDirections.includes(direction.id));
-        groups = groupArray.filter(group => selectedGroups.includes(group.groupId.toString()))
-        $(function () {
-            $("#postUserId").val(`@Model.UserId`);
-            $("#postGroupPreferences").val(`${groups.map(group => group.group).join()}`);
-            $("#postDirectionPreferences").val(`${directions.map(direction => direction.name).join()}`);
-            $("#postCityPreferences").val(`${cities.join()}`);
-            $("#preferencesForm").submit();
-        });
-    }
-
-    $("#backBtn").click(() => {
-        $("#nextBtn").attr("disabled", false);
-        for (i = 0; i < tabIdList.length; i++)
-        {
-            if ($("#" + tabIdList[i]).hasClass("active") && i > 0)
-            {
-                if (i === tabIdList.length - 2)
+        <div class="border-success border p-3 m-3">
+            <div style="min-height:200px;">
+                <h3 class="d-block justify-content-center">@university.University.UniversityName</h3>
+                <img src=@university.University.Image class="rounded float-left" style="height:150px;width:auto;margin-right:10px;" alt="@university.University.UniversityName" />
+                <a class="btn btn-outline-info" asp-controller="Review" asp-action="View" asp-route-id="@university.University.UniversityId">View University</a>
+            </div>
+            <div class="grid-fit-max">
+                @foreach (var course in university.Courses)
                 {
-                    $("#nextBtn").html("Next")
-                    $("#nextBtn").off('click').on('click', nextBtnClick)
-                    $("#directions-container").empty();
+                    <div class="card card-preference">
+                        <div class="card-header card-preference-header"></div>
+                        <div class="card-body card-preference-body">
+                            <div class="card-preference-title">
+                                <h6 class="text-center d-flex justify-content-center">@course.StudyProgramName</h6>
+                            </div>
+                            <a class="btn btn-primary card-preference-btn" asp-controller="Review" asp-action="ViewCourse" asp-route-id="@course.StudyProgramId">View</a>
+                        </div>
+                    </div>
                 }
-                if (i === 1) $("#backBtn").attr("disabled", true);
-                $("#" + tabIdList[i]).removeClass("active");
-                $("#" + tabIdList[i - 1]).addClass("active");
-                i = tabIdList.length;
-            }
-        }
-    })
-
-</script>
-<form asp-action="PostPreferences" asp-controller="UserProfile" role="form" method="post" enctype="multipart/form-data" id="preferencesForm">
-    <input id="postUserId" asp-for="UserId" type="hidden"/>
-    <input id="postGroupPreferences" asp-for="GroupPreferences" type="hidden"/>
-    <input id="postDirectionPreferences" asp-for="DirectionPreferences" type="hidden"/>
-    <input id="postCityPreferences" asp-for="CityPreferences" type="hidden"/>
-</form>
+            </div>
+        </div>
+    }
+</div>
+}

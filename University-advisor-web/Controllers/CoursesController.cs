@@ -14,19 +14,9 @@ namespace University_advisor_web.Controllers
     {
         // GET: api/Courses
         [HttpGet]
-        public IEnumerable<CourseModel> GetCourses()
+        public IEnumerable<Dictionary<string, object>> GetCourses()
         {
-            var data = new List<CourseModel>();
-            foreach (var course in new CourseModel().CoursesList())
-            {
-                data.Add(new CourseModel() 
-                {
-                    StudyProgramId = Convert.ToInt32(course["studyProgramId"].ToString()),
-                    UniversityId = Convert.ToInt32(course["universityId"].ToString()),
-                    Program = course["program"].ToString()
-                });
-            }
-            return data;
+            return new CourseModel().CoursesList();
         }
 
         [HttpGet("details")]
@@ -75,6 +65,30 @@ namespace University_advisor_web.Controllers
                 data.Add(city["city"].ToString());
             }
             return data;
+        }
+
+        [HttpGet("preferences")]
+        public List<Dictionary<string, object>> GetPreferences()
+        {
+            var model = new UserModel(HttpContext.Session.GetInt32("UserId") ?? 0);
+            return new CourseModel().RecommendedCourses(model);
+        }
+
+        [HttpGet("autoCompleteSearch")]
+        public IEnumerable<AutoCompleteItemModel> GetAutoCompleteSearchCourses()
+        {
+            var listOfItems = new List<AutoCompleteItemModel>();
+            var listOfCourses = new UniversityModel().GetAllCoursesWithUniversityNames();
+            foreach (var course in listOfCourses)
+            {
+                listOfItems.Add(
+                    new AutoCompleteItemModel(
+                        $"{course["program"].ToString()} ({course["name"].ToString()})",
+                        "ViewCourse",
+                        Convert.ToInt32(course["studyProgramId"].ToString()))
+                    );
+            }
+            return listOfItems;
         }
     }
 }

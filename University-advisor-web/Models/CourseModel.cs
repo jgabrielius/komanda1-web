@@ -69,16 +69,36 @@ namespace University_advisor_web.Models
             var sqlData = SqlDriver.Fetch("SELECT * FROM studyProgrammes");
             return sqlData;
         }
+        public List<Dictionary<string, object>> RecommendedCourses(UserModel user) {
+            string cities, groups, directions;
+            Console.WriteLine("\n\n\n\n");
+            Console.WriteLine(user.CityPreferences);
+            Console.WriteLine("\n\n\n\n");
+            if (user.CityPreferences != "")
+            {
+                cities = user.CityPreferences.Replace(",","\",\"");
+                cities = "\"" + cities + "\"";
+            }
+            else cities = "";
+            if (user.GroupPreferences != null)
+            {
+                groups = user.GroupPreferences.Replace(",", "\",\"");
+                groups = "\"" + groups + "\"";
+                directions = user.DirectionPreferences.Replace(",", "\",\"");
+                directions = "\"" + directions + "\"";
+                if (cities != "") return SqlDriver.Fetch($"SELECT * FROM studyProgrammes WHERE city IN ({cities}) AND \"group\" IN ({groups}) AND direction IN ({directions})");
+                else return SqlDriver.Fetch($"SELECT * FROM studyProgrammes WHERE \"group\" IN ({groups}) AND direction IN ({directions})");
+            };
+            return null;
+        }
         public List<Dictionary<string, object>> CityList()
         {
             return SqlDriver.Fetch("SELECT DISTINCT(city) FROM studyProgrammes");
         }
-
         public List<Dictionary<string, object>> GroupList()
         {
             return SqlDriver.Fetch("SELECT * FROM courseGroup");
         }
-
         public List<Dictionary<string, object>> DirectionList()
         {
             return SqlDriver.Fetch("SELECT DISTINCT(direction) FROM studyProgrammes");

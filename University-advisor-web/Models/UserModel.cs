@@ -34,18 +34,15 @@ namespace University_advisor_web.Models
         public IFormFile File { get; set; }
         public List<SelectListItem> Universities { get; set; }
         public List<SelectListItem> Courses { get; set; }
-
         public List<SelectListItem> Statuses { get; set; }
         public string SchoolSubjectPreferences { get; set; }
         public string GroupPreferences { get; set; }
         public string DirectionPreferences { get; set; }
         public string CityPreferences { get; set; }
 
-
-
         public UserModel(int userId)
         {
-            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";");
+            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status, schoolPreferences, groupPreferences, directionPreferences, cityPreferences FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";");
             UserId = userId;
             Username = sqlUser["username"].ToString();
             Email = sqlUser["email"].ToString();
@@ -54,6 +51,10 @@ namespace University_advisor_web.Models
             University = sqlUser["name"].ToString();
             Course = sqlUser["program"].ToString();
             Status = sqlUser["status"].ToString();
+            SchoolSubjectPreferences = sqlUser["schoolPreferences"].ToString();
+            GroupPreferences = sqlUser["groupPreferences"].ToString();
+            DirectionPreferences = sqlUser["directionPreferences"].ToString();
+            CityPreferences = sqlUser["cityPreferences"].ToString();
         }
 
         public UserModel()
@@ -143,19 +144,19 @@ namespace University_advisor_web.Models
         }
         public void ChangeCityPreferences()
         {
-            SqlDriver.Execute($"UPDATE users SET city =@0 WHERE userid=@1;", new ArrayList { CityPreferences, UserId });
+            SqlDriver.Execute($"UPDATE users SET cityPreferences =@0 WHERE userid=@1;", new ArrayList { CityPreferences, UserId });
         }
         public void ChangeGroupPreferences()
         {
-            SqlDriver.Execute($"UPDATE users SET studyGroup =@0 WHERE userid=@1;", new ArrayList { GroupPreferences, UserId });
+            SqlDriver.Execute($"UPDATE users SET groupPreferences =@0 WHERE userid=@1;", new ArrayList { GroupPreferences, UserId });
         }
         public void ChangeDirectionPreferences()
         {
-            SqlDriver.Execute($"UPDATE users SET studyDirection =@0 WHERE userid=@1;", new ArrayList { DirectionPreferences, UserId });
+            SqlDriver.Execute($"UPDATE users SET directionPreferences =@0 WHERE userid=@1;", new ArrayList { DirectionPreferences, UserId });
         }
         public void ChangeSchoolSubjectPreferences()
         {
-            SqlDriver.Execute($"UPDATE users SET schoolSubject =@0 WHERE userid=@1;", new ArrayList { SchoolSubjectPreferences, UserId });
+            SqlDriver.Execute($"UPDATE users SET schoolPreferences =@0 WHERE userid=@1;", new ArrayList { SchoolSubjectPreferences, UserId });
         }
 
         public void ChangeUniversity()

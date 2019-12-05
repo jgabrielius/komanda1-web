@@ -11,15 +11,19 @@ const updateArray = () => {
 
 const getUniversities = () => $.ajax({
     type: "GET",
-    url: "/api/AutoCompleteSearch/universities",
+    url: "/api/Universities/autoCompleteSearch",
     success: (res) => res
-})
+}).catch(e => {
+    console.log(e);
+});
 
 const getCourses = () => $.ajax({
     type: "GET",
-    url: "/api/AutoCompleteSearch/courses",
+    url: "/api/courses/autoCompleteSearch",
     success: (res) => res
-})
+}).catch(e => {
+    console.log(e);
+});
 
 const mergeSort = (array) => {
 

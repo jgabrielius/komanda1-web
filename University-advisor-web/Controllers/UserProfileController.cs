@@ -15,15 +15,5 @@ namespace University_advisor_web.Controllers
             var model = new UserModel(HttpContext.Session.GetInt32("UserId") ?? 0);
             return View(model);
         }
-
-        [HttpPost]
-        public IActionResult PostPreferences(UserModel model) 
-        {
-            model.ChangeCityPreferences();
-            model.ChangeGroupPreferences();
-            model.ChangeDirectionPreferences();
-            model = new UserModel(model.UserId);
-            return RedirectToAction("Index", model);
-        }
     }
 }

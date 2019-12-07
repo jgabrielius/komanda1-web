@@ -29,7 +29,8 @@ namespace University_advisor_web.Controllers
         public IActionResult Index()
         {
             var model = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
-            return View(model);
+            //return View(model);
+            return View("../Pages/SignUp/Index");
         }
        
         [HttpPost]

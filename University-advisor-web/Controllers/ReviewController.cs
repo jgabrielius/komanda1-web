@@ -30,7 +30,7 @@ namespace University_advisor_web.Controllers
         {
             Lazy<UniversityModel> _model = new Lazy<UniversityModel>(() => new UniversityModel(id));
             var model = _model.Value;
-            return View(model);
+            return View("../Pages/Review/View", model);
         }
 
         public IActionResult ViewCourse(int id)

@@ -10,7 +10,7 @@
     <div class="container py-lg-5 py-sm-4">
         <div class="row">
             <div class="col-lg-6 about-left">
-                <h3 class="mt-lg-3">@Model.UniversityName<strong></strong></h3>
+                <h3 class="mt-lg-3"><strong>@Model.UniversityName</strong></h3>
                 <p class="mt-4">
                     @Model.Description
                 </p>
@@ -20,67 +20,107 @@
             </div>
         </div>
 
-        <div class="container text-center" style="margin-top:20px;">
-    <h3>Average reviews:</h3>
-    <br>
-    <div class="row">
-        <div class="col-sm-2">
-            <h2>@Model.Variety</h2>
-            <p>Variety</p>
-        </div>
-        <div class="col-sm-2">
-            <h2>@Model.Availability</h2>
-            <p>Availability</p>
-        </div>
-        <div class="col-sm-2">
-            <h2>@Model.Accessability</h2>
-            <p>Accessability</p>
-        </div>
-        <div class="col-sm-2">
-            <h2>@Model.Unions</h2>
-            <p>Quality</p>
-        </div>
-        <div class="col-sm-2">
-            <h2>@Model.Cost</h2>
-            <p>Unions</p>
-        </div>
-        <div class="col-sm-2">
-            <h2>@Model.Variety</h2>
-            <p>Cost</p>
-        </div>
-    </div>
-</div>
-
         <div class="row mt-5 text-center">
             <div class="col-lg-2 col-3">
                 <div class="counter">
                     <span class="fa fa-smile-o"></span>
-                    <div class="timer count-title count-number">1000+</div>
-                    <p class="count-text text-uppercase">happy customers</p>
+                    <div class="timer count-title count-number">@Model.Variety</div>
+                    <p class="count-text text-uppercase">Variety of courses</p>
                 </div>
             </div>
+
             <div class="col-lg-2 col-3">
                 <div class="counter">
-                    <span class="fa fa-ship"></span>
-                    <div class="timer count-title count-number">2271</div>
-                    <p class="count-text text-uppercase">Tours & Travels </p>
+                    <span class="fa fa-check-square-o"></span>
+                    <div class="timer count-title count-number">@Model.Availability</div>
+                    <p class="count-text text-uppercase">Availability of extracurricular activities</p>
                 </div>
             </div>
+
+            <div class="col-lg-2 col-3 mt-lg-0 mt-5">
+                <div class="counter">
+                    <span class="fa fa-compass"></span>
+                    <div class="timer count-title count-number">@Model.Accessability</div>
+                    <p class="count-text text-uppercase">Access to faculty</p>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-3 mt-lg-0 mt-5">
+                <div class="counter">
+                    <span class="fa fa-trophy"></span>
+                    <div class="timer count-title count-number">@Model.Quality</div>
+                    <p class="count-text text-uppercase">Quality of academic facilities</p>
+                </div>
+            </div>
+
             <div class="col-lg-2 col-3 mt-lg-0 mt-5">
                 <div class="counter">
                     <span class="fa fa-users"></span>
-                    <div class="timer count-title count-number">200</div>
-                    <p class="count-text text-uppercase">destinations</p>
+                    <div class="timer count-title count-number">@Model.Unions</div>
+                    <p class="count-text text-uppercase">Student unions</p>
                 </div>
             </div>
+
             <div class="col-lg-2 col-3 mt-lg-0 mt-5">
                 <div class="counter">
-                    <span class="fa fa-gift"></span>
-                    <div class="timer count-title count-number">20+<span>years</span></div>
-                    <p class="count-text text-uppercase">experience</p>
+                    <span class="fa fa-money"></span>
+                    <div class="timer count-title count-number">@Model.Cost</div>
+                    <p class="count-text text-uppercase">Cost of studying</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<section class="choose" id="choose">
+    <div class="overlay-all py-5">
+        <div class="container py-lg-5 py-sm-4">
+            <div class="edu-exp-grids">
+                <div class="tab-main">
+                    <input id="tab1" type="radio" name="tabs" class="w3pvt-sm" checked>
+                    <label for="tab1">Reviews</label>
+                    <input id="tab2" type="radio" class="w3pvt-sm" name="tabs">
+                    <label for="tab2">Courses</label>
+
+                    <section id="content1">
+                        @foreach (var i in Model.GetAllReviews())
+                        {
+                            <div class="col-lg-12 col-md-8 inner-w3pvt-wrap">
+                                <div class="inner-sec-grid">
+                                    <h4 class="mt-md-4 mt-2"><span class="fa fa-user"></span> Review by <b>@i["status"]</b> from <b>@i["program"]</b></h4>
+                                    <p class="mt-3">@i["review"]</p>
+                                    <p class="mt-2">Posted on @i["date"]</p>
+                                </div>
+                            </div>
+                        }
+                        <h4 style="margin-top:10px;">Total reviews: @Model.CountReviews()</h4>
+                    </section>
+
+                    <section id="content2">
+                        <div class="row inner-sec-w3layouts-w3pvt-lauinfo">
+                            @foreach (var i in Model.GetCoursesWithRatings())
+                            {
+                                <div class="col-lg-3 col-sm-6" style="margin-top:8px;">
+                                    <div class="package-info">
+                                        <h5 class="my-2"><span class="fa fa-university mr-2"></span>@i["program"]</h5>
+                                        <h6 class="mt-1"><span class="fa fa-users mr-2"></span>@i["group"]</h6>
+                                        <h6 class="mt-1"><span class="fa fa-graduation-cap mr-2"></span>@i["direction"]</h6>
+                                        <ul class="listing mt-3" style="margin-bottom:15px;">
+                                            <li><span class="fa fa-check-circle-o mr-2"></span>Presentation : <span>@i["presentation"]</span></li>
+                                            <li><span class="fa fa-check-circle-o mr-2"></span>Clarity : <span>@i["clarity"]</span></li>
+                                            <li><span class="fa fa-check-circle-o mr-2"></span>Feedback : <span>@i["feedback"]</span></li>
+                                            <li><span class="fa fa-check-circle-o mr-2"></span>Encouragement : <span>@i["encouragement"]</span></li>
+                                            <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@i["effectiveness"]</span></li>
+                                            <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@i["satisfaction"]</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

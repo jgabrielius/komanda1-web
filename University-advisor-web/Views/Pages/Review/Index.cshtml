@@ -1,0 +1,41 @@
+﻿@model UniversityModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/UniCompare.css" />
+
+<section class="destinations py-5" id="destinations">
+    <div class="container py-xl-5 py-lg-3">
+        <h3 class="heading text-capitalize text-center">Discover Universities</h3>
+        <p class="text mt-2 mb-5 text-center">Check all of the 39 universities across Lithuania and choose the one that suits you the best.</p>
+        <div class="row inner-sec-w3layouts-w3pvt-lauinfo">
+            @foreach (var i in Model.GetUniversitiesWithRatings())
+            {
+                <div class="col-lg-3 col-sm-6">
+                    <div class="image-tour position-relative">
+                        <img src="@i["image"]" alt="" class="img-fluid" />
+                        <p><span class="fa fa-globe"></span> <span>Website</span></p>
+                    </div>
+                    <div class="package-info">
+                        <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>@i["address"]</h6>
+                        <h5 class="my-2">@i["name"]</h5>
+                        <ul class="listing mt-3" style="margin-bottom:15px;">
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Variety : <span>@i["variety"]</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Availability : <span>@i["availability"]</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Accessability : <span>@i["accessability"]</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Quality : <span>@i["quality"]</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Unions : <span>@i["unions"]</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Cost : <span>@i["cost"]</span></li>
+                        </ul>
+                        <button class="btn btn-block sent-butnn" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]"><span class="fa fa-info-circle"></span> Read more</button>
+                        <button class="btn btn-block sent-butnn" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]"><span class="fa fa-plus-circle"></span> Compare</button>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+
+</section>

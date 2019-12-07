@@ -23,7 +23,7 @@ namespace University_advisor_web.Controllers
         public IActionResult Index()
         {
             var model = new UniversityModel();
-            return View(model);
+            return View("../Pages/Review/Index", model);
         }
 
         public IActionResult View(int id)

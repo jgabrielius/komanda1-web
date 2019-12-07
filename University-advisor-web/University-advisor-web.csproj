@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\design\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\design\fonts\fontawesome-webfont.woff2" />
     <None Include="wwwroot\js\AddMarkersToMap.js" />
   </ItemGroup>
 

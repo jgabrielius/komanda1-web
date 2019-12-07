@@ -25,7 +25,8 @@ namespace University_advisor_web.Controllers
         {
             var model = new HomeModel();
             model.Map = new MapModel("Vilnius", "Universities");
-            return View(model);
+            //return View(model);
+            return View("../Pages/Services");
         }
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Index(string address, double range)

@@ -149,7 +149,7 @@ nav a {
     vertical-align: middle;
 }
 nav li.booking a {
-    background: #047ffc;
+    background: #60c7c1;
     padding: 10px 25px;
     display: block;
     margin-top: -7px;
@@ -224,9 +224,9 @@ li > a:only-child:after { content: ''; }
 		text-align: center;
 		float: none;
 	}
-	.menu li.active a {
-		color: #047ffc;
-	}
+    .menu li.active a {
+        color: #60c7c1;
+    }
 	nav ul li span {
 		color: #333;
 	}
@@ -245,17 +245,17 @@ li > a:only-child:after { content: ''; }
 	}
 
 	/* Stylinf the toggle lable */
-	.toggle {
-		display: block;
-		padding: 5px 15px;
-		font-size: 20px;
-		text-decoration: none;
-		border: none;
-		float: right;
-		background-color: #047ffc;
-		color: #fff;
-		margin-bottom: 0;
-	}
+    .toggle {
+        display: block;
+        padding: 5px 15px;
+        font-size: 20px;
+        text-decoration: none;
+        border: none;
+        float: right;
+        background-color: #60c7c1;
+        color: #fff;
+        margin-bottom: 0;
+    }
 	.menu .toggle {
 		float: none;
 		text-align: center;
@@ -481,7 +481,7 @@ li > a:only-child:after { content: ''; }
 /*-- stats --*/
 .counter span.fa {
     font-size: 2em;
-    color: #047ffc;
+    color: #60c7c1;
 }
 
 .timer {
@@ -504,8 +504,8 @@ p.count-text {
 
 
 /*-- book --*/
-.book{
-	background: #047ffc;
+.book {
+    background: #60c7c1;
 }
 .book h2.heading{
 	color: #fff;
@@ -531,7 +531,7 @@ p.count-text {
 .icon span.fa{
 	font-size: 25px;
     line-height: 80px;
-    color: #047ffc;
+    color: #60c7c1;
 }
 .grid-info {
     padding: 0 1em;
@@ -685,7 +685,7 @@ ul.links li a:hover{
     font-size: 1em;
     width: 55px;
     height: 55px;
-    background: #047ffc;
+    background: #60c7c1;
     border-radius: 50%;
     cursor: pointer;
     text-align: center;
@@ -778,7 +778,7 @@ p.text {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 .view-package a {
-    background: #047ffc;
+    background: #60c7c1;
     padding: 13px 30px;
     color: #fff;
     letter-spacing: 1px;
@@ -807,12 +807,12 @@ p.text {
     position: absolute;
     right: 1%;
     bottom: 2%;
-    background: #047ffc;
+    background: #60c7c1;
     padding: 5px 10px;
     color: #fff;
 }
 .package-info h6 span.fa {
-	color: #047ffc
+    color: #60c7c1
 }
 ul.listing li {
     letter-spacing: 0px;
@@ -822,10 +822,10 @@ ul.listing li {
 ul.listing li span {
     font-weight: 600;
 }
-ul.listing li span.fa {
-    font-weight: normal;
-    color: #047ffc;
-}
+    ul.listing li span.fa {
+        font-weight: normal;
+        color: #60c7c1;
+    }
 /*-- //packages --*/
 
 /* destinations */
@@ -855,7 +855,7 @@ h4.destination {
 }
 
 .rating {
-    background: #047ffc;
+    background: #60c7c1;
     position: absolute;
     right: 1%;
     top: 1%;
@@ -906,7 +906,7 @@ h4.destination {
 }
 
 @media(max-width:991px) {
-    
+
     .destinations-grids {
         padding: 0 5px;
     }
@@ -977,19 +977,19 @@ a.move-top {
     bottom: 0%;
 }
 
-a.move-top span{
-    color: #fff;
-    width: 36px;
-    height: 36px;
-    border: transparent;
-    line-height: 2em;
-    background: #047ffc;
-    border-radius: 50px;
-    -webkit-border-radius: 50px;
-    -o-border-radius: 50px;
-    -moz-border-radius: 50px;
-    -ms-border-radius: 50px;
-}
+    a.move-top span {
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border: transparent;
+        line-height: 2em;
+        background: #60c7c1;
+        border-radius: 50px;
+        -webkit-border-radius: 50px;
+        -o-border-radius: 50px;
+        -moz-border-radius: 50px;
+        -ms-border-radius: 50px;
+    }
 
 /*-- //move top --*/
 
@@ -1029,10 +1029,10 @@ a.move-top span{
     transition: none;
     border: 1px solid #999;
 }
-.inner-sec-grid span.fa {
-    font-size: 2em;
-    color: #047ffc;
-}
+    .inner-sec-grid span.fa {
+        font-size: 2em;
+        color: #60c7c1;
+    }
 .choose {
     background: url(../images/choose.jpg) no-repeat center;
     background-size: cover;
@@ -1101,8 +1101,8 @@ a.move-top span{
     cursor: pointer;
 }
 
-.tab-main input:checked+label {
-    background: #047ffc;
+.tab-main input:checked + label {
+    background: #60c7c1;
     color: #fff;
 }
 
@@ -1162,8 +1162,8 @@ a.move-top span{
     letter-spacing: 1px;
 }
 .adress-icon span.fa {
-    color: #047ffc;
-    font-size: 2em;
+    color: #60c7c1;
+    #60c7c1 font-size: 2em;
     vertical-align: middle;
 }
 .contact-forms input, .contact-forms textarea, .contact-forms select {
@@ -1189,8 +1189,8 @@ button.sent-butnn {
     display: inline-block;
     letter-spacing: 2px;
     outline: none;
-	color: #fff;
-	background: #047ffc;
+    color: #fff;
+    background: #60c7c1;
     border-radius: 0px;
     padding: 10px 20px;
 }
@@ -1224,7 +1224,7 @@ button.sent-butnn {
 /*-- services --*/
 .about-icon span.fa {
     font-size: 2em;
-    color: #047ffc;
+    color: #60c7c1;
 }
 .main-title-text h4 {
     font-size: 22px;
@@ -1233,7 +1233,7 @@ button.sent-butnn {
     line-height: 35px;
     font-weight: 600;
     text-align: center;
-    background: #047ffc;
+    background: #60c7c1;
     color: #fff;
     padding: 20px;
 }
@@ -1249,7 +1249,7 @@ h3.tittle {
     font-size: 13px;
 }
 .right-cont ul li span.fa {
-    color: #047ffc;
+    color: #60c7c1;
     margin-right: 3px;
     font-size: 14px;
 }
@@ -1364,9 +1364,9 @@ p.duration {
 		font-size: 2.8em;
 		line-height: 58px;
 	}
-	.image-tour img{
-		width:100%;
-	}
+    .image-tour img {
+        width: 100%;
+    }
 	.caption a {
 		font-size: 14px;
 		padding: 10px 20px;

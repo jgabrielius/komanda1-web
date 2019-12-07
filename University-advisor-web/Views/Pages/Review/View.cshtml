@@ -1,0 +1,86 @@
+﻿@model UniversityModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<section class="about py-5">
+    <div class="container py-lg-5 py-sm-4">
+        <div class="row">
+            <div class="col-lg-6 about-left">
+                <h3 class="mt-lg-3">@Model.UniversityName<strong></strong></h3>
+                <p class="mt-4">
+                    @Model.Description
+                </p>
+            </div>
+            <div class="col-lg-6 about-right text-lg-right mt-lg-0 mt-5">
+                <img src="@Model.Image" alt="" class="img-fluid abt-image" />
+            </div>
+        </div>
+
+        <div class="container text-center" style="margin-top:20px;">
+    <h3>Average reviews:</h3>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+            <h2>@Model.Variety</h2>
+            <p>Variety</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Availability</h2>
+            <p>Availability</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Accessability</h2>
+            <p>Accessability</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Unions</h2>
+            <p>Quality</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Cost</h2>
+            <p>Unions</p>
+        </div>
+        <div class="col-sm-2">
+            <h2>@Model.Variety</h2>
+            <p>Cost</p>
+        </div>
+    </div>
+</div>
+
+        <div class="row mt-5 text-center">
+            <div class="col-lg-2 col-3">
+                <div class="counter">
+                    <span class="fa fa-smile-o"></span>
+                    <div class="timer count-title count-number">1000+</div>
+                    <p class="count-text text-uppercase">happy customers</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-3">
+                <div class="counter">
+                    <span class="fa fa-ship"></span>
+                    <div class="timer count-title count-number">2271</div>
+                    <p class="count-text text-uppercase">Tours & Travels </p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-3 mt-lg-0 mt-5">
+                <div class="counter">
+                    <span class="fa fa-users"></span>
+                    <div class="timer count-title count-number">200</div>
+                    <p class="count-text text-uppercase">destinations</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-3 mt-lg-0 mt-5">
+                <div class="counter">
+                    <span class="fa fa-gift"></span>
+                    <div class="timer count-title count-number">20+<span>years</span></div>
+                    <p class="count-text text-uppercase">experience</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

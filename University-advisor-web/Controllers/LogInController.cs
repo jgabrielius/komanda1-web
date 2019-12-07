@@ -29,24 +29,26 @@ namespace University_advisor_web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new UserModel();
-            return View(model);
+            var model = new HomeModel();
+            //return View(model);
+            return View("../Pages/LogIn/Index");
         }
 
         [HttpPost]
-        public IActionResult LogIn(UserModel model)
+        public IActionResult LogIn(HomeModel model)
         {
             FailedLogIn failedLogIn = LogFailedLogIn;
-            if (_login.ValidateFields(model))
+            if (_login.ValidateFields(model.User))
             {
                 failedLogIn.Invoke(Messages.userLoggedIn);
                 _logger.LogStats(model);
-                HttpContext.Session.SetInt32("UserId", model.UserId);
-                HttpContext.Session.SetInt32("UserUniversityId", model.UniversityId);
-                HttpContext.Session.SetInt32("UserCourseId", model.CourseId);
-                HomeModel homeModel = new HomeModel(model);
-                homeModel.Map = new MapModel("Vilnius", "Universities");
-                return View("../Home/Index", homeModel);
+                HttpContext.Session.SetInt32("UserId", model.User.UserId);
+                HttpContext.Session.SetInt32("UserUniversityId", model.User.UniversityId);
+                HttpContext.Session.SetInt32("UserCourseId", model.User.CourseId);
+                //HomeModel homeModel = new HomeModel(model);
+                //model.Map = new MapModel("Vilnius", "Universities");
+                //homeModel.Map = new MapModel("Vilnius", "Universities");
+                return View("../Pages/Index", model);
             }
             else
             {

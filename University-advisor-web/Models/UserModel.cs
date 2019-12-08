@@ -42,8 +42,7 @@ namespace University_advisor_web.Models
 
         public UserModel(int userId)
         {
-            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";");
-            UserId = userId;
+            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status, schoolPreferences, groupPreferences, directionPreferences, cityPreferences FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";"); UserId = userId;
             Username = sqlUser["username"].ToString();
             Email = sqlUser["email"].ToString();
             FirstName = sqlUser["first_name"].ToString();

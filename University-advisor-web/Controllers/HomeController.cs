@@ -14,10 +14,16 @@ namespace University_advisor_web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger _logger;
+        private readonly IRegistrationService _registration;
+        private readonly IErrorHandler _errorHandler;
 
-        public HomeController(ILogger logger)
+        public HomeController(ILogger logger,
+                              IRegistrationService registration,
+                              IErrorHandler errorHandler)
         {
             _logger = logger;
+            _registration = registration;
+            _errorHandler = errorHandler;
         }
 
         [HttpGet]
@@ -25,6 +31,7 @@ namespace University_advisor_web.Controllers
         {
             var model = new HomeModel();
             model.Map = new MapModel("Vilnius", "Universities");
+            model.Registration = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
             //return View(model);
             return View("../Pages/Index", model);
         }
@@ -39,6 +46,7 @@ namespace University_advisor_web.Controllers
         {
             var model = new HomeModel();
             model.Map = new MapModel(address, "Universities", range);
+            model.Registration = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
             // Code to test if logging works correctly.
             _logger.Log(Messages.nearbyUniversitiesDisplayed);
             return View("../Pages/Index", model);

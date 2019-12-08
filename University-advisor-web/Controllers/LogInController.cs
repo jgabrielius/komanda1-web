@@ -47,7 +47,6 @@ namespace University_advisor_web.Controllers
                 HttpContext.Session.SetInt32("UserId", model.User.UserId);
                 HttpContext.Session.SetInt32("UserUniversityId", model.User.UniversityId);
                 HttpContext.Session.SetInt32("UserCourseId", model.User.CourseId);
-                //HomeModel homeModel = new HomeModel(model);
                 model.Map = new MapModel("Vilnius", "Universities");
                 model.Registration = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
                 //homeModel.Map = new MapModel("Vilnius", "Universities");

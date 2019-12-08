@@ -31,7 +31,7 @@ namespace University_advisor_web.Controllers
             model.Statuses = model.GetAllStatuses();
             model.Courses = model.GetCourses(HttpContext.Session.GetInt32("UserId") ?? 0);
             ModelState.Clear();
-            return View(model);
+            return View("../Pages/Settings/Index", model);
         }
 
         [HttpPost]

@@ -1,12 +1,13 @@
-﻿const courseId = JSON.parse(document.getElementById('value1').value);
+﻿const courses = JSON.parse(document.getElementById('value1').value);
 const userCourseId = JSON.parse(document.getElementById('value2').value);
 
-if (courseId === userCourseId) {
-
-    let reviewDiv = document.getElementById("reviewAnchorDiv");
-    let aTag = document.createElement('a');
-    aTag.setAttribute('class', "btn btn-lg btn-default");
-    aTag.innerText = "Leave a review for course";
-    aTag.setAttribute('href', `/Review/CourseReview/${userCourseId}`);
-    reviewDiv.appendChild(aTag);
-}
+courses.forEach(course => {
+    if (course === userCourseId) {
+        let reviewTableRow = document.getElementById(`${course}`);
+        let aTag = document.createElement('a');
+        aTag.setAttribute('class', "btn btn-primary");
+        aTag.setAttribute('href', `/Review/CourseReview/${userCourseId}`);
+        aTag.innerText = "Review";
+        reviewTableRow.appendChild(aTag);
+    }
+})

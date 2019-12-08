@@ -36,7 +36,7 @@
                             <li><span class="fa fa-check-circle-o mr-2"></span>Unions : <span>@i["unions"]</span></li>
                             <li><span class="fa fa-check-circle-o mr-2"></span>Cost : <span>@i["cost"]</span></li>
                         </ul>
-                        <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]"><span class="fa fa-info-circle"></span> Read more</a>
+                        <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]" style="margin-bottom:8px;"><span class="fa fa-info-circle"></span> Read more</a>
                         <a class="btn btn-outline-primary" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]"><span class="fa fa-plus-circle"></span> Compare</a>
                     </div>
                 </div>

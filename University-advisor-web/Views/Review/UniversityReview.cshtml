@@ -1,43 +1,48 @@
 ﻿@model UniversityReviewModel
 @{
-    ViewData["Title"] = "Reviews";
+    ViewData["Title"] = "UniversityReview";
+    Layout = "~/Views/Shared/Layout.cshtml";
 }
 @section Styles {
     <link href="@Url.Content("~/css/RadioButton.css")" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/css/star-rating.css" />
 }
-<form asp-action="SubmitUniversityReview" asp-controller="Review" role="form" method="post" enctype="multipart/form-data">
-    <div class="mb-2">
-        <h2> Leave a review for <b>@Model.UniversityName</b></h2>
-        <h4>1 – Very Unsatisfied | 2 – Unsatisfied | 3 – Neutral | 4 – Satisfied | 5 – Very Satisfied</h4>
-    </div>
-    <input type="hidden" asp-for="UniversityId" />
-    @foreach (var item in Model.ratingTypes)
-    {
-        <div class="row">
-            <div class="col-4">
-                @item.Value
+
+<section class="contact py-5">
+    <div class="container py-lg-5 py-sm-4">
+        <h2 class="heading text-capitalize text-center mb-lg-5 mb-4"> Leave a review for @Model.UniversityName</h2>
+        <div class="contact-grids">
+            <div class="row">
+                <div class="col-lg-12 contact-left-form">
+                    <form id="ratingform" asp-action="SubmitUniversityReview" asp-controller="Review" role="form" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="UniversityId" />
+                        @foreach (var item in Model.ratingTypes)
+                        {
+                            <div class="col-sm-12 form-group contact-forms">
+                                <h4>@item.Value</h4>
+                                <input class="form-control" name="@item.Key" list="ratings" pattern="1|2|3|4|5" title="@item.Value">
+                                <datalist id="ratings">
+                                    <option name="@item.Key" value="1">1</option>
+                                    <option name="@item.Key" value="2">2</option>
+                                    <option name="@item.Key" value="3">3</option>
+                                    <option name="@item.Key" value="4">4</option>
+                                    <option name="@item.Key" value="5">5</option>
+                                </datalist>
+                            </div>
+                        }
+                        <div class="col-md-12 form-group contact-forms">
+                            <textarea class="form-control" asp-for="Review" asp-class="form-control" placeholder="Additional comments..." rows="5"></textarea>
+                        </div>
+                        <div class="col-md-12 booking-button">
+                            <button class="btn btn-block sent-butnn" type="submit">Submit review</button>
+                        </div>
+                    </form>
+                </div>
+                
             </div>
-            <fieldset class="rating">
-                <input type="radio" id="star5-@item.Key" required="" name="@item.Key" value="5" /><label for="star5-@item.Key">5 stars</label>
-                <input type="radio" id="star4-@item.Key" required="" name="@item.Key" value="4" /><label for="star4-@item.Key">4 stars</label>
-                <input type="radio" id="star3-@item.Key" required="" name="@item.Key" value="3" /><label for="star3-@item.Key">3 stars</label>
-                <input type="radio" id="star2-@item.Key" required="" name="@item.Key" value="2" /><label for="star2-@item.Key">2 stars</label>
-                <input type="radio" id="star1-@item.Key" required="" name="@item.Key" value="1" /><label for="star1-@item.Key">1 star</label>
-            </fieldset>
-        </div>
-    }
-
-    <div class="row mt-3">
-        <div class="col-lg-4">
-            <label asp-for="Review">Additional comments(Optional):</label>
-            <textarea asp-for="Review" asp-class="form-control" placeholder="Leave a review..." pattern="[a-zA-Z0-9]+" style="height:200px; width:700px"></textarea>
         </div>
     </div>
+</section>
 
-    <div class="row mt-3">
-        <div class="col-lg-4">
-            <input class="btn btn-primary" type="submit" value="Submit">
-        </div>
-    </div>
-</form>
+
+

@@ -10,15 +10,15 @@
     <meta charset="utf-8">
     <meta name="keywords" content="University advisor" />
 
-    @*<script>
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
+    <script>
+            addEventListener("load", function () {
+                setTimeout(hideURLbar, 0);
+            }, false);
 
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>*@
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            }
+        </script>
 
     <!-- css files -->
     <link href="~/css/bootstrap.css" rel='stylesheet' type='text/css' /><!-- bootstrap css -->
@@ -42,13 +42,13 @@
                 <input type="checkbox" id="drop" />
                 @if (!loggedin)
                 {
-            <ul class="menu ml-auto mt-1">
-                <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li class=""><a asp-area="" asp-controller="Review" asp-action="Index">Reviews</a></li>
-                @*<li class=""><a asp-area="" asp-controller="LogIn" asp-action="Index">Log In</a></li>*@
-                <li class=""><a href="#myModal" data-toggle="modal">Log In</a></li>
-                
-            </ul>
+                    <ul class="menu ml-auto mt-1">
+                        <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class=""><a asp-area="" asp-controller="Review" asp-action="Index">Reviews</a></li>
+                        @*<li class=""><a asp-area="" asp-controller="LogIn" asp-action="Index">Log In</a></li>*@
+                        <li class="" id="loginhome"><a href="#myModal" data-toggle="modal">Log In</a></li>
+
+                    </ul>
                 }
                 @if (loggedin)
                 {
@@ -64,7 +64,7 @@
             </nav>
         </div>
     </header>
-        @RenderBody()
+    @RenderBody()
     <!--BODY OF PAGES-->
 </body>
 @*<body>
@@ -72,7 +72,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-        
+
         <div class="container">
             <main role="main" class="pb-3">
                 @if (TempData["errorMessage"] != null)

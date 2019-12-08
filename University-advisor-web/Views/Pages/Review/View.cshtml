@@ -5,10 +5,15 @@
     ViewData["Title"] = "View";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-    <section class="banner_inner" id="home">
-        <div class="banner_inner_overlay">
-        </div>
-    </section>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("loginhome").children[0].style.display = "none";
+    };
+</script>
+<section class="banner_inner" id="home">
+    <div class="banner_inner_overlay">
+    </div>
+</section>
 <section class="about py-5">
     <div class="container py-lg-5 py-sm-4">
         <div class="row">

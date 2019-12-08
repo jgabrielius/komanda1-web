@@ -55,7 +55,7 @@ namespace University_advisor_web.Controllers
                 _errorHandler.ShowError(this, Messages.wrongUsernameOrPassword);
                 _logger.Log(Messages.userLogInError);
             }
-            return RedirectToAction("Index", model);
+            return RedirectToAction("Index", "Home");
         }
 
         private void LogFailedLogIn(string message)

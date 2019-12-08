@@ -1,0 +1,91 @@
+﻿/* Boostrap Buttons Styling */
+
+.btn-default {
+    color: rgba(108, 88, 179, 0.75);
+    line-height: 15px;
+    border: 2px solid rgba(108, 89, 179, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+}
+
+    .btn-default:hover {
+        color: #FFF;
+        background: rgba(108, 88, 179, 0.75);
+        border: 2px solid rgba(108, 89, 179, 0.75);
+    }
+
+.btn-primary {
+    color: rgba(58, 133, 191, 0.75);
+    line-height: 15px;
+    border: 2px solid rgba(58, 133, 191, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+}
+
+    .btn-primary:hover {
+        color: #FFF;
+        background: rgba(58, 133, 191, 0.75);
+        border: 2px solid rgba(58, 133, 191, 0.75);
+    }
+
+.btn-success {
+    color: rgba(103, 192, 103, 0.75);
+    line-height: 15px;
+    border: 2px solid rgba(103, 192, 103, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+}
+
+    .btn-success:hover {
+        color: #FFF;
+        background: rgb(103, 192, 103, 0.75);
+        border: 2px solid rgb(103, 192, 103, 0.75);
+    }
+
+.btn-info {
+    color: rgba(91, 192, 222, 0.75);
+    line-height: 15px;
+    border: 2px solid rgba(91, 192, 222, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+}
+
+    .btn-info:hover {
+        color: #FFF;
+        background: rgba(91, 192, 222, 0.75);
+        border: 2px solid rgba(91, 192, 222, 0.75);
+    }
+
+.btn-warning {
+    color: rgba(240, 173, 78, 0.75);
+    line-height: 15px;
+    border: 2px solid rgba(240, 173, 78, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+}
+
+    .btn-warning:hover {
+        color: #FFF;
+        background: rgb(240, 173, 78, 0.75);
+        border: 2px solid rgba(240, 173, 78, 0.75);
+    }
+
+.btn-danger {
+    color: rgba(217, 83, 78, 0.75);
+    line-height: 15px;
+    border: 2px solid rgba(217, 83, 78, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+}
+
+    .btn-danger:hover {
+        color: #FFF;
+        background: rgba(217, 83, 78, 0.75);
+        border: 2px solid rgba(217, 83, 78, 0.75);
+    }

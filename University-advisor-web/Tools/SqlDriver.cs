@@ -5,6 +5,7 @@ using System.Data.SQLite;
 using System.Threading.Tasks;
 using System.Collections;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace University_advisor_web
 {
@@ -123,6 +124,33 @@ namespace University_advisor_web
             command.Dispose();
             dbConnection.Close();
             return true;
+        }
+
+        public static DataSet FetchDataset(string sql, ArrayList parameters = null)
+        {
+            var dbConnection = Connect();
+
+            if (dbConnection == null)
+            {
+                return null;
+            }
+
+            SQLiteCommand command;
+            if (parameters != null)
+            {
+                command = Replace(dbConnection, sql, parameters);
+            }
+            else
+            {
+                command = new SQLiteCommand(sql, dbConnection);
+            }
+            SQLiteDataAdapter da = new SQLiteDataAdapter(command);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            dbConnection.Close();
+            da.Dispose();
+            return ds;
         }
     }
 }

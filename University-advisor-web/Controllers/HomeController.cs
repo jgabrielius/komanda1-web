@@ -41,7 +41,7 @@ namespace University_advisor_web.Controllers
             model.Map = new MapModel(address, "Universities", range);
             // Code to test if logging works correctly.
             _logger.Log(Messages.nearbyUniversitiesDisplayed);
-            return View(model);
+            return View("../Pages/Index", model);
         }
     }
 }

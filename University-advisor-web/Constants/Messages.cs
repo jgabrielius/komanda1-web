@@ -49,5 +49,7 @@ namespace University_advisor_web.Constants
         public static string visionApiError = "Something is not right with Vision API. Try again later";
         public static string uploadedDocumentIsValid = "Uploaded document is valid. Match is: ";
         public static string uploadedDocumentIsInvalid = "Uploaded document is invalid. Match is only: ";
+        //Question
+        public static string questionSubmitted = "Question submitted successfully";
     }
 }

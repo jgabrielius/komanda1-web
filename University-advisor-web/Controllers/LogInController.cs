@@ -16,14 +16,16 @@ namespace University_advisor_web.Controllers
         private readonly ILogger _logger;
         private readonly ILogInService _login;
         private readonly IErrorHandler _errorHandler;
+        private readonly IRegistrationService _registration;
 
         private delegate void FailedLogIn(string s);
 
-        public LogInController(ILogger logger, ILogInService login, IErrorHandler errorHandler)
+        public LogInController(ILogger logger, ILogInService login, IErrorHandler errorHandler, IRegistrationService registration)
         {
             _logger = logger;
             _login = login;
             _errorHandler = errorHandler;
+            _registration = registration;
         }
 
         [HttpGet]
@@ -46,6 +48,8 @@ namespace University_advisor_web.Controllers
                 HttpContext.Session.SetInt32("UserUniversityId", model.User.UniversityId);
                 HttpContext.Session.SetInt32("UserCourseId", model.User.CourseId);
                 model.Map = new MapModel("Vilnius", "Universities");
+                model.Registration = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
+                //homeModel.Map = new MapModel("Vilnius", "Universities");
                 return View("../Pages/Index", model);
             }
             else

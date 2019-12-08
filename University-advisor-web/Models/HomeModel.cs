@@ -7,8 +7,9 @@ namespace University_advisor_web.Models
 {
     public class HomeModel
     {
-        public MapModel Map { get; set; } 
+        public MapModel Map { get; set; }
         public UserModel User { get; set; }
+        public RegistrationFormModel Registration { get; set; }
 
         public HomeModel() { }
         public HomeModel(UserModel user)

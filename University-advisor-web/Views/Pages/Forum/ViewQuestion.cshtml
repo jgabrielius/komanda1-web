@@ -1,0 +1,95 @@
+﻿@model ForumModel
+@{
+    ViewData["Title"] = "ViewQuestion";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<style>
+    p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.8em;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+</style>
+
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("loginhome").children[0].style.display = "none";
+    };
+</script>
+
+<section class="banner_inner" id="home">
+    <div class="banner_inner_overlay">
+    </div>
+</section>
+<link rel="stylesheet" href="~/css/Forum.css" />
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<section>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-10">
+            <form asp-controller="Forum" role="form" method="post" enctype="multipart/form-data">
+
+                @{ var usr = Model.GetUserById(Model.userId);}
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card text-left m-1" style="width:400px; border-color: transparent;">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">@Model.question</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Asked by: @usr[0]["first_name"] @usr[0]["last_name"], @usr[0]["status"]</h6>
+                                    <h6 class="card-text">@Model.message</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 m-1">
+                        <label>Replies:</label>
+                    </div>
+                </div>
+
+                <input type="hidden" asp-for="questionId" />
+                @foreach (var i in Model.GetAllReplies())
+                {
+                    var user = Model.GetUserById(i["userId"]);
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card m-1" style="width:600px; color:#ffffff; background-color: #60c7c1; border-radius: 25px; border-color: transparent;">
+                                <div class="card-body">
+                                    <h5 class="text-body" >@Html.Raw(i["answer"])</h5>
+                                    <br />
+                                    <h6 style="color:#ffffff;"><i>Answered: @i["timestamp"]</i></h6>
+                                    <h6 style="color:#ffffff;"><i>By: @user[0]["first_name"] @user[0]["last_name"], @user[0]["status"]</i></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-lg-8 m-1">
+                        <label>Your answer</label>
+                        @*<textarea asp-for="@Model.answer" class="form-control" required="" pattern="[a-zA-Z0-9]+" style="height:200px"></textarea>*@
+                        <textarea id="editor1" asp-for="@Model.answer" class="form-control" required=""></textarea>
+                        <script>
+                            CKEDITOR.replace("editor1");
+                        </script>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-lg-4 m-1">
+                        <input asp-action="Reply" asp-controller="Forum" class="btn btn-primary" style="background-color: #60c7c1;" type="submit" value="Reply">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>

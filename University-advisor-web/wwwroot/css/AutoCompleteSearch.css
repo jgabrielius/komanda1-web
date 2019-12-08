@@ -63,9 +63,9 @@ input[type=text] {
     background-color: #454545;
 }
 
-    .autocomplete-items div:hover {
-        background-color: #454545;
-    }
+.autocomplete-items div:hover {
+    background-color: #454545;
+}
 
 .autocomplete-active {
     background-color: #454545;

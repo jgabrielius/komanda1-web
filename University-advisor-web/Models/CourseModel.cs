@@ -69,6 +69,26 @@ namespace University_advisor_web.Models
             var sqlData = SqlDriver.Fetch("SELECT * FROM studyProgrammes");
             return sqlData;
         }
+        public List<Dictionary<string, object>> RecommendedCourses(UserModel user)
+        {
+            string cities, groups, directions;
+            if (user.CityPreferences != null)
+            {
+                cities = user.CityPreferences.Replace(",", "\",\"");
+                cities = "\"" + cities + "\"";
+            }
+            else cities = "";
+            if (user.GroupPreferences != null)
+            {
+                groups = user.GroupPreferences.Replace(",", "\",\"");
+                groups = "\"" + groups + "\"";
+                directions = user.DirectionPreferences.Replace(",", "\",\"");
+                directions = "\"" + directions + "\"";
+                if (cities != "") return SqlDriver.Fetch($"SELECT * FROM studyProgrammes WHERE city IN ({cities}) AND \"group\" IN ({groups}) AND direction IN ({directions})");
+                else return SqlDriver.Fetch($"SELECT * FROM studyProgrammes WHERE \"group\" IN ({groups}) AND direction IN ({directions})");
+            };
+            return null;
+        }
         public List<Dictionary<string, object>> CityList()
         {
             return SqlDriver.Fetch("SELECT DISTINCT(city) FROM studyProgrammes");

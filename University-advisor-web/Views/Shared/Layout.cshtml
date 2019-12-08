@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/AutoCompleteSearch.css" />
     <!-- css files -->
+    <link rel="stylesheet" href="~/css/AutoCompleteSearch.css" />
     <link href="~/css/bootstrap.css" rel='stylesheet' type='text/css' /><!-- bootstrap css -->
     <link href="~/css/style.css" rel='stylesheet' type='text/css' /><!-- custom css -->
     <link href="~/css/font-awesome.min.css" rel="stylesheet"><!-- fontawesome css -->
@@ -35,6 +36,10 @@
 
 </head>
 <body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <header>
         <div class="container">
             <nav class="py-md-4 py-3 d-lg-flex">
@@ -98,7 +103,7 @@
         </script>
     }
     @RenderBody()
-    @RenderSection("Styles",false)
+    @RenderSection("Styles", false)
     <!--BODY OF PAGES-->
 </body>
 @*<body>

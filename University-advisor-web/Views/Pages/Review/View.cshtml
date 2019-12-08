@@ -148,7 +148,7 @@
                                             <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@i["effectiveness"]</span></li>
                                             <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@i["satisfaction"]</span></li>
                                         </ul>
-                                        <div id="courseReviewAnchor" class="ml-auto mr-5 mt-auto mb-auto">
+                                        <div id="@i["studyProgramId"]reviewAnchor" class="ml-auto mr-5 mt-auto mb-auto">
                                             <script>
                                                  document.getElementById('value1').value = JSON.stringify(@i["studyProgramId"]);
                                                  document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserCourseId"));

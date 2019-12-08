@@ -20,9 +20,9 @@
         <div class="row inner-sec-w3layouts-w3pvt-lauinfo">
             @foreach (var i in Model.GetUniversitiesWithRatings())
             {
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6" style="margin-top:15px;">
                     <div class="image-tour position-relative">
-                        <img src="@i["image"]" alt="" class="img-fluid" />
+                        <img src="@Url.Content("~/img/logos/" + @i["universityId"] + ".jpg")" alt="" class="img-fluid" />
                         <p><span class="fa fa-globe"></span> <span>Website</span></p>
                     </div>
                     <div class="package-info">

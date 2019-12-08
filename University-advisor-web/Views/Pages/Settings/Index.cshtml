@@ -81,6 +81,19 @@
                                     <button class="btn btn-block sent-butnn" asp-controller="Settings" asp-action="ChangeUniversity">Change university</button>
                                 </div>
 
+                                <div class="col-sm-12 form-group contact-forms" style="margin-top:15px;">
+                                    <select asp-items="Model.Courses" asp-for="SelectedCourse" class="form-control" required="">
+                                        <option selected="selected">
+                                            @Model.Course
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms">
+                                    <button class="btn btn-block sent-butnn"  asp-controller="Settings" asp-action="ChangeCourse">Change course</button>
+                                </div>
+                                
+
                                 <div class="col-sm-6 form-group contact-forms" style="margin-top:20px;">
                                     <select asp-items="Model.Statuses" asp-for="SelectedStatus" class="form-control" required="">
                                         <option selected="selected">

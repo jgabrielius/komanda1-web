@@ -1,9 +1,11 @@
 ﻿courseId = JSON.parse(document.getElementById('value1').value);
 userCourseId = JSON.parse(document.getElementById('value2').value);
 
+console.log('courseId', courseId);
+console.log('userCourseId', userCourseId);
 if (courseId === userCourseId) {
 
-    let reviewDiv = document.getElementById("courseReviewAnchor");
+    let reviewDiv = document.getElementById(`${courseId}reviewAnchor`);
     let aTag = document.createElement('a');
     aTag.setAttribute('class', "btn btn-outline-primary");
     aTag.innerText = "Review course";

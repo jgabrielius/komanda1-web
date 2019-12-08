@@ -11,15 +11,17 @@
     <meta name="keywords" content="University advisor" />
 
     <script>
-            addEventListener("load", function () {
-                setTimeout(hideURLbar, 0);
-            }, false);
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-            function hideURLbar() {
-                window.scrollTo(0, 1);
-            }
-        </script>
-
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link rel="stylesheet" href="~/css/Global.css" />
+    <link rel="stylesheet" href="~/css/Buttons.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <!-- css files -->
     <link href="~/css/bootstrap.css" rel='stylesheet' type='text/css' /><!-- bootstrap css -->
     <link href="~/css/style.css" rel='stylesheet' type='text/css' /><!-- custom css -->
@@ -64,6 +66,36 @@
             </nav>
         </div>
     </header>
+    @if (TempData["errorMessage"] != null)
+    {
+        <div id="ErrorBox" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-login">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@TempData["errorTitle"]</h4>
+                        @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="text-center">@TempData["errorMessage"]</h5>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" id="btnClosePopup" class="btn btn-lg btn-danger" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            window.onload = function () {
+                $("#ErrorBox").modal("show");
+            };
+
+            $("#btnClosePopup").click(function () {
+                $("#ErrorBox").modal("hide");
+            });
+        </script>
+    }
     @RenderBody()
     @RenderSection("Styles",false)
     <!--BODY OF PAGES-->
@@ -73,33 +105,6 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-
-        <div class="container">
-            <main role="main" class="pb-3">
-                @if (TempData["errorMessage"] != null)
-                {
-                    <div class="modal" id="error-modal" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="col-12 text-center modal-title">@TempData["errorTitle"]</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <h5 class="text-center">@TempData["errorMessage"]</h5>
-                                </div>
-                                <div class="modal-footer justify-content-center">
-                                    <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Ok</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <script>
-                        $("#error-modal").modal();
-                    </script>
-                }
-                @RenderBody()
-            </main>
-        </div>
         @RenderSection("Scripts", required: false)
     </body>*@
 </html>

@@ -1,0 +1,165 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("loginhome").children[0].style.display = "none";
+    };
+</script>
+<section class="banner_inner" id="home">
+    <div class="banner_inner_overlay">
+    </div>
+</section>
+
+<input type="hidden" name="Email" id="Email" value="@Model.Email">
+<input type="hidden" name="University" id="University" value="@Model.University">
+<input type="hidden" name="Status" id="Status" value="@Model.Status">
+<input type="hidden" name="Course" id="Course" value="@Model.Course">
+
+<section class="contact py-5">
+    <div class="container py-lg-8 py-sm-4">
+        <div class="contact-grids">
+            <div class="row">
+                <div class="col-lg-7 contact-left-form">
+                    <div class="tab-main">
+                        <input id="tab1" type="radio" name="tabs" class="w3pvt-sm" checked>
+                        <label for="tab1"><span class="fa fa-lock"></span>Security</label>
+                        <input id="tab2" type="radio" class="w3pvt-sm" name="tabs">
+                        <label for="tab2"><span class="fa fa-graduation-cap"></span>University</label>
+                        <input id="tab3" type="radio" name="tabs" class="w3pvt-sm">
+                        <label for="tab3"><span class="fa fa-user"></span>Profile</label>
+                        <input id="tab4" type="radio" class="w3pvt-sm" name="tabs">
+                        <label for="tab4"><span class="fa fa-id-card-o"></span>LSP</label>
+
+                        <section id="content1">
+                            <form asp-controller="Settings" role="form" method="post" enctype="multipart/form-data" id="settingsForm">
+
+                                <div class="col-md-12 form-group contact-forms" style="margin-top:15px;">
+                                    <h4>Current Password</h4>
+                                    <input asp-for="CurrentPassword" type="password" minlength="6" id="currentPassword" class="form-control">
+                                </div>
+
+                                <div class="col-md-12 form-group contact-forms">
+                                    <h4>New Password</h4>
+                                    <input asp-for="NewPassword" type="password" minlength="6" id="newPassword" class="form-control" />
+                                </div>
+
+                                <div class="col-md-12 form-group contact-forms">
+                                    <h4>Confirm New Password</h4>
+                                    <input asp-for="NewPassword2" type="password" minlength="6" id="newPassword2" class="form-control" />
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms">
+                                    <button class="btn btn-block sent-butnn" asp-controller="Settings" asp-action="ChangePassword">Change password</button>
+                                </div>
+
+                                <div class="col-md-12 form-group contact-forms" style="margin-top:15px;">
+                                    <h4>New Email</h4>
+                                    <input asp-for="NewEmail" type="email" id="newEmail" class="form-control" value="@Model.Email" />
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms">
+                                    <button class="btn btn-block sent-butnn" asp-controller="Settings" asp-action="ChangeEmail">Change email</button>
+                                </div>
+
+                            </form>
+                        </section>
+
+                        <section id="content2">
+                            <form asp-controller="Settings" role="form" method="post" enctype="multipart/form-data" id="settingsForm">
+                                <div class="col-sm-12 form-group contact-forms" style="margin-top:15px;">
+                                    <select asp-items="Model.Universities" asp-for="SelectedUniversity" class="form-control" required="">
+                                        <option selected="selected">
+                                            @Model.University
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms">
+                                    <button class="btn btn-block sent-butnn" asp-controller="Settings" asp-action="ChangeUniversity">Change university</button>
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms" style="margin-top:20px;">
+                                    <select asp-items="Model.Statuses" asp-for="SelectedStatus" class="form-control" required="">
+                                        <option selected="selected">
+                                            @Model.Status
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms">
+                                    <button class="btn btn-block sent-butnn" asp-controller="Settings" asp-action="ChangeStatus">Change status</button>
+                                </div>
+                            </form>
+                        </section>
+
+                        <section id="content3">
+                            <form asp-controller="Settings" role="form" method="post" enctype="multipart/form-data" id="settingsForm">
+
+                                <div class="col-sm-6 form-group contact-forms" style="margin-top:20px;">
+                                    <h4>Username</h4>
+                                    <input asp-for="NewUsername" type="text" id="changeUsername" class="form-control" value="@Model.Username" />
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms">
+                                    <button class="btn btn-block sent-butnn" asp-controller="Settings" asp-action="ChangeUsername">Change username</button>
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms" style="margin-top:20px;">
+                                    <h4>First Name</h4>
+                                    <input asp-for="NewFirstName" type="text" id="changeFirstName" class="form-control" value="@Model.FirstName" />
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms">
+                                    <button class="btn btn-block sent-butnn" asp-controller="Settings" asp-action="ChangeFirstName">Change first name</button>
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms" style="margin-top:20px;">
+                                    <h4>Last Name</h4>
+                                    <input asp-for="NewLastName" type="text" id="changeLastName" class="form-control" value="@Model.LastName" />
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms">
+                                    <button class="btn btn-block sent-butnn" asp-controller="Settings" asp-action="ChangeLastName">Change last name</button>
+                                </div>
+                            </form>
+                        </section>
+
+                        <section id="content4">
+                            <form asp-controller="Settings" role="form" method="post" enctype="multipart/form-data" id="settingsForm">
+                                <div class="col-sm-6 form-group contact-forms" style="margin-top:20px;">
+                                    <h4> Upload valid LSP: </h4>
+                                    <input asp-for="File" type="file" name="file" id="file" />
+                                </div>
+
+                                <div class="col-sm-6 form-group contact-forms">
+                                    <button class="btn btn-block sent-butnn" asp-controller="Settings" asp-action="UploadFile">Upload</button>
+                                </div>
+                            </form>
+                        </section>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 contact-right pl-lg-5">
+
+                    <div class="image-tour position-relative">
+                        <img src="https://www.kutztown.edu/Images/Hero/CampusBeautySummer.jpg" alt="" class="img-fluid" />
+                    </div>
+
+                    <h4>Settings</h4>
+                    <p class="mt-3">
+                        Here you can change your account settings like password, email. Also you can edit your profile information - username, first name and last name. 
+                        Want to change your university? Or maybe you have graduated? Just click the University button. 
+                        Don't forget to verify your LSP!
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

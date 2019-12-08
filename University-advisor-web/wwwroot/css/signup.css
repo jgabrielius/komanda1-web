@@ -5,44 +5,44 @@
     overflow: auto;
     padding-right: 0 !important;
 }
-.modal-login {
+.modal-signup {
     color: #636363;
-    width: 350px;
+    width: 500px;
 }
-    .modal-login .modal-content {
+    .modal-signup .modal-content {
         padding: 20px;
         border-radius: 5px;
         border: none;
     }
 
-    .modal-login .modal-header {
+    .modal-signup .modal-header {
         border-bottom: none;
         position: relative;
         justify-content: center;
     }
 
-    .modal-login h4 {
+    .modal-signup h4 {
         text-align: center;
         font-size: 26px;
         margin: 30px 0 -15px;
     }
 
-    .modal-login .form-control:focus {
+    .modal-signup .form-control:focus {
         border-color: #70c5c0;
     }
 
-    .modal-login .form-control, .modal-login .btn {
+    .modal-signup .form-control, .modal-signup .btn {
         min-height: 40px;
         border-radius: 3px;
     }
 
-    .modal-login .close {
+    .modal-signup .close {
         position: absolute;
         top: -5px;
         right: -5px;
     }
 
-    .modal-login .modal-footer {
+    .modal-signup .modal-footer {
         background: #ecf0f1;
         border-color: #dee4e7;
         text-align: center;
@@ -52,11 +52,11 @@
         font-size: 13px;
     }
 
-        .modal-login .modal-footer a {
+        .modal-signup .modal-footer a {
             color: #999;
         }
 
-    .modal-login .avatar {
+    .modal-signup .avatar {
         position: absolute;
         margin: 0 auto;
         left: 0;
@@ -71,15 +71,15 @@
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
     }
 
-        .modal-login .avatar img {
+        .modal-signup .avatar img {
             width: 100%;
         }
 
-    .modal-login.modal-dialog {
+    .modal-signup.modal-dialog {
         margin-top: 80px;
     }
 
-    .modal-login .btn {
+    .modal-signup .btn {
         color: #fff;
         border-radius: 4px;
         background: #60c7c1;
@@ -89,7 +89,7 @@
         border: none;
     }
 
-        .modal-login .btn:hover, .modal-login .btn:focus {
+        .modal-signup .btn:hover, .modal-login .btn:focus {
             background: #45aba6;
             outline: none;
         }

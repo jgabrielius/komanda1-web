@@ -36,9 +36,9 @@ input[type=text] {
     border-bottom: 1px solid #d4d4d4;
 }
 
-    .autocomplete-items div:hover {
-        background-color: #454545;
-    }
+.autocomplete-items div:hover {
+    background-color: #454545;
+}
 
 .autocomplete-active {
     background-color: #454545;

@@ -1,8 +1,6 @@
 ﻿courseId = JSON.parse(document.getElementById('value1').value);
 userCourseId = JSON.parse(document.getElementById('value2').value);
 
-console.log('courseId', courseId);
-console.log('userCourseId', userCourseId);
 if (courseId === userCourseId) {
 
     let reviewDiv = document.getElementById(`${courseId}reviewAnchor`);

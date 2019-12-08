@@ -19,6 +19,16 @@
         <div class="row">
             <div class="col-lg-6 about-left">
                 <h3 class="mt-lg-3"><strong>@Model.UniversityName</strong></h3>
+                <div id="reviewAnchorDiv" class="ml-auto mr-5 mt-auto mb-auto">
+                    <input type="hidden" id="value1" value="" />
+                    <input type="hidden" id="value2" value="" />
+                    <script>
+                document.getElementById('value1').value = JSON.stringify(@Model.UniversityId);
+                document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserUniversityId"));
+                    </script>
+                    <script src="~/js/AddUniversityReviewAnchor.js" type="text/javascript"></script>
+                </div>
+                <script src="~/js/AddUniversityReviewAnchor.js" type="text/javascript"></script>
                 <p class="mt-4">
                     @Model.Description
                 </p>
@@ -27,6 +37,24 @@
                 <img src="@Model.Image" alt="" class="img-fluid abt-image" />
             </div>
         </div>
+
+        <div class="row mt-5 text-center">
+            <div class="col-lg-4 col-3">
+                <div class="counter">
+                    <span class="fa fa-globe"></span>
+                    <div class="timer count-title count-number">@Model.RankWorld</div>
+                    <p class="count-text text-uppercase">World rank</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-3">
+                <div class="counter">
+                    <span class="fa fa-flag"></span>
+                    <div class="timer count-title count-number">@Model.RankCountry</div>
+                    <p class="count-text text-uppercase">Country rank</p>
+                </div>
+            </div>
+        </div>
+
 
         <div class="row mt-5 text-center">
             <div class="col-lg-2 col-3">
@@ -121,6 +149,7 @@
                                             <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@i["effectiveness"]</span></li>
                                             <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@i["satisfaction"]</span></li>
                                         </ul>
+                                        <span class="btn btn-outline-primary" id="@i["studyProgramId"]">Review</span>
                                     </div>
                                 </div>
                             }
@@ -132,3 +161,17 @@
         </div>
     </div>
 </section>
+
+@{
+    var courseDataList = new List<int>();
+    foreach (var row in Model.GetCourses())
+    {
+        courseDataList.Add(Convert.ToInt32(row["studyProgramId"].ToString()));
+    }
+    var courseData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(courseDataList));
+}
+<script type="text/javascript">
+        document.getElementById('value1').value = JSON.stringify(@courseData);
+        document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserCourseId"));
+</script>
+<script src="~/js/AddCoursesReviewAnchor.js" type="text/javascript"></script> 

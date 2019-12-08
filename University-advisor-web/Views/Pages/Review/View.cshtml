@@ -5,6 +5,8 @@
     ViewData["Title"] = "View";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
+<input type="hidden" id="value1" value="" />
+<input type="hidden" id="value2" value="" />
 <script type="text/javascript">
     window.onload = function () {
         document.getElementById("loginhome").children[0].style.display = "none";
@@ -20,11 +22,9 @@
             <div class="col-lg-6 about-left">
                 <h3 class="mt-lg-3"><strong>@Model.UniversityName</strong></h3>
                 <div id="reviewAnchorDiv" class="ml-auto mr-5 mt-auto mb-auto">
-                    <input type="hidden" id="value1" value="" />
-                    <input type="hidden" id="value2" value="" />
                     <script>
-                document.getElementById('value1').value = JSON.stringify(@Model.UniversityId);
-                document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserUniversityId"));
+                        document.getElementById('value1').value = JSON.stringify(@Model.UniversityId);
+                        document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserUniversityId"));
                     </script>
                     <script src="~/js/AddUniversityReviewAnchor.js" type="text/javascript"></script>
                 </div>
@@ -148,19 +148,16 @@
                                             <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@i["effectiveness"]</span></li>
                                             <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@i["satisfaction"]</span></li>
                                         </ul>
-                                        <div id="reviewAnchorDiv" class="ml-auto mr-5 mt-auto mb-auto">
-                                            <input type="hidden" id="value1" value="" />
-                                            <input type="hidden" id="value2" value="" />
+                                        <div id="courseReviewAnchor" class="ml-auto mr-5 mt-auto mb-auto">
                                             <script>
-                                             document.getElementById('value1').value = JSON.stringify(@i["studyProgramId"]);
-                                             document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserCourseId"));
+                                                 document.getElementById('value1').value = JSON.stringify(@i["studyProgramId"]);
+                                                 document.getElementById('value2').value = JSON.stringify(@HttpContextAccessor.HttpContext.Session.GetInt32("UserCourseId"));
                                             </script>
                                             <script src="~/js/AddCoursesReviewAnchor.js" type="text/javascript"></script>
                                         </div>
                                     </div>
                                 </div>
                             }
-
                         </div>
                     </section>
                 </div>
@@ -168,4 +165,3 @@
         </div>
     </div>
 </section>
-

@@ -84,7 +84,7 @@ function expandFooter() {
     let footer = document.querySelector('#collapseFooter'),
         hidden = document.querySelectorAll('.uni-hidden'),
         icon = document.querySelector('#expandIcon');
-    if (footer.style.height === "20%") {
+    if (footer.style.height === "10%") {
         //expand
         footer.style.height = window.innerHeight - document.querySelector('nav').clientHeight + "px";
         icon.style.transform = "rotate(180deg)";
@@ -93,7 +93,7 @@ function expandFooter() {
         }
     } else {
         //collapse
-        footer.style.height = "20%";
+        footer.style.height = "10%";
         icon.style.transform = "rotate(0deg)";
         for (let i = 0; i < hidden.length; i++) {
             hidden[i].classList.add('d-none');

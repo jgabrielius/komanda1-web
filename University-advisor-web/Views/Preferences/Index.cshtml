@@ -1,45 +1,89 @@
-﻿@model List<RecommendationModel>
+﻿@model UserModel
 @section Styles {
     <link rel="stylesheet" href="~/css/Profile.css" />
 }
 @{
     ViewData["Title"] = "Recommendations";
+    Layout = "~/Views/Shared/Layout.cshtml";
 }
-
-@if (Model == null)
-{
-    <div>Set your preferences!</div>
-}
-else
-{
+<section class="banner_inner" id="home">
+    <div class="banner_inner_overlay">
+    </div>
+</section>
 <div class="m-3">
     <h3 style="max-width: 500px; margin: 0; display: inline">Our recommendations</h3>
-    <a style="width:100px; height: 50px; border-radius: 0;" class="btn btn-danger float-right" asp-controller="Preferences" asp-action="SetPreferences">Change preferences</a>
+    <div class="float-right">
+        <button onclick="submitBookmarksForm()" style="width:200px; border-radius: 0;" class="btn btn-outline-primary text-center">Add bookmarks</button>
+        <a style="width:200px; border-radius: 0;" class="btn btn-outline-danger text-center" asp-controller="Preferences" asp-action="SetPreferences">Change preferences</a>
+    </div>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(700px, 900px)); grid-gap: 20px; margin: 15px 0;">
-    @foreach (var university in Model)
+<div style="display: block; margin: 15px 0;">
+    @foreach (var university in Model.Recommendations)
     {
-        <div class="border-success border p-3 m-3">
-            <div style="min-height:200px;">
+        <div class="border-primary p-3 m-3">
+            <div style="min-height:250px;">
                 <h3 class="d-block justify-content-center">@university.University.UniversityName</h3>
                 <img src=@university.University.Image class="rounded float-left" style="height:150px;width:auto;margin-right:10px;" alt="@university.University.UniversityName" />
-                <a class="btn btn-outline-info" asp-controller="Review" asp-action="View" asp-route-id="@university.University.UniversityId">View University</a>
-            </div>
-            <div class="grid-fit-max">
-                @foreach (var course in university.Courses)
-                {
-                    <div class="card card-preference">
-                        <div class="card-header card-preference-header"></div>
-                        <div class="card-body card-preference-body">
-                            <div class="card-preference-title">
-                                <h6 class="text-center d-flex justify-content-center">@course.StudyProgramName</h6>
-                            </div>
-                            <a class="btn btn-primary card-preference-btn" asp-controller="Review" asp-action="ViewCourse" asp-route-id="@course.StudyProgramId">View</a>
+                <div class="d-block">
+                    <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@university.University.UniversityId">View University</a>
+                </div>
+        </div>
+
+        <div class="row inner-sec-w3layouts-w3pvt-lauinfo">
+            @foreach (var course in university.Courses)
+            {
+                <div class="col-lg-3 col-sm-6" style="margin-top:8px;">
+                    <div class="package-info">
+                        <h5 class="my-2"><span class="fa fa-university mr-2"></span>@course.Program</h5>
+                        <h6 class="mt-1"><span class="fa fa-users mr-2"></span>@course.Group</h6>
+                        <h6 class="mt-1"><span class="fa fa-graduation-cap mr-2"></span>@course.Direction</h6>
+                        <ul class="listing mt-3" style="margin-bottom:15px;">
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Presentation : <span>@course.Presentation</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Clarity : <span>@course.Clarity</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Feedback : <span>@course.Feedback</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Encouragement : <span>@course.Encouragement</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@course.Effectiveness</span></li>
+                            <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@course.Satisfaction</span></li>
+                        </ul>
+                        <div>
+                            <button onclick="selectButton(@course.StudyProgramId)" class="btn btn-outline-primary card-preference-btn text-center" id="@course.StudyProgramId" style="width:100%; position: relative;">Bookmark</button>
                         </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div>
+</div>
     }
 </div>
-}
+
+<form asp-action="PostBookmarks" asp-controller="Preferences" role="form" method="post" enctype="multipart/form-data" id="bookmarksForm">
+    <input id="bookmarks" type="hidden" asp-for="CourseBookmarks" />
+</form>
+
+<script>
+    function selectButton(id) {
+        console.log(id)
+        let item = $("#" + id);
+        if (item.hasClass("btn-success")) {
+            item.removeClass("btn-success");
+            item.removeClass("selected")
+            item.addClass("btn-outline-primary")
+        }
+        else if (item.hasClass("btn-outline-primary")) {
+            item.removeClass("btn-outline-primary");
+            item.addClass("btn-success")
+            item.addClass("selected")
+        }
+    }
+
+    function submitBookmarksForm() {
+        selectedCourses = $(".selected").map(function () {
+            return this.id;
+        }).get();
+
+        $(function () {
+            $("#bookmarks").val(`${selectedCourses.join()}`);
+            $("#bookmarksForm").submit();
+        });
+    }
+</script>

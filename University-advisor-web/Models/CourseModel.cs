@@ -27,6 +27,15 @@ namespace University_advisor_web.Models
         public CourseModel() { }
         public CourseModel(int studyProgramId)
         {
+            var sqlData = SqlDriver.Row($"SELECT * FROM studyProgrammes WHERE studyProgramId = {studyProgramId}");
+            if (sqlData != null) 
+            {
+                Program = sqlData["program"].ToString();
+                Direction = sqlData["direction"].ToString();
+                Group = sqlData["group"].ToString();
+                City = sqlData["city"].ToString();
+
+            }
             this.StudyProgramId = studyProgramId;
             StudyProgramName = SqlDriver.Row($"SELECT program FROM studyProgrammes WHERE studyProgramId = {studyProgramId}")["program"].ToString();
             Description = SqlDriver.Row($"SELECT description FROM studyProgrammes WHERE studyProgramId = {studyProgramId}")["description"].ToString();

@@ -89,7 +89,7 @@ function autocomplete(inp) {
         arrayOfSelectedItems = mergeSort(arrayOfSelectedItems);
 
         if (arrayOfSelectedItems.length === 0 ) return false;
-        for (i = 0; i < 10; i++) {
+        for (i = 0; i < 5; i++) {
             const lowerCaseInput = currentInput.toLowerCase();
             const lowerCaseName = arrayOfSelectedItems[i].name.toLowerCase();
             const nameStart = arrayOfSelectedItems[i].name.substr(0, lowerCaseName.indexOf(lowerCaseInput));
@@ -99,7 +99,7 @@ function autocomplete(inp) {
             const address = `/Review/${arrayOfSelectedItems[i].aspAction}/${arrayOfSelectedItems[i].itemId}`;
 
             listItem = document.createElement("DIV");
-            listItem.setAttribute("class", "bg-dark");
+            //listItem.setAttribute("class", "bg-light");
             listItem.innerHTML += combinedName;
             listItem.addEventListener("click", function (e) {
                 window.location.href = address;

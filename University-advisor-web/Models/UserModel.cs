@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using University_advisor_web.Interfaces;
+using System.Linq;
 
 namespace University_advisor_web.Models
 {
@@ -35,14 +36,17 @@ namespace University_advisor_web.Models
         public List<SelectListItem> Universities { get; set; }
         public List<SelectListItem> Courses { get; set; }
         public List<SelectListItem> Statuses { get; set; }
+        public List<RecommendationModel> Recommendations { get; set; }
         public string SchoolSubjectPreferences { get; set; }
         public string GroupPreferences { get; set; }
         public string DirectionPreferences { get; set; }
         public string CityPreferences { get; set; }
+        public string CourseBookmarks { get; set; }
 
         public UserModel(int userId)
         {
-            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status, schoolPreferences, groupPreferences, directionPreferences, cityPreferences FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";"); UserId = userId;
+            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status, schoolPreferences, groupPreferences, directionPreferences, cityPreferences, bookmarks FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";"); 
+            UserId = userId;
             Username = sqlUser["username"].ToString();
             Email = sqlUser["email"].ToString();
             FirstName = sqlUser["first_name"].ToString();
@@ -54,6 +58,7 @@ namespace University_advisor_web.Models
             GroupPreferences = sqlUser["groupPreferences"].ToString();
             DirectionPreferences = sqlUser["directionPreferences"].ToString();
             CityPreferences = sqlUser["cityPreferences"].ToString();
+            CourseBookmarks = sqlUser["bookmarks"].ToString();
         }
         public UserModel()
         {
@@ -138,19 +143,19 @@ namespace University_advisor_web.Models
         }
         public void ChangeCityPreferences()
         {
-            SqlDriver.Execute($"UPDATE users SET city =@0 WHERE userid=@1;", new ArrayList { CityPreferences, UserId });
+            SqlDriver.Execute($"UPDATE users SET cityPreferences =@0 WHERE userid=@1;", new ArrayList { CityPreferences, UserId });
         }
         public void ChangeGroupPreferences()
         {
-            SqlDriver.Execute($"UPDATE users SET studyGroup =@0 WHERE userid=@1;", new ArrayList { GroupPreferences, UserId });
+            SqlDriver.Execute($"UPDATE users SET groupPreferences =@0 WHERE userid=@1;", new ArrayList { GroupPreferences, UserId });
         }
         public void ChangeDirectionPreferences()
         {
-            SqlDriver.Execute($"UPDATE users SET studyDirection =@0 WHERE userid=@1;", new ArrayList { DirectionPreferences, UserId });
+            SqlDriver.Execute($"UPDATE users SET directionPreferences =@0 WHERE userid=@1;", new ArrayList { DirectionPreferences, UserId });
         }
         public void ChangeSchoolSubjectPreferences()
         {
-            SqlDriver.Execute($"UPDATE users SET schoolSubject =@0 WHERE userid=@1;", new ArrayList { SchoolSubjectPreferences, UserId });
+            SqlDriver.Execute($"UPDATE users SET schoolPreferences =@0 WHERE userid=@1;", new ArrayList { SchoolSubjectPreferences, UserId });
         }
         public void ChangeUniversity()
         {
@@ -158,6 +163,21 @@ namespace University_advisor_web.Models
             var newUniversityId = newUniversityIdFromDB["universityId"].ToString();
             UniversityId = Convert.ToInt32(newUniversityId);
             SqlDriver.Execute("UPDATE users SET universityid =@0 WHERE userid =@1;", new ArrayList { newUniversityId, UserId });
+        }
+        public void UpdateBookmarks()
+        {
+            var sqlData = SqlDriver.Row($"SELECT bookmarks FROM users WHERE userid = {UserId}");
+            var newBookmarks = CourseBookmarks.Split(",");
+            var oldBookmarks = sqlData["bookmarks"].ToString().Split(",");
+            var mergedBookmarks = newBookmarks.Union(oldBookmarks).ToArray();
+            CourseBookmarks = String.Join(",", mergedBookmarks);
+            CourseBookmarks = CourseBookmarks.TrimEnd(',');
+
+            SqlDriver.Execute($"UPDATE users SET bookmarks =@0 WHERE userid=@1;", new ArrayList { CourseBookmarks, UserId });
+        }
+        public void SetBookmarks() 
+        {
+            SqlDriver.Execute($"UPDATE users SET bookmarks =@0 WHERE userid=@1;", new ArrayList { CourseBookmarks, UserId });
         }
         public List<SelectListItem> GetAllUniversities()
         {
@@ -192,6 +212,17 @@ namespace University_advisor_web.Models
                 {
                     courses.Add(new SelectListItem(row["program"].ToString(), row["program"].ToString()));
                 }
+            }
+            return courses;
+        }
+        public List<CourseModel> GetBookmarkedCourses() 
+        {
+            var courses = new List<CourseModel>();
+            var sqlData = SqlDriver.Fetch($"Select * FROM studyProgrammes WHERE studyProgramId IN ({CourseBookmarks})");
+            if (sqlData == null) return courses;
+            foreach (var course in sqlData)
+            {
+                courses.Add(new CourseModel(Convert.ToInt32(course["studyProgramId"].ToString())));
             }
             return courses;
         }

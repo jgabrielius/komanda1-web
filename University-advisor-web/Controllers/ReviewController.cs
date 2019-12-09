@@ -23,13 +23,19 @@ namespace University_advisor_web.Controllers
         public IActionResult Index()
         {
             var model = new UniversityModel();
-            return View(model);
+            return View("../Pages/Review/Index", model);
         }
 
         public IActionResult View(int id)
         {
             Lazy<UniversityModel> _model = new Lazy<UniversityModel>(() => new UniversityModel(id));
             var model = _model.Value;
+            return View("../Pages/Review/View", model);
+        }
+
+        public IActionResult ViewCourse(int id)
+        {
+            var model = new CourseModel(id);
             return View(model);
         }
 

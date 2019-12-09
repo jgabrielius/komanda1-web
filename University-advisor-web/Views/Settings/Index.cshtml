@@ -2,6 +2,17 @@
 @{
     ViewData["Title"] = "Index";
 }
+
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("loginhome").children[0].style.display = "none";
+    };
+</script>
+<section class="banner_inner" id="home">
+    <div class="banner_inner_overlay">
+    </div>
+</section>
+
 <section class="blok">
     <div class="blok-body">
         <div class="row">
@@ -20,7 +31,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label>First name</label>
-                                        <input asp-for="NewFirstName" type="text" id="changeFirstName" class="form-control" value="@Model.FirstName"/>
+                                        <input asp-for="NewFirstName" type="text" id="changeFirstName" class="form-control" value="@Model.FirstName" />
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -30,10 +41,48 @@
                                 </div>
                             </div>
                             <div class="col-6">
+                                <h4> Change Course:</h4>
+
+                                <div>
+                                    <label> Course: </label>
+                                    <select asp-items="Model.Courses" asp-for="SelectedCourse" class="form-control" required="">
+                                        <option selected="selected">
+                                            @Model.Course
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <button class="btn btn-primary" asp-controller="Settings" asp-action="ChangeCourse">Change course</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <h4> Change University:</h4>
+
+                                <div>
+                                    <label> University: </label>
+                                    <select asp-items="Model.Universities" asp-for="SelectedUniversity" class="form-control" required="">
+                                        <option selected="selected">
+                                            @Model.University
+                                        </option>
+                                    </select>
+
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <button class="btn btn-primary" asp-controller="Settings" asp-action="ChangeUniversity">Change university</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
                                 <div class="row">
                                     <div class="col">
                                         <label>Last name</label>
-                                        <input asp-for="NewLastName" type="text" id="changeLastName" class="form-control" value="@Model.LastName"/>
+                                        <input asp-for="NewLastName" type="text" id="changeLastName" class="form-control" value="@Model.LastName" />
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -48,7 +97,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label>Username</label>
-                                        <input asp-for="NewUsername" type="text" id="changeUsername" class="form-control" value="@Model.Username"/>
+                                        <input asp-for="NewUsername" type="text" id="changeUsername" class="form-control" value="@Model.Username" />
                                     </div>
                                 </div>
                                 <div class="row mt-3 d-block">
@@ -99,7 +148,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label>New email:</label>
-                                        <input asp-for="NewEmail" type="email" id="newEmail" class="form-control" value="@Model.Email"/>
+                                        <input asp-for="NewEmail" type="email" id="newEmail" class="form-control" value="@Model.Email" />
                                     </div>
                                 </div>
 
@@ -112,25 +161,7 @@
                         </div>
 
                         <div class="row" style="margin-top:20px;">
-                            <div class="col-6">
-                                <h4> Change University:</h4>
-
-                                <div>
-                                    <label> University: </label>
-                                    <select asp-items="Model.Universities" asp-for="SelectedUniversity" class="form-control" required="">
-                                        <option selected="selected">
-                                            @Model.University
-                                        </option>
-                                    </select>
-
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col">
-                                        <button class="btn btn-primary" asp-controller="Settings" asp-action="ChangeUniversity">Change university</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="col-6">
                                 <h4> Change Status:</h4>
@@ -153,24 +184,7 @@
                         </div>
 
                         <div class="row" style="margin-top:20px;">
-                            <div class="col-6">
-                                <h4> Change Course:</h4>
-
-                                <div>
-                                    <label> Course: </label>
-                                    <select asp-items="Model.Courses" asp-for="SelectedCourse" class="form-control" required="">
-                                        <option selected="selected">
-                                            @Model.Course
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col">
-                                        <button class="btn btn-primary" asp-controller="Settings" asp-action="ChangeCourse">Change course</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="col-6">
                                 <h4> Add student card:</h4>
 

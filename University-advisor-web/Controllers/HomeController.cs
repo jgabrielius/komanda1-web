@@ -1,38 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using University_advisor_web.Constants;
+using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
-using Microsoft.AspNetCore.Http;
+
+// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace University_advisor_web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger _logger;
+        private readonly IRegistrationService _registration;
+        private readonly IErrorHandler _errorHandler;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger logger,
+                              IRegistrationService registration,
+                              IErrorHandler errorHandler)
         {
             _logger = logger;
+            _registration = registration;
+            _errorHandler = errorHandler;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeModel();
+            model.Map = new MapModel("Vilnius", "Universities");
+            model.Registration = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
+            //return View(model);
+            return View("../Pages/Index", model);
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Display(HomeModel model)
         {
-            return View();
+            return View("../Pages/Index", model);
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Index(string address, double range)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var model = new HomeModel();
+            model.Map = new MapModel(address, "Universities", range);
+            model.Registration = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
+            // Code to test if logging works correctly.
+            _logger.Log(Messages.nearbyUniversitiesDisplayed);
+            return View("../Pages/Index", model);
         }
     }
 }

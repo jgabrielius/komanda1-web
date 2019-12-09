@@ -5,6 +5,8 @@ using System.Data.SQLite;
 using System.Threading.Tasks;
 using System.Collections;
 using Microsoft.Data.SqlClient;
+using System.Data;
+using University_advisor_web.EntityFramework;
 
 namespace University_advisor_web
 {
@@ -56,7 +58,7 @@ namespace University_advisor_web
             }
             catch (SQLiteException e)
             {
-                //TODO add error logging
+               
                 return null;
             }
         }
@@ -118,11 +120,48 @@ namespace University_advisor_web
                 command = new SQLiteCommand(sql, dbConnection);
             }
 
-            //TODO add logging and error handling
+            using (var dbContext = new MyContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Logs.AddRange(new Log
+                    {
+                        Query = command.CommandText,
+                        Date = DateTime.Now.ToString()
+            });
+                dbContext.SaveChanges();
+            }
+
             command.ExecuteNonQuery();
             command.Dispose();
             dbConnection.Close();
             return true;
+        }
+
+        public static DataSet FetchDataset(string sql, ArrayList parameters = null)
+        {
+            var dbConnection = Connect();
+
+            if (dbConnection == null)
+            {
+                return null;
+            }
+
+            SQLiteCommand command;
+            if (parameters != null)
+            {
+                command = Replace(dbConnection, sql, parameters);
+            }
+            else
+            {
+                command = new SQLiteCommand(sql, dbConnection);
+            }
+            SQLiteDataAdapter da = new SQLiteDataAdapter(command);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            dbConnection.Close();
+            da.Dispose();
+            return ds;
         }
     }
 }

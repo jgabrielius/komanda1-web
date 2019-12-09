@@ -1,0 +1,80 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "index";
+}
+
+<section class="banner_inner" id="home">
+    <div class="banner_inner_overlay">
+    </div>
+</section>
+<div class="m-3">
+    <h3 style="max-width: 500px; margin: 0; display: inline">Your bookmarks</h3>
+    <div class="float-right">
+        <button onclick="submitBookmarksForm()" style="width:200px; border-radius: 0;" class="btn btn-outline-primary text-center">Change bookmarks</button>
+        <button onclick="resetBookmarks()" style="width:200px; border-radius: 0;" class="btn btn-outline-danger text-center">Reset bookmarks</button>
+    </div>
+</div>
+<section>
+    <div class="row inner-sec-w3layouts-w3pvt-lauinfo">
+        @foreach (var course in Model.GetBookmarkedCourses())
+        {
+            <div class="col-lg-3 col-sm-6" style="margin-top:8px;">
+                <div class="package-info">
+                    <h5 class="my-2"><span class="fa fa-university mr-2"></span>@course.Program</h5>
+                    <h6 class="mt-1"><span class="fa fa-users mr-2"></span>@course.Group</h6>
+                    <h6 class="mt-1"><span class="fa fa-graduation-cap mr-2"></span>@course.Direction</h6>
+                    <ul class="listing mt-3" style="margin-bottom:15px;">
+                        <li><span class="fa fa-check-circle-o mr-2"></span>Presentation : <span>@course.Presentation</span></li>
+                        <li><span class="fa fa-check-circle-o mr-2"></span>Clarity : <span>@course.Clarity</span></li>
+                        <li><span class="fa fa-check-circle-o mr-2"></span>Feedback : <span>@course.Feedback</span></li>
+                        <li><span class="fa fa-check-circle-o mr-2"></span>Encouragement : <span>@course.Encouragement</span></li>
+                        <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@course.Effectiveness</span></li>
+                        <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@course.Satisfaction</span></li>
+                    </ul>
+                    <div>
+                        <button onclick="selectButton(@course.StudyProgramId)" class="btn btn-success selected card-preference-btn text-center" id="@course.StudyProgramId" style="width:100%; position: relative;">Bookmark</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<form asp-action="UpdateBookmarks" asp-controller="Preferences" role="form" method="post" enctype="multipart/form-data" id="bookmarksForm">
+    <input id="bookmarks" type="hidden" asp-for="CourseBookmarks" />
+</form>
+
+<script>
+    function selectButton(id) {
+        console.log(id)
+        let item = $("#" + id);
+        if (item.hasClass("btn-success")) {
+            item.removeClass("btn-success");
+            item.removeClass("selected")
+            item.addClass("btn-outline-primary")
+        }
+        else if (item.hasClass("btn-outline-primary")) {
+            item.removeClass("btn-outline-primary");
+            item.addClass("btn-success")
+            item.addClass("selected")
+        }
+    }
+
+    function submitBookmarksForm() {
+        selectedCourses = $(".selected").map(function () {
+            return this.id;
+        }).get();
+
+        $(function () {
+            $("#bookmarks").val(`${selectedCourses.join()}`);
+            $("#bookmarksForm").submit();
+        });
+    }
+
+    function resetBookmarks() {
+        $(function () {
+            $("#bookmarks").val("");
+            $("#bookmarksForm").submit();
+        });
+    }
+</script>

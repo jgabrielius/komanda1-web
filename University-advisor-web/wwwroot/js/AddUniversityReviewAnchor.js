@@ -5,7 +5,7 @@ if(universityId === userUniversityId)
 {
     let reviewDiv = document.getElementById("reviewAnchorDiv");
     let aTag = document.createElement('a');
-    aTag.setAttribute('class', "btn btn-lg btn-default");
+    aTag.setAttribute('class', "btn btn-outline-primary");
     aTag.innerText = "Leave a review for university";
     aTag.setAttribute('href',`/Review/UniversityReview/${universityId}`);
     reviewDiv.appendChild(aTag);

@@ -16,42 +16,47 @@ namespace University_advisor_web.Controllers
         private readonly ILogger _logger;
         private readonly ILogInService _login;
         private readonly IErrorHandler _errorHandler;
+        private readonly IRegistrationService _registration;
 
         private delegate void FailedLogIn(string s);
 
-        public LogInController(ILogger logger, ILogInService login, IErrorHandler errorHandler)
+        public LogInController(ILogger logger, ILogInService login, IErrorHandler errorHandler, IRegistrationService registration)
         {
             _logger = logger;
             _login = login;
             _errorHandler = errorHandler;
+            _registration = registration;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new UserModel();
-            return View(model);
+            var model = new HomeModel();
+            //return View(model);
+            return View("../Pages/LogIn/Index");
         }
 
         [HttpPost]
-        public IActionResult LogIn(UserModel model)
+        public IActionResult LogIn(HomeModel model)
         {
             FailedLogIn failedLogIn = LogFailedLogIn;
-            if (_login.ValidateFields(model))
+            if (_login.ValidateFields(model.User))
             {
                 failedLogIn.Invoke(Messages.userLoggedIn);
                 _logger.LogStats(model);
-                HttpContext.Session.SetInt32("UserId", model.UserId);
-                HttpContext.Session.SetInt32("UserUniversityId", model.UniversityId);
-                HttpContext.Session.SetInt32("UserCourseId", model.CourseId);
-                return View("../Home/Index", model);
+                HttpContext.Session.SetInt32("UserId", model.User.UserId);
+                HttpContext.Session.SetInt32("UserUniversityId", model.User.UniversityId);
+                HttpContext.Session.SetInt32("UserCourseId", model.User.CourseId);
+                model.Map = new MapModel("Vilnius", "Universities");
+                model.Registration = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
+                return View("../Pages/Index", model);
             }
             else
             {
                 _errorHandler.ShowError(this, Messages.wrongUsernameOrPassword);
                 _logger.Log(Messages.userLogInError);
             }
-            return RedirectToAction("Index", model);
+            return RedirectToAction("Index", "Home");
         }
 
         private void LogFailedLogIn(string message)

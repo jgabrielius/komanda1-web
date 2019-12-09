@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using University_advisor_web.Interfaces;
+using System.Linq;
 
 namespace University_advisor_web.Models
 {
@@ -34,12 +35,17 @@ namespace University_advisor_web.Models
         public IFormFile File { get; set; }
         public List<SelectListItem> Universities { get; set; }
         public List<SelectListItem> Courses { get; set; }
-
         public List<SelectListItem> Statuses { get; set; }
+        public List<RecommendationModel> Recommendations { get; set; }
+        public string SchoolSubjectPreferences { get; set; }
+        public string GroupPreferences { get; set; }
+        public string DirectionPreferences { get; set; }
+        public string CityPreferences { get; set; }
+        public string CourseBookmarks { get; set; }
 
         public UserModel(int userId)
         {
-            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";");
+            var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status, schoolPreferences, groupPreferences, directionPreferences, cityPreferences, bookmarks FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";"); 
             UserId = userId;
             Username = sqlUser["username"].ToString();
             Email = sqlUser["email"].ToString();
@@ -48,8 +54,12 @@ namespace University_advisor_web.Models
             University = sqlUser["name"].ToString();
             Course = sqlUser["program"].ToString();
             Status = sqlUser["status"].ToString();
+            SchoolSubjectPreferences = sqlUser["schoolPreferences"].ToString();
+            GroupPreferences = sqlUser["groupPreferences"].ToString();
+            DirectionPreferences = sqlUser["directionPreferences"].ToString();
+            CityPreferences = sqlUser["cityPreferences"].ToString();
+            CourseBookmarks = sqlUser["bookmarks"].ToString();
         }
-
         public UserModel()
         {
         }
@@ -61,7 +71,6 @@ namespace University_advisor_web.Models
         {
             Email = SqlDriver.Row($"SELECT email FROM users WHERE userId= " + userId.ToString() + ";")["email"].ToString();
         }
-
         public void SetUserData(int userId)
         {
             var sqlUser = SqlDriver.Row($"SELECT username, email, first_name, last_name, universities.name, studyProgrammes.program, status FROM universities JOIN users on universities.universityId = users.universityId JOIN studyProgrammes on users.courseId = studyProgrammes.studyProgramId WHERE userId =" + userId.ToString() + ";");
@@ -101,7 +110,6 @@ namespace University_advisor_web.Models
                 return true;
             }
         }
-
         public void ChangePassword(IPasswordHasher passwordHasher)
         {
             SqlDriver.Execute($"UPDATE users SET password =@0 WHERE userid=@1;", new ArrayList { passwordHasher.CreateMD5(NewPassword), UserId });
@@ -110,12 +118,10 @@ namespace University_advisor_web.Models
         {
             SqlDriver.Execute($"UPDATE users SET email =@0 WHERE userid=@1;", new ArrayList { NewEmail, UserId });
         }
-
         public void ChangeStatus()
         {
             SqlDriver.Execute($"UPDATE users SET status =@0 WHERE userid=@1;", new ArrayList { SelectedStatus, UserId });
         }
-
         public void ChangeCourse()
         {
             var newCourseIdFromDB = SqlDriver.Row("SELECT studyProgramId from studyProgrammes WHERE program ='" + SelectedCourse + "';");
@@ -135,7 +141,22 @@ namespace University_advisor_web.Models
         {
             SqlDriver.Execute($"UPDATE users SET username =@0 WHERE userid=@1;", new ArrayList { NewUsername, UserId });
         }
-
+        public void ChangeCityPreferences()
+        {
+            SqlDriver.Execute($"UPDATE users SET cityPreferences =@0 WHERE userid=@1;", new ArrayList { CityPreferences, UserId });
+        }
+        public void ChangeGroupPreferences()
+        {
+            SqlDriver.Execute($"UPDATE users SET groupPreferences =@0 WHERE userid=@1;", new ArrayList { GroupPreferences, UserId });
+        }
+        public void ChangeDirectionPreferences()
+        {
+            SqlDriver.Execute($"UPDATE users SET directionPreferences =@0 WHERE userid=@1;", new ArrayList { DirectionPreferences, UserId });
+        }
+        public void ChangeSchoolSubjectPreferences()
+        {
+            SqlDriver.Execute($"UPDATE users SET schoolPreferences =@0 WHERE userid=@1;", new ArrayList { SchoolSubjectPreferences, UserId });
+        }
         public void ChangeUniversity()
         {
             var newUniversityIdFromDB = SqlDriver.Row("SELECT universityid from universities WHERE name ='" + SelectedUniversity + "';");
@@ -143,7 +164,21 @@ namespace University_advisor_web.Models
             UniversityId = Convert.ToInt32(newUniversityId);
             SqlDriver.Execute("UPDATE users SET universityid =@0 WHERE userid =@1;", new ArrayList { newUniversityId, UserId });
         }
+        public void UpdateBookmarks()
+        {
+            var sqlData = SqlDriver.Row($"SELECT bookmarks FROM users WHERE userid = {UserId}");
+            var newBookmarks = CourseBookmarks.Split(",");
+            var oldBookmarks = sqlData["bookmarks"].ToString().Split(",");
+            var mergedBookmarks = newBookmarks.Union(oldBookmarks).ToArray();
+            CourseBookmarks = String.Join(",", mergedBookmarks);
+            CourseBookmarks = CourseBookmarks.TrimEnd(',');
 
+            SqlDriver.Execute($"UPDATE users SET bookmarks =@0 WHERE userid=@1;", new ArrayList { CourseBookmarks, UserId });
+        }
+        public void SetBookmarks() 
+        {
+            SqlDriver.Execute($"UPDATE users SET bookmarks =@0 WHERE userid=@1;", new ArrayList { CourseBookmarks, UserId });
+        }
         public List<SelectListItem> GetAllUniversities()
         {
             var universityResult = SqlDriver.Fetch("SELECT name, universityId FROM universities");
@@ -157,7 +192,6 @@ namespace University_advisor_web.Models
             }
             return universities;
         }
-
         public List<SelectListItem> GetAllStatuses()
         {
             List<SelectListItem> statuses = new List<SelectListItem>
@@ -168,7 +202,6 @@ namespace University_advisor_web.Models
             };
             return statuses;
         }
-
         public List<SelectListItem> GetCourses(int userId)
         {
             var courseResult = SqlDriver.Fetch("SELECT * FROM studyProgrammes, users WHERE studyProgrammes.universityId = users.universityId AND users.userId ="  + userId.ToString() + "; ");
@@ -182,7 +215,17 @@ namespace University_advisor_web.Models
             }
             return courses;
         }
-
+        public List<CourseModel> GetBookmarkedCourses() 
+        {
+            var courses = new List<CourseModel>();
+            var sqlData = SqlDriver.Fetch($"Select * FROM studyProgrammes WHERE studyProgramId IN ({CourseBookmarks})");
+            if (sqlData == null) return courses;
+            foreach (var course in sqlData)
+            {
+                courses.Add(new CourseModel(Convert.ToInt32(course["studyProgramId"].ToString())));
+            }
+            return courses;
+        }
         public int QuestionsCount() {
             var questionsCount = SqlDriver.Fetch("SELECT * FROM questions WHERE userId =" + UserId + "; ");
             if(questionsCount != null) return questionsCount.Count;
@@ -198,19 +241,30 @@ namespace University_advisor_web.Models
         {
             return new UniversityModel().GetUniversities();
         }
-
-
+        public List<Dictionary<string, object>> GetCourses()
+        {
+            return new CourseModel().CoursesList();
+        }
+        public List<Dictionary<string, object>> GetCourseGroups()
+        {
+            return new CourseModel().GroupList();
+        }
+        public List<Dictionary<string, object>> GetCourseCities() 
+        {
+            return new CourseModel().CityList();
+        }
         public List<Dictionary<string, object>> GetUserQuestions(int userId)
         {
             return new ForumModel().GetAllUserQuestions(userId);
         }
-
         public List<Dictionary<string, object>> GetUserRepliedQuestions(int userId)
         {
             return new ForumModel().GetAllUserRepliedQuestions(userId);
-
+        }
+        public List<Dictionary<string, object>> GetUserById(object userId)
+        {
+            int user = Convert.ToInt32(userId);
+            return SqlDriver.Fetch($"SELECT first_name, last_name, status FROM users WHERE userId={user}");
         }
     }
-
-
 }

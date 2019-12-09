@@ -1,4 +1,5 @@
 ﻿function addUniversity(button) {
+    button.style.opacity = 0;
     let uni = {
         id: button.getAttribute('data-id'),
         name: button.getAttribute('data-name'),
@@ -10,7 +11,6 @@
         cost: button.getAttribute('data-cost')
     };
     let universities = localStorage.getItem('unicompare');
-
     if (universities === null) {
         localStorage.setItem('unicompare', JSON.stringify([uni]));
     } else {
@@ -53,11 +53,12 @@ function appendUniversity(university) {
 function removeUniversity(btn) {
     let table = document.querySelector('#uni-compare-wrapper table'),
         universities = JSON.parse(localStorage.getItem('unicompare')),
-        index;
+        index,
+        id = btn.getAttribute('data-id');
 
     //get index in table
     for (let i = 0; i < universities.length; i++) {
-        if (universities[i].id == btn.getAttribute('data-id')) {
+        if (universities[i].id == id) {
             index = i;
             universities.splice(index, 1);
             localStorage.removeItem('unicompare');
@@ -69,6 +70,7 @@ function removeUniversity(btn) {
     for (let i = 0; i < table.rows.length; i++) {
         table.rows[i].deleteCell(index+1);
     }
+    document.querySelector('a[data-id="' + id + '"]').style.opacity=1;
 }
 
 function displayCompare() {
@@ -82,7 +84,7 @@ function expandFooter() {
     let footer = document.querySelector('#collapseFooter'),
         hidden = document.querySelectorAll('.uni-hidden'),
         icon = document.querySelector('#expandIcon');
-    if (footer.style.height === "20%") {
+    if (footer.style.height === "10%") {
         //expand
         footer.style.height = window.innerHeight - document.querySelector('nav').clientHeight + "px";
         icon.style.transform = "rotate(180deg)";
@@ -91,7 +93,7 @@ function expandFooter() {
         }
     } else {
         //collapse
-        footer.style.height = "20%";
+        footer.style.height = "10%";
         icon.style.transform = "rotate(0deg)";
         for (let i = 0; i < hidden.length; i++) {
             hidden[i].classList.add('d-none');
@@ -100,8 +102,10 @@ function expandFooter() {
 }
 
 $(function () {
-    let universities = JSON.parse(localStorage.getItem('unicompare'));
+    let universities = JSON.parse(localStorage.getItem('unicompare')),id;
     for (let i = 0; i < universities.length; i++) {
         appendUniversity(universities[i]);
+        id = universities[i].id;
+        document.querySelector('button[data-id="' + id + '"]').style.opacity = 0;
     }
 })

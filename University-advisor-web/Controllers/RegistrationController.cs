@@ -29,24 +29,25 @@ namespace University_advisor_web.Controllers
         public IActionResult Index()
         {
             var model = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
-            return View(model);
+            //return View(model);
+            return View("../Pages/SignUp/Index");
         }
        
         [HttpPost]
-        public IActionResult SignUp(RegistrationFormModel model)
+        public IActionResult SignUp(HomeModel model)
         {
             if (_registration.AddUser(model.User))
             {
                 _logger.Log(Messages.userRegistered);
                 _logger.LogStats(model.User);
-                return View("../Home/Index");
+                _errorHandler.ShowError(this, Messages.userRegistered, "Info");
             }
             else
             {
                 _errorHandler.ShowError(this, Messages.userRegistrationError);
                 _logger.Log(Messages.userRegistrationError);
-                return View("../Home/Index");
             }
+            return RedirectToAction("Index", "Home");
         }
 
     }

@@ -3,57 +3,61 @@
     ViewData["Title"] = "ViewQuestion";
 }
 
-    <form asp-controller="Forum" role="form" method="post" enctype="multipart/form-data">
+<form asp-controller="Forum" role="form" method="post" enctype="multipart/form-data">
 
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card text-left" style="width:400px">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">@Model.question</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Asked by id: @Model.userId</h6>
-                            <p class="card-text">@Model.message</p>
-                        </div>
+    @{ var usr = Model.GetUserById(Model.userId);}
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card text-left m-1" style="width:400px">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.question</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Asked by: @usr[0]["first_name"] @usr[0]["last_name"], @usr[0]["status"]</h6>
+                        <p class="card-text">@Model.message</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-lg-8">
-                <label>Replies:</label>
-            </div>
+    <div class="row">
+        <div class="col-lg-8 m-1">
+            <label>Replies:</label>
         </div>
+    </div>
 
-        <input type="hidden" asp-for="questionId" />
-        @foreach (var i in Model.GetAllReplies())
-        {
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card text-right" style="width:400px">
-                        <div class="card bg-info">
-                            <div class="card-body">
-                                <h5 class="card-title">@i["answer"]</h5>
-                                <h6 class="card-subtitle mb-2">Answered by id: @i["userId"]</h6>
-                            </div>
-                        </div>
+    <input type="hidden" asp-for="questionId" />
+    @foreach (var i in Model.GetAllReplies())
+    {
+        var user = Model.GetUserById(i["userId"]);
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card m-1" style="width:600px; background-color: rgba(58, 133, 191, 0.75); border-radius: 25px; ">
+                    <div class="card-body">
+                        <h5 class="text-body">@Html.Raw(i["answer"])</h5>
+                        <i>Answered: @i["timestamp"]</i>
+                        <br />
+                        <i>By: @user[0]["first_name"] @user[0]["last_name"], @user[0]["status"]</i>
                     </div>
                 </div>
             </div>
-        }
-        <div class="row">
-            <div class="col-lg-8">
-                <label>Your answer</label>
-                <textarea asp-for="@Model.answer" class="form-control" required="" pattern="[a-zA-Z0-9]+" style="height:200px"></textarea>
-            </div>
         </div>
-
-        <div class="row mt-3">
-            <div class="col-lg-4">
-                <input asp-action="Reply" asp-controller="Forum" class="btn btn-primary" type="submit" value="Reply">
-            </div>
+    }
+    <div class="row">
+        <div class="col-lg-8 m-1">
+            <label>Your answer</label>
+            @*<textarea asp-for="@Model.answer" class="form-control" required="" pattern="[a-zA-Z0-9]+" style="height:200px"></textarea>*@
+            <textarea id="editor1" asp-for="@Model.answer" class="form-control" required=""></textarea>
+            <script>
+                CKEDITOR.replace("editor1");
+            </script>
         </div>
+    </div>
 
-    </form>
+    <div class="row mt-3">
+        <div class="col-lg-4 m-1">
+            <input asp-action="Reply" asp-controller="Forum" class="btn btn-primary" type="submit" value="Reply">
+        </div>
+    </div>
 
-
+</form>

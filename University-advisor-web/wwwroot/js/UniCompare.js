@@ -70,7 +70,7 @@ function removeUniversity(btn) {
     for (let i = 0; i < table.rows.length; i++) {
         table.rows[i].deleteCell(index+1);
     }
-    document.querySelector('button[data-id="' + id + '"]').style.opacity=1;
+    document.querySelector('a[data-id="' + id + '"]').style.opacity=1;
 }
 
 function displayCompare() {

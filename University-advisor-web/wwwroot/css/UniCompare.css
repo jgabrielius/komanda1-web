@@ -1,0 +1,12 @@
+﻿#collapseFooter {
+    transition: height 1s ease;
+    background-color: #60c7c1;
+}
+
+#expandIcon {
+    transition: transform 1s ease;
+}
+
+button.add-compare {
+    transition: opacity 1s ease;
+}

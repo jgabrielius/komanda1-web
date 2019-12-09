@@ -33,7 +33,7 @@ namespace University_advisor_web.Models
         public UniversityReviewModel(int universityId)
         {
             this.UniversityId = universityId;
-            UniversityName = SqlDriver.Row($"SELECT name FROM universities WHERE universityId ={universityId}")["name"].ToString();
+            UniversityName = SqlDriver.FetchDataset($"SELECT name FROM universities WHERE universityId ={universityId}").Tables[0].Rows[0]["name"].ToString();
         }
 
         public void SaveReviews()

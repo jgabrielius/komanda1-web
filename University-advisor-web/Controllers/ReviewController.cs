@@ -49,7 +49,7 @@ namespace University_advisor_web.Controllers
             if (model.IsDuplicate())
             {
                 printError.Invoke(Messages.reviewAlreadySubmitted, "Alert");
-                return RedirectToAction("../Pages/Review/Index");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -68,7 +68,7 @@ namespace University_advisor_web.Controllers
         {
             model.UserId = HttpContext.Session.GetInt32("UserId")??0;
             model.SaveReviews();
-            return RedirectToAction("../Pages/Review/Index");
+            return RedirectToAction("Index");
         }
 
         public IActionResult UniversityReview(int id)
@@ -80,7 +80,7 @@ namespace University_advisor_web.Controllers
             model.DuplicateReview += DuplicateReview;
             if (model.IsDuplicate())
             {
-                return RedirectToAction("../Pages/Review/View", new { id });
+                return RedirectToAction("View", new { id });
             }
             _logger.Log(Messages.universityReviewSubmitted);
             return View(model);
@@ -91,7 +91,7 @@ namespace University_advisor_web.Controllers
         {
             model.UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
             model.SaveReviews();
-            return RedirectToAction("../Pages/Review/Index");
+            return RedirectToAction("Index");
         }
 
         private void DuplicateReview(object sender, DuplicateReviewEventArgs e)

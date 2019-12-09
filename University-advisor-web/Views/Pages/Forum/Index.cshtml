@@ -1,0 +1,101 @@
+﻿@model ForumModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("loginhome").children[0].style.display = "none";
+    };
+</script>
+
+<section class="banner_inner" id="home">
+    <div class="banner_inner_overlay">
+    </div>
+</section>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="~/css/signup.css" />
+
+<div id="askQuestionModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-signup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="avatar">
+                    @*<img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar">*@
+                </div>
+                <h4 class="modal-title">Ask a question</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Forum" role="form" method="post" enctype="multipart/form-data" id="logInForm">
+                    <div class="form-group">
+                        <input asp-for="question" type="text" class="form-control" placeholder="Question" required="required">
+                    </div>
+                    <div class="form-group">
+                        <textarea asp-for="message" type="text" class="form-control" placeholder="Message" style="height:200px" required="required"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block login-btn" asp-controller="Forum" asp-action="Question">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="destinations py-5" id="destinations">
+    <div class="container py-xl-5 py-lg-3">
+        <h3 class="heading text-capitalize text-center">For students, by students</h3>
+        <p class="text mt-2 mb-5 text-center">
+            University advisor is a platform for anyone who seek higher education.
+            We help you get answers to toughest questions related to university choice.
+        </p>
+        <div class="col text-center">
+            <a class="btn btn-outline-primary btn-lg" href="#askQuestionModal" data-toggle="modal" style="margin-bottom:8px;"><span class="fa fa-info-circle"></span> Ask a question</a>
+        </div>
+    </div>
+</section>
+
+@*<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">*@
+<link rel="stylesheet" href="~/css/Forum.css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Questions</h4>
+                </div>
+                <div class="gaadiex-list">
+                    <div class="gaadiex-list-item border-b-1">
+                        <i class="fa fa-user"></i>
+                        <div class="gaadiex-list-item-text">
+                            <h3><a href="#">Eric Graves</a></h3>
+                            <h4>Brunch this weekend?</h4>
+                            <p> I'll be in your neighborhood doing errands</p>
+                        </div>
+                    </div>
+                    @foreach (var i in Model.GetAllQuestions())
+                    {
+                        var user = Model.GetUserById(i["userId"]);
+                        <div class="gaadiex-list-item border-b-1">
+                            <i class="fa fa-user"></i>
+                            <div class="gaadiex-list-item-text">
+                                <h3>@user[0]["first_name"] @user[0]["last_name"], @user[0]["status"]</h3>
+                                <h4><a asp-controller="Forum" asp-action="ViewQuestion" asp-route-id="@i["questionId"]">@i["question"]</a></h4>
+                                <p> @i["message"]</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

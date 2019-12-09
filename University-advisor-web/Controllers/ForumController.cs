@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using University_advisor_web.Constants;
 using University_advisor_web.Interfaces;
 using University_advisor_web.Models;
 
@@ -20,7 +21,7 @@ namespace University_advisor_web.Controllers
         public IActionResult Index()
         {
             var forumModel = new ForumModel();
-            return View(forumModel);
+            return View("../Pages/Forum/Index", forumModel);
         }
 
         [HttpGet]
@@ -36,13 +37,13 @@ namespace University_advisor_web.Controllers
             forumModel.userId = HttpContext.Session.GetInt32("UserId") ?? 0;
             forumModel.date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             forumModel.SaveQuestion();
-            return View("../Forum/SubmittedQuestion", forumModel);
+            return RedirectToAction("Index", "Forum");
         }
 
         public IActionResult ViewQuestion(int id)
         {
             var forumModel = new ForumModel(id);
-            return View(forumModel);
+            return View("../Pages/Forum/ViewQuestion", forumModel);
         }
 
         public IActionResult Reply(ForumModel forumModel)
@@ -51,7 +52,7 @@ namespace University_advisor_web.Controllers
             forumModel.date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             forumModel.SaveReply();
             forumModel.answer = String.Empty;
-            return RedirectToAction("Questions");
+            return RedirectToAction("Index", "Forum");
         }
     }
 }

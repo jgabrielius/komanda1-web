@@ -15,10 +15,10 @@
     width: 100%;
 }
 card-preference-title {
-    max-height: 100px;
+    height: 70px;
 }
 .card-preference {
-    height: 160px;
+    height: 180px;
 }
 .card-preference-btn {
     display: flex;
@@ -53,6 +53,6 @@ card-preference-title {
 }
 .grid-fit-max {
     display: grid;
-    grid-template-columns:  repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns:  repeat(auto-fit, 150px);
     grid-gap: 20px;
 }

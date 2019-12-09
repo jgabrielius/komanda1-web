@@ -49,24 +49,25 @@ input[type=text] {
     left: 0;
     right: 0;
     font-size: 16px;
+    background: #ffffff;
 }
 
 .autocomplete-items div {
     padding: 10px;
     cursor: pointer;
-    border-bottom: 1px solid #d4d4d4;
+    border-bottom: 1px solid #60c7c1;
 }
 .autocomplete-items div:hover {
-    background-color: #454545;
+    background-color: #e0dcdc;
 }
 .autocomplete-active {
-    background-color: #454545;
+    background-color: #ffffff;
 }
 
 .autocomplete-items div:hover {
-    background-color: #454545;
+    background-color: #e0dcdc;
 }
 
 .autocomplete-active {
-    background-color: #454545;
+    background-color: #ffffff;
 }

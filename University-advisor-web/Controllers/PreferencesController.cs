@@ -52,8 +52,9 @@ namespace University_advisor_web.Controllers
                 }
                 recommendations.Add(newUniversityRecommendations);
             }
+            model.Recommendations = recommendations;
 
-            return View(recommendations);
+            return View(model);
         }
         [HttpPost]
         public IActionResult PostPreferences(UserModel model)
@@ -63,6 +64,24 @@ namespace University_advisor_web.Controllers
             model.ChangeDirectionPreferences();
             model = new UserModel(model.UserId);
             return RedirectToAction("Index", model);
+        }
+        [HttpPost]
+        public IActionResult PostBookmarks(UserModel user)
+        {
+            var model = new UserModel(HttpContext.Session.GetInt32("UserId") ?? 0);
+            model.CourseBookmarks = user.CourseBookmarks;
+            model.UpdateBookmarks();
+
+            return View("../Pages/Bookmarks/Index", model);
+        }
+        [HttpPost]
+        public IActionResult UpdateBookmarks(UserModel user)
+        {
+            var model = new UserModel(HttpContext.Session.GetInt32("UserId") ?? 0);
+            model.CourseBookmarks = user.CourseBookmarks;
+            model.SetBookmarks();
+
+            return View("../Pages/Bookmarks/Index", model);
         }
     }
 }

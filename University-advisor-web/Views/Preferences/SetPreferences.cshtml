@@ -1,17 +1,19 @@
 ﻿@model UserModel
 @{
     ViewData["Title"] = "Set Preferences";
+    Layout = "~/Views/Shared/Layout.cshtml";
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/Profile.css" />
 }
 @{
-}
-
-@{
     var iconList = new ImageModel().GetAllIcons();
     var cityId = 1;
 }
+<section class="banner_inner" id="home">
+    <div class="banner_inner_overlay">
+    </div>
+</section>
 <div class="container">
     <div class="tab-content m-5">
         <div class="tab-pane fade show active" id="cities-tab">
@@ -28,7 +30,7 @@
                             <div class="card-preference-title">
                                 <h6 class="text-center d-flex justify-content-center">@i["city"]</h6>
                             </div>
-                            <button onclick="selectButton('@i["city"]' + 'cityBtn')" id="@i["city"]cityBtn" class="btn btn-primary card-preference-btn">Select</button>
+                            <button onclick="selectButton('@i["city"]' + 'cityBtn')" id="@i["city"]cityBtn" class="btn btn-outline-primary card-preference-btn">Select</button>
                         </div>
                     </div>
                     cityId = cityId + 1;
@@ -53,7 +55,7 @@
                             <div class="card-preference-title">
                                 <h6 class="text-center d-flex justify-content-center">@i["group"]</h6>
                             </div>
-                            <button onclick="selectButton(@i["groupId"] + 'groupBtn')" id="@i["groupId"]groupBtn" class="btn btn-primary card-preference-btn">Select</button>
+                            <button onclick="selectButton(@i["groupId"] + 'groupBtn')" id="@i["groupId"]groupBtn" class="btn btn-outline-primary card-preference-btn">Select</button>
                         </div>
                     </div>
                 }
@@ -72,8 +74,8 @@
         </div>
     </div>
     <div id="switchTabButtons" class="linksToContent mt-5 width-100proc text-center">
-        <button id="backBtn" class="btn btn-danger btn-lg" disabled>Back</button>
-        <button id="nextBtn" class="btn btn-success btn-lg">Next</button>
+        <button id="backBtn" class="btn btn-outline-danger btn-lg" disabled>Back</button>
+        <button id="nextBtn" class="btn btn-outline-success btn-lg">Next</button>
     </div>
 </div>
 

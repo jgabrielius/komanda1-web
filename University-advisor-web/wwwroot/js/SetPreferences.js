@@ -45,10 +45,10 @@ function selectButton(id) {
     if (item.hasClass("btn-success")) {
         item.removeClass("btn-success");
         item.removeClass("selected")
-        item.addClass("btn-primary")
+        item.addClass("btn-outline-primary")
     }
-    else if (item.hasClass("btn-primary")) {
-        item.removeClass("btn-primary");
+    else if (item.hasClass("btn-outline-primary")) {
+        item.removeClass("btn-outline-primary");
         item.addClass("btn-success")
         item.addClass("selected")
     }
@@ -164,7 +164,7 @@ function createCardElement(item) {
         return selectButton.call(this, item.id + 'directionBtn');
     };
     cardButton.setAttribute("id", `${item.id}directionBtn`)
-    cardButton.setAttribute("class", `btn btn-primary card-preference-btn`)
+    cardButton.setAttribute("class", `btn btn-outline-primary card-preference-btn`)
 
     cardTitle.appendChild(cardTitleText);
     cardBody.appendChild(cardTitle);

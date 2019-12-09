@@ -23,8 +23,10 @@
         <div class="border-primary p-3 m-3">
             <div style="min-height:250px;">
                 <h3 class="d-block justify-content-center">@university.University.UniversityName</h3>
-                <img src=@university.University.Image class="rounded float-left" style="height:150px;width:auto;margin-right:10px;" alt="@university.University.UniversityName" />
-                <div class="d-block">
+                <div class="mt-2">
+                    <img src=@university.University.Image class="rounded" style="height:150px;width:auto;margin-right:10px;" alt="@university.University.UniversityName" />
+                </div>
+                <div>
                     <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@university.University.UniversityId">View University</a>
                 </div>
         </div>

@@ -22,7 +22,7 @@
 }
 else
 {
-    <section class="destinations" id="destinations">
+    <section>
         <div class="container py-xl-4">
             <h3 class="heading text-capitalize text-center">Our recommendations</h3>
             <p class="text mt-2 text-center">
@@ -51,7 +51,7 @@ else
                         @foreach (var course in university.Courses)
                         {
                             <div class="col-lg-3 col-sm-6" style="margin-top:8px;">
-                                <div class="package-info">
+                                <div class="package-info" style="height: 420px;">
                                     <h5 class="my-2"><span class="fa fa-university mr-2"></span>@course.Program</h5>
                                     <h6 class="mt-1"><span class="fa fa-users mr-2"></span>@course.Group</h6>
                                     <h6 class="mt-1"><span class="fa fa-graduation-cap mr-2"></span>@course.Direction</h6>
@@ -64,7 +64,7 @@ else
                                         <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@course.Satisfaction</span></li>
                                     </ul>
                                     <div>
-                                        <button onclick="selectButton(@course.StudyProgramId)" class="btn btn-outline-primary card-preference-btn text-center" id="@course.StudyProgramId" style="width:100%; position: relative;">Bookmark</button>
+                                        <button onclick="selectButton(@course.StudyProgramId)" class="btn btn-outline-primary card-preference-btn text-center" id="@course.StudyProgramId" style="width:85%; position: absolute; bottom:10px; left:26px;">Bookmark</button>
                                     </div>
                                 </div>
                             </div>

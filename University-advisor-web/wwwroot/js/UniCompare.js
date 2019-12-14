@@ -11,7 +11,9 @@
         accessability: button.getAttribute('data-accessability'),
         quality: button.getAttribute('data-quality'),
         unions: button.getAttribute('data-unions'),
-        cost: button.getAttribute('data-cost')
+        cost: button.getAttribute('data-cost'),
+        worldrank: button.getAttribute('data-worldrank'),
+        countryrank: button.getAttribute('data-countryrank')
     };
     let universities = localStorage.getItem('unicompare');
     if (universities === null) {
@@ -33,6 +35,12 @@ function appendUniversity(university) {
     document.querySelector('#uni-row').appendChild(header);
 
     let cell = document.createElement('td');
+    cell.textContent = university.worldrank;
+    document.querySelector('#worldrank-row').appendChild(cell);
+    cell = cell.cloneNode();
+    cell.textContent = university.countryrank;
+    document.querySelector('#countryrank-row').appendChild(cell);
+    cell = cell.cloneNode();
     cell.textContent = university.variety;
     document.querySelector('#variety-row').appendChild(cell);
     cell = cell.cloneNode();

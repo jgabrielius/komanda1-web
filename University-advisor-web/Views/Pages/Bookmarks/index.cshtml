@@ -10,7 +10,6 @@
 <div class="m-3">
     <h3 style="max-width: 500px; margin: 0; display: inline">Your bookmarks</h3>
     <div class="float-right">
-        <button onclick="submitBookmarksForm()" style="width:200px; border-radius: 0;" class="btn btn-outline-primary text-center">Change bookmarks</button>
         <button onclick="resetBookmarks()" style="width:200px; border-radius: 0;" class="btn btn-outline-danger text-center">Reset bookmarks</button>
     </div>
 </div>
@@ -58,6 +57,7 @@
             item.addClass("btn-success")
             item.addClass("selected")
         }
+        submitBookmarksForm();
     }
 
     function submitBookmarksForm() {
@@ -67,7 +67,20 @@
 
         $(function () {
             $("#bookmarks").val(`${selectedCourses.join()}`);
-            $("#bookmarksForm").submit();
+            let form = $("#bookmarksForm");
+
+            $.ajax({
+                type: "POST",
+                url: form.attr('action'),
+                data: form.serialize(),
+                error: function(xhr, status, error) {
+
+                    console.log("neveikia")
+                    },
+                success: function (response) {
+                    console.log("veikia")
+                }
+            });
         });
     }
 

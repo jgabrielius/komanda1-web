@@ -3,13 +3,11 @@
     ViewData["Title"] = "Set Preferences";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-@section Styles {
-    <link rel="stylesheet" href="~/css/Profile.css" />
-}
 @{
     var iconList = new ImageModel().GetAllIcons();
     var cityId = 1;
 }
+<link  rel="stylesheet" href="~/css/Profile.css"/>
 <section class="banner_inner" id="home">
     <div class="banner_inner_overlay">
     </div>
@@ -18,19 +16,20 @@
     <div class="tab-content m-5">
         <div class="tab-pane fade show active" id="cities-tab">
             <div class="text-center">
-                <h2 class="d-inline mr-2">Choose Cities</h2><p class="d-inline">or not...</p>
+                <h2 class="d-inline mr-2 mb-4">Choose Cities</h2><p class="d-inline">or not...</p>
             </div>
             <div class="grid-fit-max">
                 @foreach (var i in Model.GetCourseCities())
                 {
                     <div class="card card-preference">
-                        <div class="card-header card-preference-header">
+                        <div class="card-header card-preference-header text-center">
+                            <img class="card-img-top" style="height: 50px; width:50px;" src="@Url.Content("~/img/cityImages/" + @cityId + ".png")" alt="@i["city"]" ) />
                         </div>
                         <div class="card-body card-preference-body">
                             <div class="card-preference-title">
-                                <h6 class="text-center d-flex justify-content-center">@i["city"]</h6>
+                                <h4 class="text-center d-flex justify-content-center">@i["city"]</h4>
                             </div>
-                            <button onclick="selectButton('@i["city"]' + 'cityBtn')" id="@i["city"]cityBtn" class="btn btn-outline-primary card-preference-btn">Select</button>
+                            <button onclick="selectButton('@i["city"]' + 'cityBtn')" id="@i["city"]cityBtn" class="btn btn-outline-primary card-preference-btn text-center">Select</button>
                         </div>
                     </div>
                     cityId = cityId + 1;
@@ -39,7 +38,7 @@
         </div>
         <div class="tab-pane fade show" id="groups-tab">
             <div class="text-center">
-                <h2 class="d-inline mr-2">Choose study groups</h2>
+                <h2 class="d-inline mr-2 mb-4">Choose study groups</h2>
             </div>
             <div class="grid-fit-max">
                 @foreach (var i in Model.GetCourseGroups())
@@ -63,7 +62,7 @@
         </div>
         <div class="tab-pane fade show" id="directions-tab">
             <div class="text-center">
-                <h2 class="d-inline mr-2">Choose study directions</h2>
+                <h2 class="d-inline mr-2 mb-4">Choose study directions</h2>
             </div>
             <div id="directions-container">
 

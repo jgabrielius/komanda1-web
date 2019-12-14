@@ -24,6 +24,24 @@
     display: inline-block;
     height: 190px;
 }
+.card-direction {
+    display: inline-block;
+    height: 120px;
+    background-color: #60c7c1;
+    color: white;
+}
+.card-direction .direction-title {
+    color: white;
+}
+    .card-direction .card-preference-btn {
+        background-color: white;
+        border-bottom: 1px solid #60c7c1;
+        transition: 0.5s;
+    }
+.card-direction .card-preference-btn:hover {
+    color: #60c7c1;
+    background: #3c807c;
+}
 .card-preference-direction {
     display: inline-block;
     height: 100px;
@@ -55,8 +73,11 @@
     margin-right: 0;
     width: auto;
 }
+.direction-title {
+    margin: 30px 0;
+}
 .grid-fit-max {
     display: grid;
-    grid-template-columns:  repeat(auto-fit, 150px);
+    grid-template-columns: repeat(auto-fit, 150px);
     grid-gap: 20px;
 }

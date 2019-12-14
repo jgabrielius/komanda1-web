@@ -14,8 +14,6 @@ const getCoursesWithDetails = () => $.ajax({
     console.log(e);
 });
 
-const getIons = () 
-
 let groupArray = [];
 let courseArray = []
 
@@ -120,6 +118,7 @@ function addCourses() {
 
     function createHeading(name) {
         const heading = document.createElement("H3");
+        heading.classList.add("direction-title");
         const nameNode = document.createTextNode(name);
         heading.appendChild(nameNode);
         return heading
@@ -146,7 +145,7 @@ function addCourses() {
 
 function createCardElement(item) {
     let card = document.createElement("DIV");
-    card.setAttribute("class", "card card-preference");
+    card.setAttribute("class", "card card-direction");
 
     let cardBody = document.createElement("DIV");
     cardBody.setAttribute("class", "card-body card-preference-body");

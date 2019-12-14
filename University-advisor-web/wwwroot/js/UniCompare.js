@@ -1,4 +1,7 @@
 ﻿function addUniversity(button) {
+    let id = button.getAttribute('data-id');
+    document.querySelector('a.compare-add[data-id="' + id + '"]').style.display = "none";
+    document.querySelector('a.compare-added[data-id="' + id + '"]').style.display = "inline-block";
     button.style.opacity = 0;
     let uni = {
         id: button.getAttribute('data-id'),
@@ -70,7 +73,8 @@ function removeUniversity(btn) {
     for (let i = 0; i < table.rows.length; i++) {
         table.rows[i].deleteCell(index+1);
     }
-    document.querySelector('a[data-id="' + id + '"]').style.opacity=1;
+    document.querySelector('a.compare-add[data-id="' + id + '"]').style.display = "inline-block";
+    document.querySelector('a.compare-added[data-id="' + id + '"]').style.display = "none";
 }
 
 function displayCompare() {
@@ -84,17 +88,16 @@ function expandFooter() {
     let footer = document.querySelector('#collapseFooter'),
         hidden = document.querySelectorAll('.uni-hidden'),
         icon = document.querySelector('#expandIcon');
-    if (footer.style.height === "10%") {
+    if (footer.style.transform === "translate(-100%)") {
         //expand
-        footer.style.height = window.innerHeight - document.querySelector('nav').clientHeight + "px";
-        icon.style.transform = "rotate(180deg)";
+        footer.style.transform = "translate(0%)";
+        //footer.style.height = window.innerHeight - document.querySelector('nav').clientHeight + "px";
         for (let i = 0; i < hidden.length; i++) {
             hidden[i].classList.remove('d-none');
         }
     } else {
         //collapse
-        footer.style.height = "10%";
-        icon.style.transform = "rotate(0deg)";
+        footer.style.transform = "translate(-100%)";
         for (let i = 0; i < hidden.length; i++) {
             hidden[i].classList.add('d-none');
         }
@@ -106,6 +109,7 @@ $(function () {
     for (let i = 0; i < universities.length; i++) {
         appendUniversity(universities[i]);
         id = universities[i].id;
-        document.querySelector('button[data-id="' + id + '"]').style.opacity = 0;
+        document.querySelector('a.compare-add[data-id="' + id + '"]').style.display = "none";
+        document.querySelector('a.compare-added[data-id="' + id + '"]').style.display = "inline-block";
     }
 })

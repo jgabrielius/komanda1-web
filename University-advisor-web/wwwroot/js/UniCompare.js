@@ -2,7 +2,6 @@
     let id = button.getAttribute('data-id');
     document.querySelector('a.compare-add[data-id="' + id + '"]').style.display = "none";
     document.querySelector('a.compare-added[data-id="' + id + '"]').style.display = "inline-block";
-    button.style.opacity = 0;
     let uni = {
         id: button.getAttribute('data-id'),
         name: button.getAttribute('data-name'),

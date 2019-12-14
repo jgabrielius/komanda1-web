@@ -13,8 +13,8 @@
     <div class="banner_inner_overlay">
     </div>
 </section>
-<section class="destinations py-5" id="destinations">
-    <div class="container py-xl-5 py-lg-3">
+<section class="destinations py-4" id="destinations">
+    <div class="container py-xl-5">
         <h3 class="heading text-capitalize text-center">Discover Universities</h3>
         <p class="text mt-2 mb-5 text-center">Check all of the 39 universities across Lithuania and choose the one that suits you the best.</p>
         <div class="row inner-sec-w3layouts-w3pvt-lauinfo">
@@ -48,8 +48,8 @@
                                 <li><span class="fa fa-check-circle-o mr-2"></span>Cost : <span class="fa fa-times"></span></li>
                             }
                         </ul>
-                        <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]" style="margin-bottom:8px;position:absolute;bottom:10px;"><span class="fa fa-info-circle"></span> Read more</a>
-                        <a class="btn btn-outline-primary" style="position:absolute;bottom:62px;" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]"><span class="fa fa-plus-circle"></span> Compare</a>
+                        <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]" style="margin-bottom:8px;position:absolute;bottom:10px;display:block;"><span class="fa fa-info-circle"></span> Read more</a>
+                        <a class="btn btn-outline-primary" style="position:absolute;bottom:62px;display:block;" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]"><span class="fa fa-plus-circle"></span> Compare</a>
                     </div>
                 </div>
             }

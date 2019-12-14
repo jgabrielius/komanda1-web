@@ -14,6 +14,8 @@ const getCoursesWithDetails = () => $.ajax({
     console.log(e);
 });
 
+const getIons = () 
+
 let groupArray = [];
 let courseArray = []
 

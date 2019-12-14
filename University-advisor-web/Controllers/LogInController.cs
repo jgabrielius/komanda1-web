@@ -43,7 +43,6 @@ namespace University_advisor_web.Controllers
             if (_login.ValidateFields(model.User))
             {
                 failedLogIn.Invoke(Messages.userLoggedIn);
-                _logger.LogStats(model);
                 HttpContext.Session.SetInt32("UserId", model.User.UserId);
                 HttpContext.Session.SetInt32("UserUniversityId", model.User.UniversityId);
                 HttpContext.Session.SetInt32("UserCourseId", model.User.CourseId);

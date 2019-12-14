@@ -27,20 +27,21 @@
                     @Model.Description
                 </p>
             </div>
-            <div class="col-lg-6 about-right text-lg-right mt-lg-0 mt-5">
+            <div class="col-lg-6 about-right text-lg-center mt-lg-0 mt-5">
                 <img src="@Url.Content("~/img/logos/" + @Model.UniversityId + ".jpg")" alt="" class="img-fluid abt-image" />
             </div>
         </div>
 
         <div class="row mt-5 text-center">
-            <div class="col-lg-4 col-3">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-3">
                 <div class="counter">
                     <span class="fa fa-globe"></span>
                     <div class="timer count-title count-number">@Model.RankWorld</div>
                     <p class="count-text text-uppercase">World rank</p>
                 </div>
             </div>
-            <div class="col-lg-4 col-3">
+            <div class="col-lg-3">
                 <div class="counter">
                     <span class="fa fa-flag"></span>
                     <div class="timer count-title count-number">@Model.RankCountry</div>
@@ -48,7 +49,7 @@
                 </div>
             </div>
         </div>
-
+        <hr />
 
         <div class="row mt-5 text-center">
             <div class="col-lg-2 col-3">
@@ -123,25 +124,38 @@
                                 </div>
                             </div>
                         }
-                        <h4 style="margin-top:10px;">Total reviews: @Model.CountReviews()</h4>
+                        <h4 style="margin-top:10px;color:white;margin-left:18px;">Total reviews: @Model.CountReviews()</h4>
                     </section>
 
                     <section id="content2">
                         <div class="row inner-sec-w3layouts-w3pvt-lauinfo">
                             @foreach (var i in Model.GetCoursesWithRatings())
                             {
-                                <div class="col-lg-3 col-sm-6" style="margin-top:8px;">
-                                    <div class="package-info">
+                                <div class="col-lg-3 col-sm-6" style="margin-top:8px;margin-bottom:8px;">
+                                    <div class="package-info" style="height:420px;">
                                         <h5 class="my-2"><span class="fa fa-university mr-2"></span>@i["program"]</h5>
                                         <h6 class="mt-1"><span class="fa fa-users mr-2"></span>@i["group"]</h6>
                                         <h6 class="mt-1"><span class="fa fa-graduation-cap mr-2"></span>@i["direction"]</h6>
                                         <ul class="listing mt-3" style="margin-bottom:15px;">
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Presentation : <span>@i["presentation"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Clarity : <span>@i["clarity"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Feedback : <span>@i["feedback"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Encouragement : <span>@i["encouragement"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@i["effectiveness"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@i["satisfaction"]</span></li>
+                                            @if (!String.IsNullOrEmpty(@i["presentation"].ToString()))
+                                            {
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Presentation : <span>@i["presentation"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Clarity : <span>@i["clarity"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Feedback : <span>@i["feedback"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Encouragement : <span>@i["encouragement"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@i["effectiveness"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@i["satisfaction"]</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Presentation : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Clarity : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Feedback : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Encouragement : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span class="fa fa-times"></span></li>
+                                            }
+
                                         </ul>
                                         <div id="@i["studyProgramId"]reviewAnchor" class="ml-auto mr-5 mt-auto mb-auto">
                                             <script>

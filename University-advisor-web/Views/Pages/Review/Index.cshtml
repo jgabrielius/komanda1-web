@@ -37,7 +37,8 @@
                             <li><span class="fa fa-check-circle-o mr-2"></span>Cost : <span>@i["cost"]</span></li>
                         </ul>
                         <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]" style="margin-bottom:8px;"><span class="fa fa-info-circle"></span> Read more</a>
-                        <a class="btn btn-outline-primary" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]"><span class="fa fa-plus-circle"></span> Compare</a>
+                        <a class="btn btn-outline-primary compare-add" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]"><span class="fa fa-plus-circle"></span> Compare</a>
+                        <a class="disabled btn btn-outline-primary compare-added"  data-id="@i["universityId"]" style="display:none;"><span class="fa fa-check"></span>Added</a>
                     </div>
                 </div>
             }
@@ -45,28 +46,27 @@
         </div>
     </div>
 
-    <div class="footer fixed-bottom uni-footer text-center" id="collapseFooter" style="height:10%;">
-        <a id="expandBtn" onclick="expandFooter()">
-            <i id="expandIcon" class="fa fa-chevron-up fa-4x"></i>
-        </a>
-        <h1 class="text-center">Compare universities</h1>
+    <div class="footer fixed-bottom uni-footer text-center" id="collapseFooter">
+        <h1 class="text-center mt-5 mb-5">Compare universities</h1>
         <div id="uni-compare-wrapper" class="d-flex m-auto" style="width:90%">
-            <table class="uni-hidden table table-striped text-dark table-bordered w-100">
+            <table class="uni-hidden table table-striped text-dark w-100" style="box-shadow:0 0 50px rgba(0,0,0,.1)">
                 <thead>
                     <tr id="uni-row">
                         <th class="d-none uni-hidden"></th>
                     </tr>
                 </thead>
                 <tbody class="d-none uni-hidden">
-                    <tr id="variety-row"><td>Variety</td></tr>
-                    <tr id="availability-row"><td>Availability</td></tr>
-                    <tr id="accessability-row"><td>Access</td></tr>
-                    <tr id="quality-row"><td>Quality</td></tr>
-                    <tr id="unions-row"><td>Unions</td></tr>
-                    <tr id="cost-row"><td>Cost</td></tr>
+                    <tr id="variety-row"><td><span class="fa fa-smile-o mr-2"></span><b>Variety of courses</b></td></tr>
+                    <tr id="availability-row"><td><span class="fa fa-check-square-o mr-2"></span><b>Availability of extracurricular activities</b></td></tr>
+                    <tr id="accessability-row"><td><span class="fa fa-compass mr-2"></span><b>Access to faculty</b></td></tr>
+                    <tr id="quality-row"><td><span class="fa fa-trophy mr-2"></span><b>Quality of academic facilities</b></td></tr>
+                    <tr id="unions-row"><td><span class="fa fa-users mr-2"></span><b>Student unions</b></td></tr>
+                    <tr id="cost-row"><td><span class="fa fa-money mr-2"></span><b>Cost of studying</b></td></tr>
                 </tbody>
             </table>
         </div>
+
     </div>
+    <div id="expand-btn" onclick="expandFooter()"><span class="fa fa-2x fa-balance-scale text-white" id="scales" style="box-shadow:0 0 50px #60c7c1"></span></div>
     <script src="~/js/UniCompare.js"></script>
 </section>

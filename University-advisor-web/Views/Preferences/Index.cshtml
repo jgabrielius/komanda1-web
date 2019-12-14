@@ -18,8 +18,7 @@
             Our generated university recommendations based on your preferences. You can always change them.
         </p>
         <p class="text mt-2 text-center">
-            <button onclick="submitBookmarksForm()" style="width:200px; border-radius: 0;" class="btn btn-outline-primary text-center">Add bookmarks</button>
-            <a style="width:200px; border-radius: 0;" class="btn btn-outline-danger text-center" asp-controller="Preferences" asp-action="SetPreferences">Change preferences</a>
+            <a style="width:200px; border-radius: 0;" class="btn btn-outline-dark text-center" asp-controller="Preferences" asp-action="SetPreferences">Change preferences</a>
         </p>
     </div>
 
@@ -70,7 +69,6 @@
 
     <script>
         function selectButton(id) {
-            console.log(id)
             let item = $("#" + id);
             if (item.hasClass("btn-success")) {
                 item.removeClass("btn-success");
@@ -82,6 +80,7 @@
                 item.addClass("btn-success")
                 item.addClass("selected")
             }
+            submitBookmarksForm();
         }
 
         function submitBookmarksForm() {
@@ -91,7 +90,20 @@
 
             $(function () {
                 $("#bookmarks").val(`${selectedCourses.join()}`);
-                $("#bookmarksForm").submit();
+                let form = $("#bookmarksForm");
+
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    error: function(xhr, status, error) {
+
+                        console.log("neveikia")
+                     },
+                    success: function (response) {
+                        console.log("veikia")
+                    }
+                });
             });
         }
     </script>

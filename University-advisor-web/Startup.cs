@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using University_advisor_web.Interfaces;
+using University_advisor_web.Middleware;
 using University_advisor_web.Services;
 using University_advisor_web.Tools;
 
@@ -34,6 +35,11 @@ namespace University_advisor_web
             services.AddScoped<IErrorHandler, ErrorHandler>();
             services.AddDistributedMemoryCache();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddMvc(opts =>
+            {
+                opts.Filters.Add(new RequestResponseLoggingMiddleware());
+            });
 
             services.AddSession(options =>
             {
@@ -65,6 +71,7 @@ namespace University_advisor_web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
 
             app.UseSession();

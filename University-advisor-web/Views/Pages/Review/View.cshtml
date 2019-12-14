@@ -130,18 +130,31 @@
                         <div class="row inner-sec-w3layouts-w3pvt-lauinfo">
                             @foreach (var i in Model.GetCoursesWithRatings())
                             {
-                                <div class="col-lg-3 col-sm-6" style="margin-top:8px;">
-                                    <div class="package-info">
+                                <div class="col-lg-3 col-sm-6" style="margin-top:8px;margin-bottom:8px;">
+                                    <div class="package-info" style="height:420px;">
                                         <h5 class="my-2"><span class="fa fa-university mr-2"></span>@i["program"]</h5>
                                         <h6 class="mt-1"><span class="fa fa-users mr-2"></span>@i["group"]</h6>
                                         <h6 class="mt-1"><span class="fa fa-graduation-cap mr-2"></span>@i["direction"]</h6>
                                         <ul class="listing mt-3" style="margin-bottom:15px;">
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Presentation : <span>@i["presentation"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Clarity : <span>@i["clarity"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Feedback : <span>@i["feedback"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Encouragement : <span>@i["encouragement"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@i["effectiveness"]</span></li>
-                                            <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@i["satisfaction"]</span></li>
+                                            @if (!String.IsNullOrEmpty(@i["presentation"].ToString()))
+                                            {
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Presentation : <span>@i["presentation"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Clarity : <span>@i["clarity"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Feedback : <span>@i["feedback"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Encouragement : <span>@i["encouragement"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span>@i["effectiveness"]</span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span>@i["satisfaction"]</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Presentation : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Clarity : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Feedback : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Encouragement : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Effectiveness : <span class="fa fa-times"></span></li>
+                                                <li><span class="fa fa-check-circle-o mr-2"></span>Satisfaction : <span class="fa fa-times"></span></li>
+                                            }
+
                                         </ul>
                                         <div id="@i["studyProgramId"]reviewAnchor" class="ml-auto mr-5 mt-auto mb-auto">
                                             <script>

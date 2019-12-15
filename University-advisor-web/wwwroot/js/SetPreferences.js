@@ -162,7 +162,6 @@ function createCardElement(item) {
     cardButton.value = "Select"
     cardButton.onclick = function (event) {
         return selectButton.call(this, item.id + 'directionBtn');
-        return selectButton.call(this, item.id + 'directionBtn');
     };
     cardButton.setAttribute("id", `${item.id}directionBtn`)
     cardButton.setAttribute("class", `btn btn-outline-primary card-preference-btn`)

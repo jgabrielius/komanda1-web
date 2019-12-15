@@ -73,14 +73,6 @@
                     <h4>Questions</h4>
                 </div>
                 <div class="gaadiex-list">
-                    <div class="gaadiex-list-item border-b-1">
-                        <i class="fa fa-user"></i>
-                        <div class="gaadiex-list-item-text">
-                            <h3><a href="#">Eric Graves</a></h3>
-                            <h4>Brunch this weekend?</h4>
-                            <p> I'll be in your neighborhood doing errands</p>
-                        </div>
-                    </div>
                     @foreach (var i in Model.GetAllQuestions())
                     {
                         var user = Model.GetUserById(i["userId"]);

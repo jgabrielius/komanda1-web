@@ -124,6 +124,9 @@ namespace University_advisor_web.Models
         {
             return (long)SqlDriver.Row($"SELECT COUNT(*) as count FROM universityReviews WHERE review IS NOT NULL AND universityId={UniversityId}")["count"];
         }
+        public string GetUniversityName(int universityId) {
+            return SqlDriver.Row($"SELECT name FROM universities WHERE universityId={universityId}")["name"].ToString();
+        }
 
         public List<Dictionary<string, object>> GetAllReviews()
         {

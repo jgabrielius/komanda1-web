@@ -18,7 +18,7 @@
 }
 else
 {
-    <div class="m-3">
+    <div style="display: block; margin: 15px 100px;">
         <h3 class="text-center" style="max-width: 500px; margin: 0; display: inline">Your bookmarks</h3>
         <div class="float-right">
             <button onclick="resetBookmarks()" style="width:200px; border-radius: 0;" class="btn btn-outline-danger text-center">Reset bookmarks</button>
@@ -29,7 +29,8 @@ else
             @foreach (var course in Model.GetBookmarkedCourses())
             {
                 <div class="col-lg-3 col-sm-6" style="margin-top:8px;">
-                    <div class="package-info" style="height:420px;">
+                    <div class="package-info" style="height:460px;">
+                        <h3 style="border-bottom: solid 1px black;">@course.GetUniversityName()</h3>
                         <h5 class="my-2"><span class="fa fa-university mr-2"></span>@course.Program</h5>
                         <h6 class="mt-1"><span class="fa fa-users mr-2"></span>@course.Group</h6>
                         <h6 class="mt-1"><span class="fa fa-graduation-cap mr-2"></span>@course.Direction</h6>

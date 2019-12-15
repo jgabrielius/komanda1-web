@@ -4,11 +4,6 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 <link rel="stylesheet" href="~/css/UniCompare.css" />
-<script type="text/javascript">
-    window.onload = function () {
-        document.getElementById("loginhome").children[0].style.display = "none";
-    };
-</script>
 <section class="banner_inner" id="home">
     <div class="banner_inner_overlay">
     </div>
@@ -48,9 +43,9 @@
                                 <li><span class="fa fa-check-circle-o mr-2"></span>Cost : <span class="fa fa-times"></span></li>
                             }
                         </ul>
-                        <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]" style="margin-bottom:8px;position:absolute;bottom:62px;display:block;"><span class="fa fa-info-circle"></span> Read more</a>
-                        <a class="btn btn-outline-primary compare-add" style="position:absolute;bottom:10px;display:block;" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]"><span class="fa fa-plus-circle"></span> Compare</a>
-                        <a class="disabled btn btn-outline-primary compare-added" data-id="@i["universityId"]" style="display: none;position:absolute;bottom:10px;"><span class="fa fa-check"></span>Added</a>
+                        <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]" style="margin-bottom:8px;position:absolute;bottom:55px;display:block;width:223px;"><span class="fa fa-info-circle"></span> Read more</a>
+                        <a class="btn btn-outline-primary compare-add" style="position:absolute;bottom:10px;display:block;width:223px;" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]" data-worldrank="@i["rank_world"]" data-countryrank="@i["rank_country"]"><span class="fa fa-plus-circle"></span> Compare</a>
+                        <a class="disabled btn btn-outline-primary compare-added" data-id="@i["universityId"]" style="display: none;position:absolute;bottom:10px;width:223px;border-color:gray"><span class="fa fa-check"></span> Added</a>
                     </div>
                 </div>
             }
@@ -74,6 +69,8 @@
                     <tr id="quality-row"><td><span class="fa fa-trophy mr-2"></span><b>Quality of academic facilities</b></td></tr>
                     <tr id="unions-row"><td><span class="fa fa-users mr-2"></span><b>Student unions</b></td></tr>
                     <tr id="cost-row"><td><span class="fa fa-money mr-2"></span><b>Cost of studying</b></td></tr>
+                    <tr id="worldrank-row"><td><span class="fa fa-globe mr-2"></span><b>World rank</b></td></tr>
+                    <tr id="countryrank-row"><td><span class="fa fa-flag mr-2"></span><b>Country rank</b></td></tr>
                 </tbody>
             </table>
         </div>

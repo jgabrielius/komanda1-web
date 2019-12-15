@@ -31,6 +31,7 @@ namespace University_advisor_web.Models
             if (sqlData != null) 
             {
                 Program = sqlData["program"].ToString();
+                UniversityId = Convert.ToInt32(sqlData["universityId"].ToString());
                 Direction = sqlData["direction"].ToString();
                 Group = sqlData["group"].ToString();
                 City = sqlData["city"].ToString();
@@ -77,6 +78,10 @@ namespace University_advisor_web.Models
         {
             var sqlData = SqlDriver.Fetch("SELECT * FROM studyProgrammes");
             return sqlData;
+        }
+
+        public string GetUniversityName() {
+            return new UniversityModel().GetUniversityName(UniversityId);
         }
         public List<Dictionary<string, object>> RecommendedCourses(UserModel user)
         {

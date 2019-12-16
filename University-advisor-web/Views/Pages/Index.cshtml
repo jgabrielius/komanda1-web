@@ -231,7 +231,7 @@
                 </p>
                 <form role="form" asp-controller="Home" method="post" enctype="multipart/form-data" id="sendAddressForm">
                     <p class="mr-3 mb-0" for="Address">Address</p>
-                    <input name="Address" value="@Model.Map.Address" type="text" class="form-control" pattern="[a-zA-Z0-9]+" />
+                    <input name="Address" value="@Model.Map.Address" type="text" class="form-control" />
                     <p class="mr-3 mb-0" for="Range">Range</p>
                     <input name="Range" value="@Model.Map.Range" type="number" class="form-control" required="" pattern="[0-9]{1,5}" />
                     <br />

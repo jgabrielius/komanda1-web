@@ -30,7 +30,7 @@ else
             {
                 <div class="col-lg-3 col-sm-6" style="margin-top:8px;">
                     <div class="package-info" style="height:460px;">
-                        <h3 style="border-bottom: solid 1px black;">@course.GetUniversityName()</h3>
+                        <a asp-controller="Review" asp-action="View" asp-route-id="@course.UniversityId"><h3 style="border-bottom: solid 1px black;">@course.GetUniversityName()</h3></a>
                         <h5 class="my-2"><span class="fa fa-university mr-2"></span>@course.Program</h5>
                         <h6 class="mt-1"><span class="fa fa-users mr-2"></span>@course.Group</h6>
                         <h6 class="mt-1"><span class="fa fa-graduation-cap mr-2"></span>@course.Direction</h6>

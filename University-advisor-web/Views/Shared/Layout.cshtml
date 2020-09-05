@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
-@{ bool loggedin = HttpContextAccessor.HttpContext.Session.GetInt32("UserId") != null;}
+@{ bool loggedin = HttpContextAccessor.HttpContext.Session.GetInt32("UserId") != null;
+    string username = HttpContextAccessor.HttpContext.Session.GetString("Username");
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +25,7 @@
     <link rel="stylesheet" href="~/css/Buttons.css" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/AutoCompleteSearch.css" />
+    <link rel="stylesheet" href="~/css/Profile.css" />
     <!-- css files -->
     <link rel="stylesheet" href="~/css/AutoCompleteSearch.css" />
     <link href="~/css/bootstrap.css" rel='stylesheet' type='text/css' /><!-- bootstrap css -->
@@ -37,12 +40,12 @@
 </head>
 <body>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @*<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>*@
     <header>
         <div class="container">
-            <nav class="py-md-4 py-3 d-lg-flex">
+            <nav class="py-md-4 py-3 d-lg-flex" style="padding-top:24px !important;padding-bottom:24px !important;">
                 <div id="logo">
                     <h1 class="mt-md-0 mt-2"> <a href="index.html"><span class="fa fa-map-signs"></span> University advisor </a></h1>
                 </div>
@@ -60,15 +63,15 @@
                 }
                 @if (loggedin)
                 {
-            <ul class="menu ml-auto mt-1">
-                <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a> </li>
-                <li class=""><a asp-area="" asp-controller="Review" asp-action="Index">Reviews</a></li>
-                <li class=""><a asp-area="" asp-controller="Forum" asp-action="Index">Forum</a></li>
-                <li class=""><a asp-area="" asp-controller="Settings" asp-action="Index">Settings</a></li>
-                <li class=""><a asp-area="" asp-controller="Preferences" asp-action="Index">Preferences</a></li>
-                <li class=""><a asp-area="" asp-controller="Bookmarks" asp-action="Index">Bookmarks</a></li>
-                <li class=""><a asp-area="" asp-controller="LogOut" asp-action="Index">Log out</a></li>
-            </ul>
+                    <ul class="menu ml-auto mt-1">
+                        <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a> </li>
+                        <li class=""><a asp-area="" asp-controller="Review" asp-action="Index">Reviews</a></li>
+                        <li class=""><a asp-area="" asp-controller="Forum" asp-action="Index">Forum</a></li>
+                        <li class=""><a asp-area="" asp-controller="Settings" asp-action="Index">Settings</a></li>
+                        <li class=""><a asp-area="" asp-controller="Preferences" asp-action="Index">Preferences</a></li>
+                        <li class=""><a asp-area="" asp-controller="Bookmarks" asp-action="Index">Bookmarks</a></li>
+                        <li class=""><a asp-area="" asp-controller="LogOut" asp-action="Index">@username <span class="fa fa-times-circle" style="vertical-align:middle;"></span></a></li>
+                    </ul>
                 }
             </nav>
         </div>

@@ -124,6 +124,9 @@ namespace University_advisor_web.Models
         {
             return (long)SqlDriver.Row($"SELECT COUNT(*) as count FROM universityReviews WHERE review IS NOT NULL AND universityId={UniversityId}")["count"];
         }
+        public string GetUniversityName(int universityId) {
+            return SqlDriver.Row($"SELECT name FROM universities WHERE universityId={universityId}")["name"].ToString();
+        }
 
         public List<Dictionary<string, object>> GetAllReviews()
         {
@@ -135,10 +138,10 @@ namespace University_advisor_web.Models
 
         public List<Dictionary<string, object>> GetUniversitiesWithRatings()
         {
-            return SqlDriver.Fetch("SELECT u.universityId, u.image, u.address, name, round(avg(variety),1) as variety, round(avg(availability),1) as availability, " +
+            return SqlDriver.Fetch("SELECT u.universityId, ud.wikipedia_link, ud.rank_country, ud.rank_world, u.image, u.address, name, round(avg(variety),1) as variety, round(avg(availability),1) as availability, " +
                 "round(avg(accessability),1) as accessability, round(avg(quality),1) as quality, round(avg(unions),1) as unions, " +
                 "round(avg(cost),1) as cost " +
-                "FROM universities u LEFT JOIN universityReviews ur ON u.universityId=ur.universityId " +
+                "FROM universities u LEFT JOIN universityReviews ur ON u.universityId=ur.universityId LEFT JOIN university_details_lt ud ON u.universityId=ud.universityId  " +
                 "GROUP BY u.universityId,name");
         }
 

@@ -26,7 +26,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="avatar">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar">
+                    <img src="https://www.w3schools.com/howto/img_avatar.png" style="border-radius: 50%;" alt="Avatar">
                 </div>
                 <h4 class="modal-title">Member Login</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -131,99 +131,95 @@
 <!-- banner -->
 <section class="banner_w3lspvt" id="home">
     <div class="csslider infinity" id="slider1">
-        <input type="radio" name="slides" checked="checked" id="slides_1" />
-        <input type="radio" name="slides" id="slides_2" />
-        <input type="radio" name="slides" id="slides_3" />
-        <input type="radio" name="slides" id="slides_4" />
-        <ul>
-            <li>
-                <div class="banner-top">
-                    <div class="overlay">
-                        <div class="container">
-                            <div class="w3layouts-banner-info">
-                                <h3 class="text-wh">University Advisor is here to help your university journey!</h3>
-                                <h4 class="text-wh" style="margin: 0;">UniCompare, nearby universities, reviews and more</h4>
-                                <div class="mt-4 float-left">
-                                    <form class="d-flex" autocomplete="off" action="/action_page.php">
-                                        <div class="autocomplete text-center m-auto" style="width:100%; min-width:500px;">
-                                            <input class="form-control text-center" id="quickUniversitySearch" style="height: 45px;" type="text" name="quickUniversitySearch" placeholder="Find university or course">
-                                        </div>
-                                    </form>
-                                    <script src="~/js/AutoCompleteSearch.js"></script>
+
+        <div class="banner-top">
+            <div class="overlay">
+                <div class="container">
+
+                    <div class="w3layouts-banner-info">
+                        <h3 class="text-wh">University Advisor is here to help your university journey!</h3>
+                        <div class="mt-4 float-left">
+                            <form class="d-flex" autocomplete="off" action="/action_page.php">
+                                <div class="autocomplete text-center m-auto" style="width:100%; min-width:500px;">
+                                    <input class="form-control text-left" id="quickUniversitySearch" style="height: 45px;" type="text" name="quickUniversitySearch" placeholder="Search for universities or courses...">
                                 </div>
-                            </div>
+                            </form>
+                            <script src="~/js/AutoCompleteSearch.js"></script>
                         </div>
                     </div>
+
+
                 </div>
-            </li>
-            <li>
-                <div class="banner-top1">
-                    <div class="overlay">
-                        <div class="container">
-                            <div class="w3layouts-banner-info">
-                                <h3 class="text-wh">It is better to travel than to arrive. Let's Be Adventurers.</h3>
-                                <h4 class="text-wh">tristique senectus et netus et malesuada</h4>
-                                <div class="buttons mt-4">
-                                    <a href="about.html" class="btn mr-2">About Us</a>
-                                    <a href="booking.html" class="btn">Book a Tour</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="banner-top2">
-                    <div class="overlay">
-                        <div class="container">
-                            <div class="w3layouts-banner-info">
-                                <h3 class="text-wh">Never let your memories be greater than your dreams.</h3>
-                                <h4 class="text-wh">tristique senectus et netus et malesuada</h4>
-                                <div class="buttons mt-4">
-                                    <a href="about.html" class="btn mr-2">About Us</a>
-                                    <a href="booking.html" class="btn">Book a Tour</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="banner-top3">
-                    <div class="overlay1">
-                        <div class="container">
-                            <div class="w3layouts-banner-info">
-                                <h3 class="text-wh">It is better to travel than to arrive. Let's Be Adventurers.</h3>
-                                <h4 class="text-wh">tristique senectus et netus et malesuada</h4>
-                                <div class="buttons mt-4">
-                                    <a href="about.html" class="btn mr-2">About Us</a>
-                                    <a href="booking.html" class="btn">Book a Tour</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="arrows">
-            <label for="slides_1"></label>
-            <label for="slides_2"></label>
-            <label for="slides_3"></label>
-            <label for="slides_4"></label>
+            </div>
         </div>
+
     </div>
 </section>
+<section class="book py-5" style="background-color:#379b96;">
+    <div class="container">
+
+        <h2 class="heading text-uppercase text-center" style="color: #fff;letter-spacing: 2px;font-weight: 600;font-size: 40px;">
+            Features
+        </h2>
+
+        <div class="row mt-5 text-center">
+
+            <div class="col-lg-3">
+                <div class="grid-info">
+                    <div class="icon">
+                        <span class="fa fa-cogs" style="color:#707579;"></span>
+                    </div>
+                    <h4>Preferences</h4>
+                    <p class="mt-3" style="color:white;">Set up your preferences and we will find universities that suits you the best.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 mt-sm-0 mt-5">
+                <div class="grid-info">
+                    <div class="icon">
+                        <span class="fa fa-balance-scale" style="color:darkgoldenrod;"></span>
+                    </div>
+                    <h4>Reviews</h4>
+                    <p class="mt-3" style="color:white;">Compare other users university reviews or leave your own one.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 mt-lg-0 mt-5">
+                <div class="grid-info">
+                    <div class="icon">
+                        <span class="fa fa-commenting" style="color:dodgerblue;"></span>
+                    </div>
+                    <h4>Forum</h4>
+                    <p class="mt-3" style="color:white;">Ask a question on our forum or answer other people threads.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 mt-lg-0 mt-5">
+                <div class="grid-info">
+                    <div class="icon">
+                        <span class="fa fa-map-marker" style="color:red;"></span>
+                    </div>
+                    <h4>Location</h4>
+                    <p class="mt-3" style="color:white;">Find nearest universities to your prefered location.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
 <!-- //banner -->
 <!--MAP-->
 @*
-<section class="book py-5">
-    <div class="container py-lg-5 py-sm-3">
-        <h2 class="heading text-capitalize text-center"> Search universities</h2>
+    <section class="book py-5">
+        <div class="container py-lg-5 py-sm-3">
+            <h2 class="heading text-capitalize text-center"> Search universities</h2>
 
-    </div>
+        </div>
 
-</section>
-    *@
+    </section>
+*@
 <!--NewMap-->
 <section class="about py-5">
     <div class="container py-lg-5 py-sm-4">
@@ -235,7 +231,7 @@
                 </p>
                 <form role="form" asp-controller="Home" method="post" enctype="multipart/form-data" id="sendAddressForm">
                     <p class="mr-3 mb-0" for="Address">Address</p>
-                    <input name="Address" value="@Model.Map.Address" type="text" class="form-control" pattern="[a-zA-Z0-9]+" />
+                    <input name="Address" value="@Model.Map.Address" type="text" class="form-control" />
                     <p class="mr-3 mb-0" for="Range">Range</p>
                     <input name="Range" value="@Model.Map.Range" type="number" class="form-control" required="" pattern="[0-9]{1,5}" />
                     <br />

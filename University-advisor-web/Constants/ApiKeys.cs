@@ -7,7 +7,10 @@ namespace University_advisor_web.Constants
 {
     public static class ApiKeys
     {
-        public static string GeoLocationApiKey = "5e66cc9d64db23";
-        public static string LeafletMapToken = "pk.eyJ1IjoidGFkYXNtIiwiYSI6ImNrMmo0dzNkZjFnYmozbXA1NnpwYzR3djcifQ.oHXh2g0sVpiqLu3wmcP5uw";
+        // API key from: https://locationiq.com/
+        public static string GeoLocationApiKey = "apiKey";
+
+        // Access token from: https://account.mapbox.com/
+        public static string LeafletMapToken = "pk.";
     }
 }

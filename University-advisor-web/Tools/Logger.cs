@@ -22,14 +22,14 @@ namespace University_advisor_web.Tools
                 Message = message,
                 Level = level,
             };
-            var json = CreateElasticLogStructure(messageLog, "new-logs");
-            SendToElasticsearch(JsonParser(json));
+           // var json = CreateElasticLogStructure(messageLog, "new-logs");
+            //SendToElasticsearch(JsonParser(json));
         }
 
         public void LogStats(object logObject)
         {
-            var json = CreateElasticLogStructure(logObject, "user-statistics");
-            SendToElasticsearch(JsonParser(json));
+            //var json = CreateElasticLogStructure(logObject, "user-statistics");
+            //SendToElasticsearch(JsonParser(json));
         }
 
         private List<object> CreateElasticLogStructure(object logObject, string indexName)

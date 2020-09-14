@@ -4,17 +4,12 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 <link rel="stylesheet" href="~/css/UniCompare.css" />
-<script type="text/javascript">
-    window.onload = function () {
-        document.getElementById("loginhome").children[0].style.display = "none";
-    };
-</script>
 <section class="banner_inner" id="home">
     <div class="banner_inner_overlay">
     </div>
 </section>
-<section class="destinations py-5" id="destinations">
-    <div class="container py-xl-5 py-lg-3">
+<section class="destinations py-4" id="destinations">
+    <div class="container py-xl-5">
         <h3 class="heading text-capitalize text-center">Discover Universities</h3>
         <p class="text mt-2 mb-5 text-center">Check all of the 39 universities across Lithuania and choose the one that suits you the best.</p>
         <div class="row inner-sec-w3layouts-w3pvt-lauinfo">
@@ -23,21 +18,34 @@
                 <div class="col-lg-3 col-sm-6" style="margin-top:15px;">
                     <div class="image-tour position-relative">
                         <img src="@Url.Content("~/img/logos/" + @i["universityId"] + ".jpg")" alt="" class="img-fluid" />
-                        <p><span class="fa fa-globe"></span> <span>Website</span></p>
+                        <p> <a href="@i["wikipedia_link"]"><span class="fa fa-globe text-white"> Website</span></a></p>
                     </div>
-                    <div class="package-info">
+                    <div class="package-info" style="height:450px;">
                         <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>@i["address"]</h6>
                         <h5 class="my-2">@i["name"]</h5>
                         <ul class="listing mt-3" style="margin-bottom:15px;">
-                            <li><span class="fa fa-check-circle-o mr-2"></span>Variety : <span>@i["variety"]</span></li>
-                            <li><span class="fa fa-check-circle-o mr-2"></span>Availability : <span>@i["availability"]</span></li>
-                            <li><span class="fa fa-check-circle-o mr-2"></span>Accessability : <span>@i["accessability"]</span></li>
-                            <li><span class="fa fa-check-circle-o mr-2"></span>Quality : <span>@i["quality"]</span></li>
-                            <li><span class="fa fa-check-circle-o mr-2"></span>Unions : <span>@i["unions"]</span></li>
-                            <li><span class="fa fa-check-circle-o mr-2"></span>Cost : <span>@i["cost"]</span></li>
+                            @if (!String.IsNullOrEmpty(@i["variety"].ToString()))
+                            {
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Variety : <span>@i["variety"]</span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Availability : <span>@i["availability"]</span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Accessability : <span>@i["accessability"]</span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Quality : <span>@i["quality"]</span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Unions : <span>@i["unions"]</span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Cost : <span>@i["cost"]</span></li>
+                            }
+                            else
+                            {
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Variety : <span class="fa fa-times"></span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Availability : <span class="fa fa-times"></span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Accessability : <span class="fa fa-times"></span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Quality : <span class="fa fa-times"></span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Unions : <span class="fa fa-times"></span></li>
+                                <li><span class="fa fa-check-circle-o mr-2"></span>Cost : <span class="fa fa-times"></span></li>
+                            }
                         </ul>
-                        <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]" style="margin-bottom:8px;"><span class="fa fa-info-circle"></span> Read more</a>
-                        <a class="btn btn-outline-primary" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]"><span class="fa fa-plus-circle"></span> Compare</a>
+                        <a class="btn btn-outline-primary" asp-controller="Review" asp-action="View" asp-route-id="@i["universityId"]" style="margin-bottom:8px;position:absolute;bottom:55px;display:block;width:223px;"><span class="fa fa-info-circle"></span> Read more</a>
+                        <a class="btn btn-outline-primary compare-add" style="position:absolute;bottom:10px;display:block;width:223px;" onclick="addUniversity(this)" data-id="@i["universityId"]" data-name="@i["name"]" data-cost="@i["cost"]" data-quality="@i["quality"]" data-unions="@i["unions"]" data-accessability="@i["accessability"]" data-availability="@i["availability"]" data-variety="@i["variety"]" data-worldrank="@i["rank_world"]" data-countryrank="@i["rank_country"]"><span class="fa fa-plus-circle"></span> Compare</a>
+                        <a class="disabled btn btn-outline-primary compare-added" data-id="@i["universityId"]" style="display: none;position:absolute;bottom:10px;width:223px;border-color:gray"><span class="fa fa-check"></span> Added</a>
                     </div>
                 </div>
             }
@@ -45,28 +53,29 @@
         </div>
     </div>
 
-    <div class="footer fixed-bottom uni-footer text-center" id="collapseFooter" style="height:10%;">
-        <a id="expandBtn" onclick="expandFooter()">
-            <i id="expandIcon" class="fa fa-chevron-up fa-4x"></i>
-        </a>
-        <h1 class="text-center">Compare universities</h1>
+    <div class="footer fixed-bottom uni-footer text-center" id="collapseFooter">
+        <h1 class="text-center mt-5 mb-5">Compare universities</h1>
         <div id="uni-compare-wrapper" class="d-flex m-auto" style="width:90%">
-            <table class="uni-hidden table table-striped text-dark table-bordered w-100">
+            <table class="uni-hidden table table-striped text-dark w-100" style="box-shadow:0 0 50px rgba(0,0,0,.1)">
                 <thead>
                     <tr id="uni-row">
                         <th class="d-none uni-hidden"></th>
                     </tr>
                 </thead>
                 <tbody class="d-none uni-hidden">
-                    <tr id="variety-row"><td>Variety</td></tr>
-                    <tr id="availability-row"><td>Availability</td></tr>
-                    <tr id="accessability-row"><td>Access</td></tr>
-                    <tr id="quality-row"><td>Quality</td></tr>
-                    <tr id="unions-row"><td>Unions</td></tr>
-                    <tr id="cost-row"><td>Cost</td></tr>
+                    <tr id="variety-row"><td><span class="fa fa-smile-o mr-2"></span><b>Variety of courses</b></td></tr>
+                    <tr id="availability-row"><td><span class="fa fa-check-square-o mr-2"></span><b>Availability of extracurricular activities</b></td></tr>
+                    <tr id="accessability-row"><td><span class="fa fa-compass mr-2"></span><b>Access to faculty</b></td></tr>
+                    <tr id="quality-row"><td><span class="fa fa-trophy mr-2"></span><b>Quality of academic facilities</b></td></tr>
+                    <tr id="unions-row"><td><span class="fa fa-users mr-2"></span><b>Student unions</b></td></tr>
+                    <tr id="cost-row"><td><span class="fa fa-money mr-2"></span><b>Cost of studying</b></td></tr>
+                    <tr id="worldrank-row"><td><span class="fa fa-globe mr-2"></span><b>World rank</b></td></tr>
+                    <tr id="countryrank-row"><td><span class="fa fa-flag mr-2"></span><b>Country rank</b></td></tr>
                 </tbody>
             </table>
         </div>
+
     </div>
+    <div id="expand-btn" onclick="expandFooter()"><span class="fa fa-2x fa-balance-scale text-white" id="scales" style="box-shadow:0 0 50px #60c7c1"></span></div>
     <script src="~/js/UniCompare.js"></script>
 </section>

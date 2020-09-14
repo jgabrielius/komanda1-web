@@ -14,22 +14,56 @@
 .width-100proc {
     width: 100%;
 }
-card-preference-title {
-    height: 70px;
-}
-.card-preference {
-    height: 180px;
-}
-.card-preference-btn {
+.card-preference-title {
+    height: 80px;
     display: flex;
-    height: 30px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    padding: 2;
-    border-radius: 0px;
     align-items: center;
     justify-content: center;
+}
+.card-preference {
+    display: inline-block;
+    height: 190px;
+}
+.card-direction {
+    display: inline-block;
+    height: 120px;
+    background-color: #60c7c1;
+    color: white;
+}
+.card-direction .direction-title {
+    color: white;
+}
+.card-direction .card-preference-btn {
+    background-color: white;
+    border-bottom: 1px solid #60c7c1;
+    transition: 0.5s;
+}
+.card-direction h6 {
+    color: white;
+}
+.card-direction .card-preference-btn.btn-success {
+    background-color: #379b96;
+    border-bottom: 1px solid #60c7c1;
+    color: white;
+}
+.card-direction .card-preference-btn.btn-success:hover {
+    border-bottom: 1px solid #60c7c1;
+    color: white;
+}
+.card-direction .card-preference-btn:hover {
+    color: #60c7c1;
+    background: #3c807c;
+}
+.card-preference-direction {
+    display: inline-block;
+    height: 100px;
+}
+.card-preference-btn {
+    width: 100%;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    border-radius: 0px;
     font-size: 16px;
 }
 .card-preference-header img {
@@ -39,20 +73,18 @@ card-preference-title {
     padding: 0;
 }
 .card-preference-btn.btn-success {
-    
-}
-.container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
+    background-color: #379b96;
 }
 .container-fluid {
     margin-left: 0;
     margin-right: 0;
     width: auto;
 }
+.direction-title {
+    margin: 30px 0;
+}
 .grid-fit-max {
     display: grid;
-    grid-template-columns:  repeat(auto-fit, 150px);
+    grid-template-columns: repeat(auto-fit, 150px);
     grid-gap: 20px;
 }

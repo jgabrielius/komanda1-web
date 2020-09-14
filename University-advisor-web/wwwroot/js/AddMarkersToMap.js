@@ -4,11 +4,11 @@ let marker;
 
 const map = L.map('map').setView([parsedObj.MapCenter.Latitude, parsedObj.MapCenter.Longitude], 13);
 
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{id}/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
-    id: 'mapbox.streets',
-    accessToken: 'pk.eyJ1IjoidGFkYXNtIiwiYSI6ImNrMmo0dzNkZjFnYmozbXA1NnpwYzR3djcifQ.oHXh2g0sVpiqLu3wmcP5uw'
+    id: '256',
+    accessToken: 'pk.'
 }).addTo(map);
 
 locations.forEach(location => {

@@ -12,20 +12,24 @@ namespace University_advisor_web.Tools
     {
         public void Log(string message, string level = "INFO")
         {
+            var timeUtc = DateTime.UtcNow;
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+            DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+
             var messageLog = new LogBodyModel
             {
-                Timestamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture),
+                Timestamp = easternTime.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture),
                 Message = message,
                 Level = level,
             };
-            var json = CreateElasticLogStructure(messageLog, "custom-log");
-            SendToElasticsearch(JsonParser(json));
+           // var json = CreateElasticLogStructure(messageLog, "new-logs");
+            //SendToElasticsearch(JsonParser(json));
         }
 
         public void LogStats(object logObject)
         {
-            var json = CreateElasticLogStructure(logObject, "user-statistics");
-            SendToElasticsearch(JsonParser(json));
+            //var json = CreateElasticLogStructure(logObject, "user-statistics");
+            //SendToElasticsearch(JsonParser(json));
         }
 
         private List<object> CreateElasticLogStructure(object logObject, string indexName)

@@ -14,6 +14,7 @@ using System.Diagnostics;
 
 namespace University_advisor_web.Models
 {
+    // Check ApiKeys.cs before launching.
     public class MapModel
     {
         [DisplayName("Address")]

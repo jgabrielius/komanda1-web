@@ -42,14 +42,14 @@ namespace University_advisor_web.Controllers
             return View("../Pages/Index", model);
         }
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Index(string address, double range)
+        public async Task<IActionResult> Index(string address, double range)
         {
             var model = new HomeModel();
             model.Map = new MapModel(address, "Universities", range);
             model.Registration = new RegistrationFormModel(_registration.GetAllUniversities(), _registration.GetAllCourses());
             // Code to test if logging works correctly.
             _logger.Log(Messages.nearbyUniversitiesDisplayed);
-            return View("../Pages/Index", model);
+            return PartialView("../Pages/Index", model);
         }
     }
 }

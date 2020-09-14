@@ -26,7 +26,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="avatar">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar">
+                    <img src="https://www.w3schools.com/howto/img_avatar.png" style="border-radius: 50%;" alt="Avatar">
                 </div>
                 <h4 class="modal-title">Member Login</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -59,201 +59,223 @@
     });
 </script>
 <link rel="stylesheet" href="~/css/signup.css" />
-<div id="myModal2" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-signup">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="avatar">
+
+<div id="webpage">
+
+    <div id="myModal2" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-signup">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="avatar">
+                    </div>
+                    <h4 class="modal-title">Sign up</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <h4 class="modal-title">Sign up</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form asp-controller="Registration" role="form" method="post" enctype="multipart/form-data" id="registrationForm">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input asp-for="User.FirstName" type="text" class="form-control" placeholder="First name" required="required">
+                <div class="modal-body">
+                    <form asp-controller="Registration" role="form" method="post" enctype="multipart/form-data" id="registrationForm">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input asp-for="User.FirstName" type="text" class="form-control" placeholder="First name" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="User.LastName" type="text" class="form-control" placeholder="Last name" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="User.Username" type="text" class="form-control" placeholder="Username" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="User.Email" type="email" class="form-control" placeholder="Email" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="User.Password" type="password" class="form-control" placeholder="Password" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" minlength="6" class="form-control" id="newPassword" placeholder="Repeat password" required="" />
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input asp-for="User.LastName" type="text" class="form-control" placeholder="Last name" required="required">
-                            </div>
-                            <div class="form-group">
-                                <input asp-for="User.Username" type="text" class="form-control" placeholder="Username" required="required">
-                            </div>
-                            <div class="form-group">
-                                <input asp-for="User.Email" type="email" class="form-control" placeholder="Email" required="required">
-                            </div>
-                            <div class="form-group">
-                                <input asp-for="User.Password" type="password" class="form-control" placeholder="Password" required="required">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" minlength="6" class="form-control" id="newPassword" placeholder="Repeat password" required="" />
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <select id="universitySelect" asp-items="Model.Registration.Universities" asp-for="User.University" class="form-control" required=""></select>
+                                </div>
+                                <div class="form-group">
+                                    <select id="statusSelect" asp-items="Model.Registration.Statuses" asp-for="User.Status" class="form-control" required=""></select>
+                                </div>
+                                <div class="form-group">
+                                    <select id="courseSelect" asp-items="Model.Registration.Courses" asp-for="User.Course" class="form-control" required=""></select>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <select id="universitySelect" asp-items="Model.Registration.Universities" asp-for="User.University" class="form-control" required=""></select>
-                            </div>
-                            <div class="form-group">
-                                <select id="statusSelect" asp-items="Model.Registration.Statuses" asp-for="User.Status" class="form-control" required=""></select>
-                            </div>
-                            <div class="form-group">
-                                <select id="courseSelect" asp-items="Model.Registration.Courses" asp-for="User.Course" class="form-control" required=""></select>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg btn-block login-btn" asp-controller="Registration" asp-action="SignUp">Create an account</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-lg btn-block login-btn" asp-controller="Registration" asp-action="SignUp">Create an account</button>
-                            </div>
-                        </div>
-                    </div>
 
 
-                </form>
+                    </form>
 
-            </div>
-            <div class="modal-footer">
-                @*<a href="#myModal2" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Do not have an account?</a>*@
+                </div>
+                <div class="modal-footer">
+                    @*<a href="#myModal2" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Do not have an account?</a>*@
+                </div>
             </div>
         </div>
+
+        @*<script src="~/js/ChangeCourseList.js" type="text/javascript"></script>*@
     </div>
 
-    @*<script src="~/js/ChangeCourseList.js" type="text/javascript"></script>*@
-</div>
 
 
+    <!-- banner -->
+    <section class="banner_w3lspvt" id="home">
+        <div class="csslider infinity" id="slider1">
 
-<!-- banner -->
-<section class="banner_w3lspvt" id="home">
-    <div class="csslider infinity" id="slider1">
-        <input type="radio" name="slides" checked="checked" id="slides_1" />
-        <input type="radio" name="slides" id="slides_2" />
-        <input type="radio" name="slides" id="slides_3" />
-        <input type="radio" name="slides" id="slides_4" />
-        <ul>
-            <li>
-                <div class="banner-top">
-                    <div class="overlay">
-                        <div class="container">
-                            <div class="w3layouts-banner-info">
-                                <h3 class="text-wh">University Advisor is here to help your university journey!</h3>
-                                <h4 class="text-wh" style="margin: 0;">UniCompare, nearby universities, reviews and more</h4>
-                                <div class="mt-4 float-left">
-                                    <form class="d-flex" autocomplete="off" action="/action_page.php">
-                                        <div class="autocomplete text-center m-auto" style="width:100%; min-width:500px;">
-                                            <input class="form-control text-center" id="quickUniversitySearch" style="height: 45px;" type="text" name="quickUniversitySearch" placeholder="Find university or course">
-                                        </div>
-                                    </form>
-                                    <script src="~/js/AutoCompleteSearch.js"></script>
-                                </div>
+            <div class="banner-top">
+                <div class="overlay">
+                    <div class="container">
+
+                        <div class="w3layouts-banner-info">
+                            <h3 class="text-wh">University Advisor is here to help your university journey!</h3>
+                            <div class="mt-4 float-left">
+                                <form class="d-flex" autocomplete="off" action="/action_page.php">
+                                    <div class="autocomplete text-center m-auto" style="width:100%; min-width:500px;">
+                                        <input class="form-control text-left" id="quickUniversitySearch" style="height: 45px;" type="text" name="quickUniversitySearch" placeholder="Search for universities or courses...">
+                                    </div>
+                                </form>
+                                <script src="~/js/AutoCompleteSearch.js"></script>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
-            </li>
-            <li>
-                <div class="banner-top1">
-                    <div class="overlay">
-                        <div class="container">
-                            <div class="w3layouts-banner-info">
-                                <h3 class="text-wh">It is better to travel than to arrive. Let's Be Adventurers.</h3>
-                                <h4 class="text-wh">tristique senectus et netus et malesuada</h4>
-                                <div class="buttons mt-4">
-                                    <a href="about.html" class="btn mr-2">About Us</a>
-                                    <a href="booking.html" class="btn">Book a Tour</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="banner-top2">
-                    <div class="overlay">
-                        <div class="container">
-                            <div class="w3layouts-banner-info">
-                                <h3 class="text-wh">Never let your memories be greater than your dreams.</h3>
-                                <h4 class="text-wh">tristique senectus et netus et malesuada</h4>
-                                <div class="buttons mt-4">
-                                    <a href="about.html" class="btn mr-2">About Us</a>
-                                    <a href="booking.html" class="btn">Book a Tour</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="banner-top3">
-                    <div class="overlay1">
-                        <div class="container">
-                            <div class="w3layouts-banner-info">
-                                <h3 class="text-wh">It is better to travel than to arrive. Let's Be Adventurers.</h3>
-                                <h4 class="text-wh">tristique senectus et netus et malesuada</h4>
-                                <div class="buttons mt-4">
-                                    <a href="about.html" class="btn mr-2">About Us</a>
-                                    <a href="booking.html" class="btn">Book a Tour</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="arrows">
-            <label for="slides_1"></label>
-            <label for="slides_2"></label>
-            <label for="slides_3"></label>
-            <label for="slides_4"></label>
+            </div>
+
         </div>
-    </div>
-</section>
-<!-- //banner -->
-<!--MAP-->
-@*
-<section class="book py-5">
-    <div class="container py-lg-5 py-sm-3">
-        <h2 class="heading text-capitalize text-center"> Search universities</h2>
+    </section>
+    <section class="book py-5" style="background-color:#379b96;">
+        <div class="container">
 
-    </div>
+            <h2 class="heading text-uppercase text-center" style="color: #fff;letter-spacing: 2px;font-weight: 600;font-size: 40px;">
+                Features
+            </h2>
 
-</section>
+            <div class="row mt-5 text-center">
+
+                <div class="col-lg-3">
+                    <div class="grid-info">
+                        <div class="icon">
+                            <span class="fa fa-cogs" style="color:#707579;"></span>
+                        </div>
+                        <h4>Preferences</h4>
+                        <p class="mt-3" style="color:white;">Set up your preferences and we will find universities that suits you the best.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mt-sm-0 mt-5">
+                    <div class="grid-info">
+                        <div class="icon">
+                            <span class="fa fa-balance-scale" style="color:darkgoldenrod;"></span>
+                        </div>
+                        <h4>Reviews</h4>
+                        <p class="mt-3" style="color:white;">Compare other users university reviews or leave your own one.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mt-lg-0 mt-5">
+                    <div class="grid-info">
+                        <div class="icon">
+                            <span class="fa fa-commenting" style="color:dodgerblue;"></span>
+                        </div>
+                        <h4>Forum</h4>
+                        <p class="mt-3" style="color:white;">Ask a question on our forum or answer other people threads.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mt-lg-0 mt-5">
+                    <div class="grid-info">
+                        <div class="icon">
+                            <span class="fa fa-map-marker" style="color:red;"></span>
+                        </div>
+                        <h4>Location</h4>
+                        <p class="mt-3" style="color:white;">Find nearest universities to your prefered location.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- //banner -->
+    <!--MAP-->
+    @*
+        <section class="book py-5">
+            <div class="container py-lg-5 py-sm-3">
+                <h2 class="heading text-capitalize text-center"> Search universities</h2>
+
+            </div>
+
+        </section>
     *@
-<!--NewMap-->
-<section class="about py-5">
-    <div class="container py-lg-5 py-sm-4">
-        <div class="row">
-            <div class="col-lg-6 about-left">
-                <h3 class="mt-lg-3">Type your location and find nearby universities</h3>
-                <p class="mt-4">
-                    Tool allows you to easily search for nearby universities. If search is successful you will be able to click on marker to go on university page.
-                </p>
-                <form role="form" asp-controller="Home" method="post" enctype="multipart/form-data" id="sendAddressForm">
-                    <p class="mr-3 mb-0" for="Address">Address</p>
-                    <input name="Address" value="@Model.Map.Address" type="text" class="form-control" pattern="[a-zA-Z0-9]+" />
-                    <p class="mr-3 mb-0" for="Range">Range</p>
-                    <input name="Range" value="@Model.Map.Range" type="number" class="form-control" required="" pattern="[0-9]{1,5}" />
-                    <br />
-                    <input class="btn btn-lg" asp-controller="Home" asp-action="Index" style="background-color: #60c7c1; color:white; border: none; padding: 10px 40px;" type="submit" value="Find">
-                </form>
-            </div>
-            <div class="col-lg-6 about-right text-lg-right mt-lg-0 mt-5">
-                @*<img src="images/about.jpg" alt="" class="img-fluid abt-image" />*@
-                @{
-                    var locationData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Map));
-                }
-                <input type="hidden" id="locationsData" value="" />
+    <!--NewMap-->
+    <section class="about py-5">
+        <div class="container py-lg-5 py-sm-4">
+            <div class="row">
+                <div class="col-lg-6 about-left">
+                    <h3 class="mt-lg-3">Type your location and find nearby universities</h3>
+                    <p class="mt-4">
+                        Tool allows you to easily search for nearby universities. If search is successful you will be able to click on marker to go on university page.
+                    </p>
+                    <form role="form" asp-controller="Home" method="post" enctype="multipart/form-data" id="sendAddressForm">
+                        <p class="mr-3 mb-0" for="Address">Address</p>
+                        <input name="Address" value="@Model.Map.Address" type="text" class="form-control" />
+                        <p class="mr-3 mb-0" for="Range">Range</p>
+                        <input name="Range" value="@Model.Map.Range" type="number" class="form-control" required="" pattern="[0-9]{1,5}" />
+                        <br />
+                        <input class="btn btn-lg" id="findButton" style="background-color: #60c7c1; color:white; border: none; padding: 10px 40px;" value="Find">
+                    </form>
+                </div>
                 <script>
-                 document.getElementById('locationsData').value = JSON.stringify(@locationData);
+                    $('input#findButton').click(function () {
+                        console.log($('form#sendAddressForm').serialize());
+                        $.ajax({
+                            url: '/Home/Index',
+                            type: 'post',
+                            dataType: 'html',
+                            data: $('form#sendAddressForm').serialize(),
+                            success: function (data) {
+                                console.log('success');
+                                if (data) {  // check if data is defined
+                                    $("#webpage").html(data);
+                                }
+                            },
+                            error: function () {
+                                console.log('error');
+                            }
+                        });
+                    });
                 </script>
-                <div id="map"></div>
-                <script src="~/js/AddMarkersToMap.js" type="text/javascript"></script>
+                <div class="col-lg-6 about-right text-lg-right mt-lg-0 mt-5">
+                    @*<img src="images/about.jpg" alt="" class="img-fluid abt-image" />*@
+                    @{
+                        var locationData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Map));
+                    }
+                    <input type="hidden" id="locationsData" value="" />
+                    <script>
+                 document.getElementById('locationsData').value = JSON.stringify(@locationData);
+                    </script>
+                    <div id="map"></div>
+                    <script src="~/js/AddMarkersToMap.js" type="text/javascript"></script>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+
+</div>
